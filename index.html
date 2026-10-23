@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Z-QUIZ V22 FINAL - MADE BY ZOHAIB - COMPLETE</title>
+<title>Z-QUIZ V23 FINAL - NO REPEAT - MADE BY ZOHAIB</title>
 <style>
 :root{--bg:#FFFBEB;--card:#fff;--text:#1e293b;--border:#FDE68A;--primary:#1e293b}
 *{margin:0;padding:0;box-sizing:border-box;font-family:system-ui,sans-serif}
@@ -30,110 +30,154 @@ input{width:100%;padding:12px;border-radius:10px;border:2px solid var(--border);
 <div id="splash" onclick="hideSplash()">
 <div style="font-size:64px;background:white;width:110px;height:110px;border-radius:50%;display:flex;justify-content:center;align-items:center">🧠</div>
 <div style="margin-top:16px;font-weight:900;font-size:24px">WELCOME TO Z-QUIZ</div>
-<div style="margin-top:8px;background:#1e293b;color:#FDE68A;padding:6px 18px;border-radius:20px;font-size:11px">MADE BY ZOHAIB - V22 FINAL - COMPLETE 534 LINES</div>
+<div style="margin-top:8px;background:#1e293b;color:#FDE68A;padding:6px 18px;border-radius:20px;font-size:11px">MADE BY ZOHAIB - V23 FINAL - NO REPEAT</div>
 </div>
 <div id="app">
-<div class="top">
-<b id="appTitle">Z-QUIZ</b>
-<div style="display:flex;gap:6px;align-items:center">
-<span id="coinD" style="background:#FEF3C7;padding:5px 10px;border-radius:20px;font-size:12px;font-weight:800">🪙 0</span>
-<span id="badgeD" style="background:#e2e8f0;padding:5px 10px;border-radius:20px;font-size:11px">Newbie</span>
-<button onclick="toggleLang()" id="langBtn" style="border:none;background:#10b981;color:white;padding:6px 12px;border-radius:20px;font-size:12px">اردو ✓</button>
-</div>
-</div>
-<div id="s_login">
-<h2 style="text-align:center" id="t_name">اپنا نام لکھیں</h2>
-<input id="userName" placeholder="SAMI">
-<button onclick="goHome()" class="btn" id="t_cont">آگے بڑھیں →</button>
-</div>
-<div id="s_home" style="display:none">
-<h2 style="text-align:center" id="t_class">کلاس منتخب کریں</h2>
-<div class="card" onclick="setClass('junior')" id="t_junior">🧒 کلاس 1-5</div>
-<div class="card dark" onclick="setClass('senior')" id="t_senior">🎓 کلاس 6-10</div>
-</div>
-<div id="s_cat" style="display:none">
-<h2 style="text-align:center" id="t_topic">موضوع منتخب کریں</h2>
-<div class="card" onclick="setCat('islamic')" id="t_islamic">🕌 اسلامی</div>
-<div class="card" onclick="setCat('math')" id="t_math">🔢 ریاضی</div>
-<div class="card" onclick="setCat('english')" id="t_english">🔤 انگلش</div>
-<div class="card" onclick="setCat('gk')" id="t_gk">🌍 جنرل نالج</div>
-<div class="card dark" onclick="setCat('mix')" id="t_mix">✨ مکس (120 سوال)</div>
-</div>
-<div id="s_timer" style="display:none">
-<h2 style="text-align:center" id="t_timer">ٹائمر</h2>
-<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:12px">
-<div class="sel active" onclick="setTimer(20,this)" id="tt1">آسان<br>20s</div>
-<div class="sel" onclick="setTimer(15,this)" id="tt2">میڈیم<br>15s</div>
-<div class="sel" onclick="setTimer(10,this)" id="tt3">مشکل<br>10s</div>
-</div>
-<h2 style="text-align:center;margin-top:14px" id="t_qnum">کتنے سوال؟</h2>
-<div id="numGroup" style="display:flex;gap:8px;justify-content:center;margin-top:8px">
-<button class="sel" onclick="setNum(5,this)">5</button>
-<button class="sel active" onclick="setNum(10,this)">10</button>
-<button class="sel" onclick="setNum(20,this)">20</button>
-</div>
-<button id="startBtn" onclick="startQuiz()" class="btn" id="t_start">شروع کریں →</button>
-</div>
-<div id="s_quiz" style="display:none">
-<div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:10px;font-weight:700">
-<span id="qCount">1/10</span><span>⏱ <b id="time">20</b>s</span>
-</div>
-<div class="q-card">
-<div id="qText" style="font-weight:800;margin-bottom:12px"></div>
-<div id="opts"></div>
-<button id="nextBtn" onclick="nextQ()" style="display:none" class="btn" id="t_next">اگلا →</button>
-</div>
-</div>
-<div id="s_result" style="display:none;text-align:center">
-<h2 id="t_result">رزلٹ</h2>
-<div style="background:white;border-radius:14px;padding:14px;margin-top:10px;text-align:left">
-<p><span id="t_rname">نام</span>: <b id="rName"></b></p>
-<p><span id="t_rscore">سکور</span>: <b id="rPerc"></b> | <b id="rCorrect"></b>/<b id="rTotal"></b></p>
-<p>🪙 <span id="t_rcoins">کوائنز</span>: <b id="rCoins"></b> | <span id="rBadge"></span></p>
-<p id="rMsg" style="text-align:center;font-weight:900;margin-top:10px"></p>
-</div>
-<canvas id="certCanvas" width="1200" height="750" style="width:100%;margin-top:12px;border-radius:16px"></canvas>
-<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
-<button onclick="downloadCert()" class="btn" style="background:#10b981" id="t_pdf">📜 PDF</button>
-<button onclick="shareWA()" class="btn" style="background:#25D366" id="t_share">🟢 شیئر</button>
-</div>
-<button onclick="location.reload()" class="btn" id="t_replay">دوبارہ کھیلیں</button>
-</div>
+<div class="top"><b id="appTitle">Z-QUIZ</b><div style="display:flex;gap:6px;align-items:center"><span id="coinD" style="background:#FEF3C7;padding:5px 10px;border-radius:20px;font-size:12px;font-weight:800">🪙 0</span><span id="badgeD" style="background:#e2e8f0;padding:5px 10px;border-radius:20px;font-size:11px">Newbie</span><button onclick="toggleLang()" id="langBtn" style="border:none;background:#10b981;color:white;padding:6px 12px;border-radius:20px;font-size:12px">اردو ✓</button></div></div>
+<div id="s_login"><h2 style="text-align:center" id="t_name">اپنا نام لکھیں</h2><input id="userName" placeholder="SAMI"><button onclick="goHome()" class="btn" id="t_cont">آگے بڑھیں →</button></div>
+<div id="s_home" style="display:none"><h2 style="text-align:center" id="t_class">کلاس منتخب کریں</h2><div class="card" onclick="setClass('junior')" id="t_junior">🧒 کلاس 1-5</div><div class="card dark" onclick="setClass('senior')" id="t_senior">🎓 کلاس 6-10</div></div>
+<div id="s_cat" style="display:none"><h2 style="text-align:center" id="t_topic">موضوع منتخب کریں</h2><div class="card" onclick="setCat('islamic')" id="t_islamic">🕌 اسلامی</div><div class="card" onclick="setCat('math')" id="t_math">🔢 ریاضی</div><div class="card" onclick="setCat('english')" id="t_english">🔤 انگلش</div><div class="card" onclick="setCat('gk')" id="t_gk">🌍 جنرل نالج</div><div class="card dark" onclick="setCat('mix')" id="t_mix">✨ مکس (120 UNIQUE سوال)</div></div>
+<div id="s_timer" style="display:none"><h2 style="text-align:center" id="t_timer">ٹائمر</h2><div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:12px"><div class="sel active" onclick="setTimer(20,this)" id="tt1">آسان<br>20s</div><div class="sel" onclick="setTimer(15,this)" id="tt2">میڈیم<br>15s</div><div class="sel" onclick="setTimer(10,this)" id="tt3">مشکل<br>10s</div></div><h2 style="text-align:center;margin-top:14px" id="t_qnum">کتنے سوال؟</h2><div id="numGroup" style="display:flex;gap:8px;justify-content:center;margin-top:8px"><button class="sel" onclick="setNum(5,this)">5</button><button class="sel active" onclick="setNum(10,this)">10</button><button class="sel" onclick="setNum(20,this)">20</button></div><button id="startBtn" onclick="startQuiz()" class="btn" id="t_start">شروع کریں →</button></div>
+<div id="s_quiz" style="display:none"><div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:10px;font-weight:700"><span id="qCount">1/10</span><span>⏱ <b id="time">20</b>s</span></div><div class="q-card"><div id="qText" style="font-weight:800;margin-bottom:12px"></div><div id="opts"></div><button id="nextBtn" onclick="nextQ()" style="display:none" class="btn" id="t_next">اگلا →</button></div></div>
+<div id="s_result" style="display:none;text-align:center"><h2 id="t_result">رزلٹ</h2><div style="background:white;border-radius:14px;padding:14px;margin-top:10px;text-align:left"><p><span id="t_rname">نام</span>: <b id="rName"></b></p><p><span id="t_rscore">سکور</span>: <b id="rPerc"></b> | <b id="rCorrect"></b>/<b id="rTotal"></b></p><p>🪙 <span id="t_rcoins">کوائنز</span>: <b id="rCoins"></b> | <span id="rBadge"></span></p><p id="rMsg" style="text-align:center;font-weight:900;margin-top:10px"></p></div><canvas id="certCanvas" width="1200" height="750" style="width:100%;margin-top:12px;border-radius:16px"></canvas><div style="display:grid;grid-template-columns:1fr 1fr;gap:8px"><button onclick="downloadCert()" class="btn" style="background:#10b981" id="t_pdf">📜 PDF</button><button onclick="shareWA()" class="btn" style="background:#25D366" id="t_share">🟢 شیئر</button></div><button onclick="location.reload()" class="btn" id="t_replay">دوبارہ کھیلیں</button></div>
 </div>
 <script>
-function hideSplash(){
-  var s=document.getElementById('splash');
-  if(s){s.classList.add('hide');}
-}
+function hideSplash(){var s=document.getElementById('splash');if(s){s.classList.add('hide');}}
 setTimeout(function(){hideSplash();},1800);
-var lang='ur';
-var selClass='junior';
-var selCat='mix';
-var selNum=10;
-var timerSec=20;
-var curQs=[];
-var cur=0;
-var correct=0;
-var timer;
-var timeLeft=20;
-var answered=false;
-var userName='';
-var coins=parseInt(localStorage.getItem('coins')||'0');
-var T={
-ur:{app:"Z-QUIZ",name:"اپنا نام لکھیں",cont:"آگے بڑھیں →",class:"کلاس منتخب کریں",junior:"🧒 کلاس 1 سے 5",senior:"🎓 کلاس 6 سے 10",topic:"موضوع منتخب کریں",islamic:"🕌 اسلامی",math:"🔢 ریاضی",english:"🔤 انگلش",gk:"🌍 جنرل نالج",mix:"✨ مکس (120 سوال)",timer:"ٹائمر منتخب کریں",qnum:"کتنے سوال؟",start:"شروع کریں →",next:"اگلا سوال →",result:"آپ کا رزلٹ",rname:"نام",rscore:"سکور",rcoins:"کوائنز",replay:"دوبارہ کھیلیں",pdf:"📜 سرٹیفکیٹ",share:"🟢 شیئر",easy:"آسان",med:"میڈیم",hard:"مشکل",msg100:"ماشاءاللہ شاندار 🌟",msg70:"بہت خوب! 🌸🎉",msg50:"بہت خوب 👏",msg0:"کوشش جاری رکھیں 💪"},
-en:{app:"Z-QUIZ",name:"Enter Name",cont:"Continue →",class:"Select Class",junior:"🧒 Class 1-5",senior:"🎓 Class 6-10",topic:"Select Topic",islamic:"🕌 Islamic",math:"🔢 Math",english:"🔤 English",gk:"🌍 GK",mix:"✨ Mix (120 Qs)",timer:"Select Timer",qnum:"How many?",start:"Start Quiz →",next:"Next →",result:"Your Result",rname:"Name",rscore:"Score",rcoins:"Coins",replay:"Play Again",pdf:"📜 Certificate",share:"🟢 Share",easy:"Easy",med:"Medium",hard:"Hard",msg100:"Excellent 🌟",msg70:"Excellent! 🌸🎉",msg50:"Very Good 👏",msg0:"Keep Trying 💪"}
-};
+var lang='ur';var selClass='junior';var selCat='mix';var selNum=10;var timerSec=20;var curQs=[];var cur=0;var correct=0;var timer;var timeLeft=20;var answered=false;var userName='';var coins=parseInt(localStorage.getItem('coins')||'0');
+var T={ur:{app:"Z-QUIZ",name:"اپنا نام لکھیں",cont:"آگے بڑھیں →",class:"کلاس منتخب کریں",junior:"🧒 کلاس 1 سے 5",senior:"🎓 کلاس 6 سے 10",topic:"موضوع منتخب کریں",islamic:"🕌 اسلامی",math:"🔢 ریاضی",english:"🔤 انگلش",gk:"🌍 جنرل نالج",mix:"✨ مکس (120 UNIQUE)",timer:"ٹائمر منتخب کریں",qnum:"کتنے سوال؟",start:"شروع کریں →",next:"اگلا سوال →",result:"آپ کا رزلٹ",rname:"نام",rscore:"سکور",rcoins:"کوائنز",replay:"دوبارہ کھیلیں",pdf:"📜 سرٹیفکیٹ",share:"🟢 شیئر",easy:"آسان",med:"میڈیم",hard:"مشکل",msg100:"ماشاءاللہ شاندار 🌟",msg70:"بہت خوب! 🌸🎉",msg50:"بہت خوب 👏",msg0:"کوشش جاری رکھیں 💪"},en:{app:"Z-QUIZ",name:"Enter Name",cont:"Continue →",class:"Select Class",junior:"🧒 Class 1-5",senior:"🎓 Class 6-10",topic:"Select Topic",islamic:"🕌 Islamic",math:"🔢 Math",english:"🔤 English",gk:"🌍 GK",mix:"✨ Mix (120 UNIQUE)",timer:"Select Timer",qnum:"How many?",start:"Start Quiz →",next:"Next →",result:"Your Result",rname:"Name",rscore:"Score",rcoins:"Coins",replay:"Play Again",pdf:"📜 Certificate",share:"🟢 Share",easy:"Easy",med:"Medium",hard:"Hard",msg100:"Excellent 🌟",msg70:"Excellent! 🌸🎉",msg50:"Very Good 👏",msg0:"Keep Trying 💪"}};
 function genQs(){
 var islamic=[];var math=[];var english=[];var gk=[];
-for(var i=1;i<=30;i++){islamic.push({q_ur:"اسلامی سوال "+i+" - قرآن میں پارے کتنے ہیں؟",q_en:"Islamic Q "+i+" - Paras?",o_ur:["30","20","40","10"],o_en:["30","20","40","10"],a:0});}
-for(var i=1;i<=30;i++){var ans=i+i;math.push({q_ur:"ریاضی "+i+" - "+i+" + "+i+" = ؟",q_en:"Math "+i+" - "+i+" + "+i+" = ?",o_ur:[String(ans),String(ans+1),String(ans+5),String(ans-1)],o_en:[String(ans),String(ans+1),String(ans+5),String(ans-1)],a:0});}
-for(var i=1;i<=30;i++){english.push({q_ur:"انگلش "+i+" - Apple کا مطلب؟",q_en:"English Q "+i+" - Apple?",o_ur:["سیب","کیلا","آم","انار"],o_en:["Apple","Banana","Mango","Orange"],a:0});}
-for(var i=1;i<=30;i++){gk.push({q_ur:"جی کے "+i+" - پاکستان کا دارالحکومت؟",q_en:"GK Q "+i+" - Capital?",o_ur:["اسلام آباد","لاہور","کراچی","پشاور"],o_en:["Islamabad","Lahore","Karachi","Peshawar"],a:0});}
-islamic[0]={q_ur:"اللہ کتنے ہیں؟",q_en:"How many Allah?",o_ur:["ایک","دو","تین","چار"],o_en:["One","Two","Three","Four"],a:0};
-islamic[1]={q_ur:"ہمارے نبی ﷺ کا نام؟",q_en:"Prophet name?",o_ur:["محمد ﷺ","احمد","علی","عمر"],o_en:["Muhammad ﷺ","Ahmad","Ali","Umar"],a:0};
-islamic[2]={q_ur:"قرآن کی پہلی سورت؟",q_en:"First Surah?",o_ur:["الفاتحہ","البقرہ","الناس","الاخلاص"],o_en:["Al-Fatiha","Baqarah","An-Nas","Ikhlas"],a:0};
-math[0]={q_ur:"2+2=؟",q_en:"2+2=?",o_ur:["4","5","3","6"],o_en:["4","5","3","6"],a:0};
-gk[0]={q_ur:"پاکستان کا دارالحکومت؟",q_en:"Capital of Pakistan?",o_ur:["اسلام آباد","لاہور","کراچی","پشاور"],o_en:["Islamabad","Lahore","Karachi","Peshawar"],a:0};
+var islBase=[
+["اللہ کتنے ہیں؟","How many Allah?","ایک","دو","تین","چار",0],
+["ہمارے نبی ﷺ کا نام؟","Our Prophet name?","محمد ﷺ","احمد","علی","عمر",0],
+["قرآن میں پارے کتنے؟","How many Paras in Quran?","30","20","40","10",0],
+["قرآن کی پہلی سورت؟","First Surah of Quran?","الفاتحہ","البقرہ","الناس","الاخلاص",0],
+["قرآن کی آخری سورت؟","Last Surah of Quran?","الناس","الفلق","الاخلاص","الفاتحہ",0],
+["پہلی وحی کہاں نازل ہوئی؟","Where first revelation revealed?","غار حرا","غار ثور","مسجد نبوی","کعبہ",0],
+["نمازیں کتنی فرض ہیں؟","How many prayers obligatory?","5","6","4","3",0],
+["کعبہ کہاں ہے؟","Where is Kaaba?","مکہ","مدینہ","بغداد","دبئی",0],
+["روزے کس مہینے میں فرض ہیں؟","Fasting month?","رمضان","شعبان","رجب","محرم",0],
+["زکوۃ کس پر فرض ہے؟","Zakat on whom?","صاحب نصاب","غریب","مسافر","بچہ",0],
+["حج کہاں ہوتا ہے؟","Where Hajj performed?","مکہ","مدینہ","عرفات","منی",0],
+["اسلام کے کتنے ارکان ہیں؟","How many pillars of Islam?","5","6","4","3",0],
+["کلمہ طیبہ کیا ہے؟","First Kalma?","لا الہ الا اللہ","سبحان اللہ","الحمدللہ","اللہ اکبر",0],
+["غزوہ بدر کب ہوا؟","When Battle of Badr?","2 ہجری","3 ہجری","4 ہجری","1 ہجری",0],
+["قرآن کتنے سال میں نازل ہوا؟","Quran revealed in how many years?","23 سال","20 سال","25 سال","30 سال",0],
+["نبی ﷺ کی پیدائش کہاں ہوئی؟","Where Prophet born?","مکہ","مدینہ","طائف","بصرہ",0],
+["مسجد نبوی کہاں ہے؟","Where Masjid Nabawi?","مدینہ","مکہ","قدس","بغداد",0],
+["اذان کتنی بار ہوتی ہے دن میں؟","How many Azans in day?","5","6","4","3",0],
+["وضو میں کتنے فرض ہیں؟","How many Farz in Wudu?","4","3","5","6",0],
+["تیمم کس چیز سے ہوتا ہے؟","Tayammum with?","مٹی","پانی","ریت","پتھر",0],
+["جمعہ کی نماز میں کتنے خطبے؟","How many Khutbas on Friday?","2","1","3","4",0],
+["عیدیں کتنی ہیں اسلام میں؟","How many Eids in Islam?","2","3","1","4",0],
+["قرآن میں سجدہ آیات کتنی؟","How many Sajdah verses?","14","15","13","12",0],
+["سب سے پہلے اذان کس نے دی؟","Who gave first Azan?","حضرت بلال","حضرت عمر","حضرت علی","حضرت ابوبکر",0],
+["خانہ کعبہ کا غلاف کس رنگ کا؟","Kaaba cover color?","کالا","سفید","سبز","سرخ",0],
+["جنت کے کتنے دروازے؟","How many doors of Jannah?","8","7","6","5",0],
+["دوزخ کے کتنے دروازے؟","How many doors of Hell?","7","8","6","5",0],
+["قرآن میں کل سورتیں؟","Total Surahs in Quran?","114","112","115","113",0],
+["بسم اللہ کتنی سورتوں میں؟","Bismillah in how many Surahs?","113","114","112","110",0],
+["نبی ﷺ کی ہجرت مدینہ کب؟","Migration to Madina when?","622 عیسوی","620","624","630",0],
+];
+var mathBase=[
+["2+2=?","2+2=?","4","5","3","6",0],
+["5x5=?","5x5=?","25","20","30","15",0],
+["10-3=?","10-3=?","7","8","6","9",0],
+["12x12=?","12x12=?","144","124","142","132",0],
+["100/2=?","100/2=?","50","40","60","30",0],
+["7x8=?","7x8=?","56","54","58","52",0],
+["9x9=?","9x9=?","81","80","82","79",0],
+["15+15=?","15+15=?","30","25","35","20",0],
+["20-10=?","20-10=?","10","5","15","20",0],
+["6x7=?","6x7=?","42","40","44","41",0],
+["81/9=?","81/9=?","9","8","7","10",0],
+["11x11=?","11x11=?","121","111","122","120",0],
+["50+50=?","50+50=?","100","90","110","80",0],
+["3x15=?","3x15=?","45","40","50","35",0],
+["100-25=?","100-25=?","75","70","80","65",0],
+["8x8=?","8x8=?","64","62","66","60",0],
+["14+6=?","14+6=?","20","18","22","24",0],
+["30/3=?","30/3=?","10","9","11","8",0],
+["13x2=?","13x2=?","26","24","28","22",0],
+["90/3=?","90/3=?","30","20","40","25",0],
+["4x25=?","4x25=?","100","90","110","80",0],
+["5x12=?","5x12=?","60","50","70","55",0],
+["18/2=?","18/2=?","9","8","10","7",0],
+["7+7+7=?","7+7+7=?","21","20","22","19",0],
+["16x2=?","16x2=?","32","30","34","28",0],
+["200/4=?","200/4=?","50","40","60","45",0],
+["9x6=?","9x6=?","54","52","56","50",0],
+["25x4=?","25x4=?","100","90","110","95",0],
+["33+33=?","33+33=?","66","60","70","65",0],
+["49/7=?","49/7=?","7","6","8","9",0],
+];
+var engBase=[
+["A for?","A for?","Apple","Ball","Cat","Dog",0],
+["B for?","B for?","Ball","Apple","Cat","Dog",0],
+["Go کا ماضی؟","Past of Go?","Went","Gone","Going","Goes",0],
+["Apple کا مطلب؟","Apple means?","سیب","کیلا","آم","انار",0],
+["Hello کا جواب؟","Reply to Hello?","Hi","Bye","No","Yes",0],
+["Cat کا مطلب؟","Cat means?","بلی","کتا","چوہا","شیر",0],
+["Book کا مطلب؟","Book means?","کتاب","قلم","کاپی","کاغذ",0],
+["Water کا مطلب؟","Water means?","پانی","آگ","ہوا","مٹی",0],
+["Sun کا مطلب؟","Sun means?","سورج","چاند","ستارہ","بادل",0],
+["Eat کا ماضی؟","Past of Eat?","Ate","Eaten","Eating","Eats",0],
+["I am کا مخفف؟","Short of I am?","I'm","I've","I'll","I'd",0],
+["Good کا متضاد؟","Opposite of Good?","Bad","Best","Better","Gooder",0],
+["Big کا متضاد؟","Opposite of Big?","Small","Bigger","Biggest","Large",0],
+["One کا جمع؟","Plural of One?","Ones","One","Oneses","Oner",0],
+["Child کا جمع؟","Plural of Child?","Children","Childs","Childes","Childrens",0],
+["He کی جمع؟","He is?","مرد","عورت","لڑکا","لڑکی",0],
+["Run کا ماضی؟","Past of Run?","Ran","Runned","Running","Runs",0],
+["Come کا ماضی؟","Past of Come?","Came","Comed","Coming","Comes",0],
+["Do کا ماضی؟","Past of Do?","Did","Done","Doing","Does",0],
+["What کا مطلب؟","What means?","کیا","کون","کہاں","کب",0],
+["Where کا مطلب؟","Where means?","کہاں","کیا","کون","کیوں",0],
+["How many alphabets?","How many alphabets?","26","24","25","27",0],
+["A, E, I, O, U کیا ہیں؟","A,E,I,O,U are?","Vowels","Consonants","Words","Letters",0],
+["Z کے بعد کیا؟","After Z?","A","Y","End","B",0],
+["Pen کا مطلب؟","Pen means?","قلم","کتاب","کاپی","سیاہی",0],
+["School کا مطلب؟","School means?","سکول","گھر","مسجد","بازار",0],
+["Teacher کا مطلب؟","Teacher means?","استاد","طالب علم","ڈاکٹر","انجینئر",0],
+["Student کا مطلب؟","Student means?","طالب علم","استاد","ڈاکٹر","وکیل",0],
+["Thank you کا جواب؟","Reply to Thank you?","Welcome","Sorry","Hi","Bye",0],
+["Yes کا متضاد؟","Opposite of Yes?","No","Not","Never","None",0],
+];
+var gkBase=[
+["پاکستان کا دارالحکومت؟","Capital of Pakistan?","اسلام آباد","لاہور","کراچی","پشاور",0],
+["قومی جانور؟","National animal?","مارخور","شیر","ہاتھی","گھوڑا",0],
+["پاکستان کب بنا؟","When Pakistan made?","1947","1948","1946","1945",0],
+["قومی کھیل؟","National game?","ہاکی","کرکٹ","فٹبال","والی بال",0],
+["سب سے بڑا سمندر؟","Largest ocean?","Pacific","Atlantic","Indian","Arctic",0],
+["چاند پر پہلا انسان؟","First man on moon?","Neil Armstrong","Yuri Gagarin","Buzz Aldrin","John Glenn",0],
+["پاکستان کا قومی پرندہ؟","National bird?","چکور","طوطا","کبوتر","شاہین",0],
+["قومی پھول؟","National flower?","چنبیلی","گلاب","کنول","گیندا",0],
+["دنیا کا سب سے بڑا ملک؟","Largest country?","روس","کینیڈا","چین","امریکہ",0],
+["دنیا کی سب سے لمبی ندی؟","Longest river?","نیل","ایمیزون","سندھ","گنگا",0],
+["پاکستان کا سب سے بڑا شہر؟","Largest city of Pakistan?","کراچی","لاہور","اسلام آباد","فیصل آباد",0],
+["کمپیوٹر کا دماغ؟","Brain of computer?","CPU","RAM","Hard Disk","Mouse",0],
+["انسان کے دل میں کتنے خانے؟","How many chambers in heart?","4","2","3","5",0],
+["سورج کس سمت سے نکلتا ہے؟","Sun rises from?","مشرق","مغرب","شمال","جنوب",0],
+["ایک سال میں کتنے دن؟","Days in a year?","365","360","366","364",0],
+["ایک ہفتے میں کتنے دن؟","Days in a week?","7","6","8","5",0],
+["پاکستان کا قومی ترانہ کس نے لکھا؟","Who wrote national anthem?","حفیظ جالندھری","اقبال","فیض","میر",0],
+["قائد اعظم کا نام؟","Name of Quaid-e-Azam?","محمد علی جناح","لیاقت علی","علامہ اقبال","سر سید",0],
+["علامہ اقبال کا مزار کہاں؟","Where is Iqbal's tomb?","لاہور","کراچی","اسلام آباد","سیالکوٹ",0],
+["پاکستان کے کتنے صوبے؟","How many provinces?","4","5","3","6",0],
+["سب سے چھوٹا سیارہ؟","Smallest planet?","عطارد","مریخ","زہرہ","زمین",0],
+["سب سے بڑا سیارہ؟","Largest planet?","مشتری","زحل","زمین","مریخ",0],
+["انسان کی کتنی انگلیاں؟","How many fingers human?","10","8","12","9",0],
+["کرکٹ میں کتنے کھلاڑی؟","Players in cricket team?","11","10","12","9",0],
+["فٹبال میں کتنے کھلاڑی؟","Players in football team?","11","10","12","9",0],
+["اولمپکس کتنے سال بعد؟","Olympics after how many years?","4 سال","2 سال","3 سال","5 سال",0],
+["دنیا میں کتنے براعظم؟","How many continents?","7","6","5","8",0],
+["سب سے بڑا براعظم؟","Largest continent?","ایشیا","افریقہ","یورپ","امریکہ",0],
+["پانی کا فارمولا؟","Formula of water?","H2O","O2","CO2","H2",0],
+["ہوا میں سب سے زیادہ گیس؟","Most gas in air?","نائٹروجن","آکسیجن","کاربن","ہائیڈروجن",0],
+];
+function makeList(base){var arr=[];for(var i=0;i<base.length;i++){var q=base[i];arr.push({q_ur:q[0],q_en:q[1],o_ur:[q[2],q[3],q[4],q[5]],o_en:[q[2],q[3],q[4],q[5]],a:q[6]});}return arr;}
+islamic=makeList(islBase);math=makeList(mathBase);english=makeList(engBase);gk=makeList(gkBase);
 var mix=[];mix=mix.concat(islamic,math,english,gk);mix.sort(function(){return 0.5-Math.random();});
 return{islamic:islamic,math:math,english:english,gk:gk,mix:mix};
 }
@@ -154,7 +198,7 @@ function nextQ(){cur++;if(cur>=curQs.length)showRes();else loadQ();}
 function setResultMsg(p){var d=T[lang];var el=document.getElementById('rMsg');if(p>=100)el.innerText=d.msg100;else if(p>=70)el.innerText=d.msg70;else if(p>=50)el.innerText=d.msg50;else el.innerText=d.msg0;}
 function showRes(){hideAll();document.getElementById('s_result').style.display='block';var earned=correct*10;coins+=earned;localStorage.setItem('coins',coins);updateTop();document.getElementById('rName').innerText=userName;document.getElementById('rTotal').innerText=curQs.length;document.getElementById('rCorrect').innerText=correct;document.getElementById('rCoins').innerText='+'+earned;var perc=Math.round(correct/curQs.length*100);document.getElementById('rPerc').innerText=perc+'%';setResultMsg(perc);makeCert();if(perc>=60)launchFlowers();}
 function launchFlowers(){for(var i=0;i<40;i++){(function(idx){setTimeout(function(){var f=document.createElement('div');f.className='flower';f.innerText=['🌸','🌺','🌼','✨','🎉','💐'][Math.floor(Math.random()*6)];f.style.left=Math.random()*100+'vw';f.style.animationDuration=(2+Math.random()*3)+'s';document.body.appendChild(f);setTimeout(function(){f.remove();},4000);},idx*80);})(i);}}
-function makeCert(){var c=document.getElementById('certCanvas');var ctx=c.getContext('2d');var p=document.getElementById('rPerc').innerText;ctx.fillStyle='#FFFBEB';ctx.fillRect(0,0,1200,750);ctx.fillStyle='#fff';ctx.fillRect(20,20,1160,710);ctx.strokeStyle='#B45309';ctx.lineWidth=8;ctx.strokeRect(12,12,1176,726);ctx.fillStyle='#1e293b';ctx.font='bold 48px sans-serif';ctx.textAlign='center';ctx.fillText('CERTIFICATE',600,150);ctx.fillStyle='#d97706';ctx.font='18px sans-serif';ctx.fillText('MADE BY ZOHAIB - V22 FINAL',600,180);ctx.fillStyle='#1e293b';ctx.font='24px sans-serif';ctx.fillText(userName+' - '+p,600,260);}
+function makeCert(){var c=document.getElementById('certCanvas');var ctx=c.getContext('2d');var p=document.getElementById('rPerc').innerText;ctx.fillStyle='#FFFBEB';ctx.fillRect(0,0,1200,750);ctx.fillStyle='#fff';ctx.fillRect(20,20,1160,710);ctx.strokeStyle='#B45309';ctx.lineWidth=8;ctx.strokeRect(12,12,1176,726);ctx.fillStyle='#1e293b';ctx.font='bold 48px sans-serif';ctx.textAlign='center';ctx.fillText('CERTIFICATE',600,150);ctx.fillStyle='#d97706';ctx.font='18px sans-serif';ctx.fillText('MADE BY ZOHAIB - V23 FINAL NO REPEAT',600,180);ctx.fillStyle='#1e293b';ctx.font='24px sans-serif';ctx.fillText(userName+' - '+p,600,260);}
 function downloadCert(){var cv=document.getElementById('certCanvas');var a=document.createElement('a');a.download='Z-QUIZ-'+userName+'.png';a.href=cv.toDataURL();a.click();}
 function shareWA(){var p=document.getElementById('rPerc').innerText;var t='*Z-QUIZ*%0A'+userName+' - '+p+'%0Ahttps://zabi32300.github.io/Z-QUIZ-/';window.open('https://wa.me/?text='+t,'_blank');}
 updateTop();applyLang();
