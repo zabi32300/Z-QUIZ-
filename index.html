@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Z-QUIZ - Made by Zohaib</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
+body{background:#0f172a;color:white;overflow:hidden;}
+#splash{
+ position:fixed;top:0;left:0;width:100%;height:100%;
+ background: linear-gradient(135deg, #4f46e5, #7c3aed, #06b6d4);
+ display:flex;flex-direction:column;justify-content:center;align-items:center;
+ z-index:9999;animation: splashHide 0.8s ease forwards 3s;
+}
+@keyframes splashHide{ to{transform:translateY(-100%);opacity:0;} }
+.logo-circle{
+ width:110px;height:110px;background:white;border-radius:50%;
+ display:flex;justify-content:center;align-items:center;
+ font-size:50px;animation: pop 0.8s ease infinite alternate;
+}
+@keyframes pop{ from{transform:scale(0.9)} to{transform:scale(1.1)} }
+.welcome-text{margin-top:25px;font-size:26px;font-weight:800;letter-spacing:2px;}
+.made-text{
+ margin-top:12px;font-size:16px;font-weight:600;letter-spacing:3px;
+ background:rgba(255,255,255,0.2);padding:6px 18px;border-radius:20px;
+}
+.loader{margin-top:25px;width:120px;height:4px;background:rgba(255,255,255,0.3);border-radius:10px;overflow:hidden;}
+.loader-bar{width:0%;height:100%;background:white;animation: load 3s linear forwards;}
+@keyframes load{ to{width:100%} }
+#app{display:none;padding:20px;max-width:420px;margin:0 auto;height:100vh;flex-direction:column;}
+#app.active{display:flex;}
+.header{display:flex;justify-content:space-between;align-items:center;margin-bottom:15px;}
+.badge{background:#1e293b;padding:5px 12px;border-radius:20px;font-size:12px;color:#94a3b8;}
+.question-card{background:#1e293b;border-radius:20px;padding:22px;margin-top:10px;flex:1;display:flex;flex-direction:column;}
+.q-top{display:flex;justify-content:space-between;margin-bottom:15px;}
+.timer{color:#f59e0b;font-weight:700;}
+.q-text{font-size:20px;font-weight:600;margin-bottom:20px;min-height:60px;}
+.option{background:#0f172a;border:2px solid #334155;padding:14px 16px;border-radius:14px;margin-bottom:12px;cursor:pointer;display:flex;align-items:center;}
+.option.correct{background:#10b981;border-color:#10b981;}
+.option.wrong{background:#ef4444;border-color:#ef4444;}
+.option span{width:28px;height:28px;background:#1e293b;border-radius:50%;display:flex;justify-content:center;align-items:center;margin-right:12px;font-size:13px;font-weight:700;}
+.footer-made{text-align:center;margin-top:15px;font-size:12px;letter-spacing:2px;color:#64748b;font-weight:600;}
+.next-btn{margin-top:auto;background:#4f46e5;color:white;border:none;padding:14px;border-radius:14px;font-weight:700;font-size:16px;cursor:pointer;display:none;}
+.next-btn.show{display:block;}
+.result-card{text-align:center;padding-top:50px;}
+.result-circle{width:150px;height:150px;border-radius:50%;background:linear-gradient(135deg,#4f46e5,#06b6d4);margin:0 auto 20px;display:flex;justify-content:center;align-items:center;font-size:40px;font-weight:800;}
+</style>
+</head>
+<body>
+
+<div id="splash">
+  <div class="logo-circle">🧠</div>
+  <div class="welcome-text">WELCOME TO QUIZ APP</div>
+  <div class="made-text">MADE BY ZOHAIB</div>
+  <div class="loader"><div class="loader-bar"></div></div>
+</div>
+
+<div id="app">
+  <div class="header">
+    <h2>Z-QUIZ</h2>
+    <div class="badge" id="qCount">1 / 5</div>
+  </div>
+  <div class="question-card">
+    <div class="q-top">
+      <span style="color:#94a3b8;font-size:13px;">Score: <b id="score" style="color:white;">0</b></span>
+      <span class="timer">⏱ <span id="time">20</span>s</span>
+    </div>
+    <div class="q-text" id="qText">Loading...</div>
+    <div id="options"></div>
+    <button class="next-btn" id="nextBtn" onclick="nextQ()">Next Question →</button>
+  </div>
+  <div class="footer-made">MADE BY ZOHAIB</div>
+</div>
+
+<script>
+const questions = [
+ {q:"Pakistan ka National Game konsa hai?", opts:["Cricket","Hockey","Football","Squash"], ans:1},
+ {q:"Quran Pak me kitne Sipare hain?", opts:["30","40","33","29"], ans:0},
+ {q:"2 + 2 x 2 = ?", opts:["8","6","4","10"], ans:1},
+ {q:"Computer ka dimagh kise kehte hain?", opts:["RAM","CPU","Hard Disk","Mouse"], ans:1},
+ {q:"Z-QUIZ kis ne banayi hai?", opts:["Zohaib","Ali","Ahmed","Usman"], ans:0}
+];
+let current=0,scoreVal=0,timer,timeLeft=20,answered=false;
+function startApp(){setTimeout(()=>{document.getElementById('app').classList.add('active');loadQ();},3000);}
+function loadQ(){
+ if(current>=questions.length){showResult();return;}
+ answered=false;timeLeft=20;
+ document.getElementById('qCount').innerText=`${current+1} / ${questions.length}`;
+ document.getElementById('qText').innerText=questions[current].q;
+ let optDiv=document.getElementById('options');optDiv.innerHTML="";
+ questions[current].opts.forEach((o,i)=>{
+   optDiv.innerHTML+=`<div class="option" onclick="checkAns(${i})"><span>${String.fromCharCode(65+i)}</span> ${o}</div>`;
+ });
+ document.getElementById('nextBtn').classList.remove('show');startTimer();
+}
+function startTimer(){
+ clearInterval(timer);
+ timer=setInterval(()=>{
+   timeLeft--;document.getElementById('time').innerText=timeLeft;
+   if(timeLeft<=0){clearInterval(timer);checkAns(-1);}
+ },1000);
+}
+function checkAns(idx){
+ if(answered)return;answered=true;clearInterval(timer);
+ let opts=document.querySelectorAll('.option');
+ let correct=questions[current].ans;
+ opts.forEach((el,i)=>{
+   if(i==correct)el.classList.add('correct');
+   if(i==idx && i!=correct)el.classList.add('wrong');
+ });
+ if(idx==correct){scoreVal+=10;document.getElementById('score').innerText=scoreVal;}
+ document.getElementById('nextBtn').classList.add('show');
+}
+function nextQ(){current++;loadQ();}
+function showResult(){
+ document.getElementById('app').innerHTML=`
+  <div class="result-card">
+    <div class="result-circle">${scoreVal}</div>
+    <h2>Quiz Complete!</h2>
+    <p style="color:#94a3b8;margin-top:10px;">Aap ne ${questions.length} me se ${scoreVal/10} jawab sahi diye</p>
+    <button onclick="location.reload()" style="margin-top:25px;background:#4f46e5;color:white;border:none;padding:12px 30px;border-radius:12px;font-weight:700;cursor:pointer;">Play Again</button>
+    <div class="footer-made" style="margin-top:40px;">MADE BY ZOHAIB</div>
+  </div>`;
+}
+startApp();
+</script>
+</body>
+</html>
