@@ -3,297 +3,116 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Z-QUIZ V24 FINAL - SHUFFLE - MADE BY ZOHAIB</title>
+<title>Z-QUIZ V25 - LOOK & FEEL - MADE BY ZOHAIB</title>
 <style>
-:root{--bg:#FFFBEB;--card:#fff;--text:#1e293b;--border:#FDE68A;--primary:#1e293b}
-*{margin:0;padding:0;box-sizing:border-box;font-family:system-ui,sans-serif}
+:root{--bg:#FFFBEB;--card:#fff;--text:#1e293b;--border:#FDE68A;--primary:#1e293b;--accent:#F59E0B}
+.dark-mode{--bg:#0f172a;--card:#1e293b;--text:#f1f5f9;--border:#334155;--primary:#f8fafc;--accent:#F59E0B}
+*{margin:0;padding:0;box-sizing:border-box;font-family:system-ui,sans-serif;transition:background .3s,color .3s}
 body{background:var(--bg);color:var(--text);overflow-x:hidden}
-#splash{position:fixed;inset:0;background:radial-gradient(circle at 30% 20%, #FEF3C7, #FDE68A 40%, #F59E0B 100%);display:flex;flex-direction:column;justify-content:center;align-items:center;z-index:999999;cursor:pointer;transition:.8s cubic-bezier(.68,-0.55,.27,1.55)}
-#splash.hide{transform:translateY(-100%) scale(.9);opacity:0;pointer-events:none}
-.welcome-anim{font-size:52px;animation:bounceIn 1.2s ease}
-@keyframes bounceIn{0%{transform:scale(0) translateY(100px);opacity:0}60%{transform:scale(1.2) translateY(-10px)}80%{transform:scale(.9)}100%{transform:scale(1);opacity:1}}
-.welcome-text{margin-top:18px;font-weight:900;font-size:28px;letter-spacing:2px}
-.welcome-sub{margin-top:10px;background:#1e293b;color:#FDE68A;padding:8px 22px;border-radius:30px;font-size:13px;font-weight:800}
+#splash{position:fixed;inset:0;background:radial-gradient(circle at 30% 20%, #FEF3C7, #FDE68A 40%, #F59E0B 100%);display:flex;flex-direction:column;justify-content:center;align-items:center;z-index:999999;cursor:pointer;transition:.8s}
+.dark-mode #splash{background:radial-gradient(circle at 30% 20%, #1e293b, #0f172a 60%, #000 100%)}
+#splash.hide{transform:translateY(-100%);opacity:0;pointer-events:none}
+.welcome-anim{font-size:64px;background:white;width:110px;height:110px;border-radius:50%;display:flex;justify-content:center;align-items:center;box-shadow:0 10px 30px rgba(0,0,0,.15);animation:bounceIn 1.2s ease}
+@keyframes bounceIn{0%{transform:scale(0)}60%{transform:scale(1.2)}80%{transform:scale(.9)}100%{transform:scale(1)}}
+.welcome-text{margin-top:18px;font-weight:900;font-size:28px;letter-spacing:2px;color:#1e293b}
+.dark-mode .welcome-text{color:#f1f5f9}
+.welcome-sub{background:#1e293b;color:#FDE68A;padding:8px 22px;border-radius:30px;font-size:13px;font-weight:800;margin-top:10px}
 .pulse{animation:pulse 2s infinite}
 @keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.05)}}
 #app{max-width:460px;margin:0 auto;padding:14px}
-.top{display:flex;justify-content:space-between;align-items:center;background:var(--card);padding:10px 14px;border-radius:14px;margin-bottom:12px;box-shadow:0 4px 15px rgba(0,0,0,.06);position:relative}
+.top{display:flex;justify-content:space-between;align-items:center;background:var(--card);padding:10px 14px;border-radius:14px;margin-bottom:12px;box-shadow:0 4px 15px rgba(0,0,0,.1);position:relative}
 .top::after{content:'MADE BY ZOHAIB';position:absolute;bottom:-14px;right:12px;font-size:7px;background:#1e293b;color:#FDE68A;padding:2px 8px;border-radius:10px}
-.card{background:var(--card);padding:16px;border-radius:16px;margin-bottom:10px;cursor:pointer;text-align:center;font-weight:700;box-shadow:0 4px 15px rgba(0,0,0,.06)}
-.card.dark{background:var(--primary);color:#fff}
-.btn{width:100%;padding:13px;background:var(--primary);color:#fff;border:none;border-radius:12px;font-weight:800;margin-top:10px;cursor:pointer}
+.card{background:var(--card);padding:16px;border-radius:16px;margin-bottom:10px;cursor:pointer;text-align:center;font-weight:700;box-shadow:0 4px 15px rgba(0,0,0,.06);border:2px solid transparent}
+.card:hover{transform:translateY(-2px);border-color:var(--accent)}
+.card.dark{background:var(--primary);color:var(--bg)}
+.card.islamic-theme{border-left:5px solid #10b981}
+.card.math-theme{border-left:5px solid #3b82f6}
+.card.english-theme{border-left:5px solid #f59e0b}
+.card.gk-theme{border-left:5px solid #ef4444}
+.btn{width:100%;padding:13px;background:var(--primary);color:var(--bg);border:none;border-radius:12px;font-weight:800;margin-top:10px;cursor:pointer}
+.dark-mode .btn{background:#f8fafc;color:#0f172a}
 .opt{background:var(--bg);border:2px solid var(--border);padding:12px;border-radius:12px;margin-bottom:8px;cursor:pointer;font-weight:600}
 .opt.correct{background:#10b981;color:#fff;border-color:#10b981}
 .opt.wrong{background:#ef4444;color:#fff;border-color:#ef4444}
 .q-card{background:var(--card);border-radius:18px;padding:18px;box-shadow:0 8px 25px rgba(0,0,0,.07)}
-input{width:100%;padding:12px;border-radius:10px;border:2px solid var(--border);outline:none;font-weight:700}
+input{width:100%;padding:12px;border-radius:10px;border:2px solid var(--border);background:var(--card);color:var(--text);outline:none;font-weight:700}
 .sel{border:2px solid var(--border);padding:10px;border-radius:12px;text-align:center;cursor:pointer;background:var(--card);font-weight:700}
-.sel.active{background:var(--primary);color:#fff;border-color:var(--primary);transform:scale(1.05)}
+.sel.active{background:var(--primary);color:var(--bg);border-color:var(--primary)}
 .flower{position:fixed;top:-20px;font-size:26px;animation:fall linear forwards;z-index:9999999;pointer-events:none}
 @keyframes fall{to{transform:translateY(110vh) rotate(720deg)}}
 .footer-made{margin-top:18px;text-align:center;font-size:10px;background:#1e293b;color:#FDE68A;display:inline-block;padding:5px 14px;border-radius:20px;font-weight:800}
+.icon-btn{width:36px;height:36px;border-radius:50%;border:none;background:var(--card);box-shadow:0 2px 8px rgba(0,0,0,.1);cursor:pointer;font-size:16px}
+.theme-dot{width:12px;height:12px;border-radius:50%;display:inline-block;margin-left:6px}
 </style>
 </head>
 <body>
 <div id="splash" onclick="hideSplash()">
-<div class="welcome-anim pulse" style="font-size:64px;background:white;width:110px;height:110px;border-radius:50%;display:flex;justify-content:center;align-items:center;box-shadow:0 10px 30px rgba(0,0,0,.15)">🧠</div>
+<div class="welcome-anim pulse">🧠</div>
 <div class="welcome-text">WELCOME</div>
-<div style="margin-top:4px;font-weight:900;font-size:22px;letter-spacing:3px;color:#1e293b">TO Z-QUIZ</div>
-<div class="welcome-sub">MADE BY ZOHAIB ✨</div>
-<div style="margin-top:14px;font-size:11px;color:#78350F;font-weight:700">Tap anywhere to continue</div>
+<div style="font-weight:900;font-size:22px;letter-spacing:3px;color:#1e293b">TO Z-QUIZ</div>
+<div class="welcome-sub">MADE BY ZOHAIB ✨ V25</div>
+<div style="margin-top:14px;font-size:11px;color:#78350F;font-weight:700">Tap for Sound ON 🔊</div>
 </div>
 <div id="app">
 <div class="top">
 <b id="appTitle">Z-QUIZ</b>
 <div style="display:flex;gap:6px;align-items:center">
+<button onclick="toggleDark()" class="icon-btn" id="darkBtn">🌙</button>
+<button onclick="toggleSound()" class="icon-btn" id="soundBtn">🔊</button>
 <span id="coinD" style="background:#FEF3C7;padding:5px 10px;border-radius:20px;font-size:12px;font-weight:800">🪙 0</span>
-<span id="badgeD" style="background:#e2e8f0;padding:5px 10px;border-radius:20px;font-size:11px">Newbie</span>
 <button onclick="toggleLang()" id="langBtn" style="border:none;background:#10b981;color:white;padding:6px 12px;border-radius:20px;font-size:12px">اردو ✓</button>
 </div>
 </div>
-<div id="s_login">
-<h2 style="text-align:center" id="t_name">اپنا نام لکھیں</h2>
-<input id="userName" placeholder="SAMI">
-<button onclick="goHome()" class="btn" id="t_cont">آگے بڑھیں →</button>
-<div style="text-align:center"><span class="footer-made">MADE BY ZOHAIB</span></div>
-</div>
-<div id="s_home" style="display:none">
-<h2 style="text-align:center" id="t_class">کلاس منتخب کریں</h2>
-<div class="card" onclick="setClass('junior')" id="t_junior">🧒 کلاس 1-5</div>
-<div class="card dark" onclick="setClass('senior')" id="t_senior">🎓 کلاس 6-10</div>
-<div style="text-align:center"><span class="footer-made">MADE BY ZOHAIB</span></div>
-</div>
-<div id="s_cat" style="display:none">
-<h2 style="text-align:center" id="t_topic">موضوع منتخب کریں</h2>
-<div class="card" onclick="setCat('islamic')" id="t_islamic">🕌 اسلامی</div>
-<div class="card" onclick="setCat('math')" id="t_math">🔢 ریاضی</div>
-<div class="card" onclick="setCat('english')" id="t_english">🔤 انگلش</div>
-<div class="card" onclick="setCat('gk')" id="t_gk">🌍 جنرل نالج</div>
-<div class="card dark" onclick="setCat('mix')" id="t_mix">✨ مکس (120 UNIQUE سوال)</div>
-<div style="text-align:center"><span class="footer-made">MADE BY ZOHAIB</span></div>
-</div>
-<div id="s_timer" style="display:none">
-<h2 style="text-align:center" id="t_timer">ٹائمر</h2>
-<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:12px">
-<div class="sel active" onclick="setTimer(20,this)" id="tt1">آسان<br>20s</div>
-<div class="sel" onclick="setTimer(15,this)" id="tt2">میڈیم<br>15s</div>
-<div class="sel" onclick="setTimer(10,this)" id="tt3">مشکل<br>10s</div>
-</div>
-<h2 style="text-align:center;margin-top:14px" id="t_qnum">کتنے سوال؟</h2>
-<div id="numGroup" style="display:flex;gap:8px;justify-content:center;margin-top:8px">
-<button class="sel" onclick="setNum(5,this)">5</button>
-<button class="sel active" onclick="setNum(10,this)">10</button>
-<button class="sel" onclick="setNum(20,this)">20</button>
-</div>
-<button id="startBtn" onclick="startQuiz()" class="btn" id="t_start">شروع کریں →</button>
-<div style="text-align:center"><span class="footer-made">MADE BY ZOHAIB</span></div>
-</div>
-<div id="s_quiz" style="display:none">
-<div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:10px;font-weight:700">
-<span id="qCount">1/10</span><span>⏱ <b id="time">20</b>s</span>
-</div>
-<div class="q-card">
-<div id="qText" style="font-weight:800;margin-bottom:12px"></div>
-<div id="opts"></div>
-<button id="nextBtn" onclick="nextQ()" style="display:none" class="btn" id="t_next">اگلا →</button>
-</div>
-<div style="text-align:center"><span class="footer-made">MADE BY ZOHAIB</span></div>
-</div><div id="s_result" style="display:none;text-align:center">
-<h2 id="t_result">رزلٹ</h2>
-<div style="background:white;border-radius:14px;padding:14px;margin-top:10px;text-align:left">
-<p><span id="t_rname">نام</span>: <b id="rName"></b></p>
-<p><span id="t_rscore">سکور</span>: <b id="rPerc"></b> | <b id="rCorrect"></b>/<b id="rTotal"></b></p>
-<p>🪙 <span id="t_rcoins">کوائنز</span>: <b id="rCoins"></b></p>
-<p id="rMsg" style="text-align:center;font-weight:900;margin-top:10px"></p>
-</div>
-<canvas id="certCanvas" width="1200" height="850" style="width:100%;margin-top:12px;border-radius:20px;box-shadow:0 10px 30px rgba(0,0,0,.15)"></canvas>
-<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
-<button onclick="downloadCert()" class="btn" style="background:linear-gradient(135deg,#10b981,#059669)" id="t_pdf">📜 سرٹیفکیٹ</button>
-<button onclick="shareWA()" class="btn" style="background:linear-gradient(135deg,#25D366,#128C7E)" id="t_share">🟢 شیئر</button>
-</div>
-<button onclick="location.reload()" class="btn" id="t_replay">دوبارہ کھیلیں</button>
-<div style="text-align:center;margin-top:12px"><span class="footer-made">MADE BY ZOHAIB - V24 AESTHETIC</span></div>
-</div>
+<div id="s_login"><h2 style="text-align:center" id="t_name">اپنا نام لکھیں</h2><input id="userName" placeholder="SAMI"><button onclick="goHome()" class="btn" id="t_cont">آگے بڑھیں →</button><div style="text-align:center"><span class="footer-made">MADE BY ZOHAIB - V25 LOOK & FEEL</span></div></div>
+<div id="s_home" style="display:none"><h2 style="text-align:center" id="t_class">کلاس منتخب کریں</h2><div class="card" onclick="setClass('junior')" id="t_junior">🧒 کلاس 1-5</div><div class="card dark" onclick="setClass('senior')" id="t_senior">🎓 کلاس 6-10</div><div style="text-align:center"><span class="footer-made">MADE BY ZOHAIB</span></div></div>
+<div id="s_cat" style="display:none"><h2 style="text-align:center" id="t_topic">موضوع منتخب کریں</h2><div class="card islamic-theme" onclick="setCat('islamic')" id="t_islamic">🕌 اسلامی <span class="theme-dot" style="background:#10b981"></span></div><div class="card math-theme" onclick="setCat('math')" id="t_math">🔢 ریاضی <span class="theme-dot" style="background:#3b82f6"></span></div><div class="card english-theme" onclick="setCat('english')" id="t_english">🔤 انگلش <span class="theme-dot" style="background:#f59e0b"></span></div><div class="card gk-theme" onclick="setCat('gk')" id="t_gk">🌍 جنرل نالج <span class="theme-dot" style="background:#ef4444"></span></div><div class="card dark" onclick="setCat('mix')" id="t_mix">✨ مکس (120 UNIQUE)</div><div style="text-align:center"><span class="footer-made">MADE BY ZOHAIB</span></div></div>
+<div id="s_timer" style="display:none"><h2 style="text-align:center" id="t_timer">ٹائمر</h2><div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:12px"><div class="sel active" onclick="setTimer(20,this)" id="tt1">آسان<br>20s</div><div class="sel" onclick="setTimer(15,this)" id="tt2">میڈیم<br>15s</div><div class="sel" onclick="setTimer(10,this)" id="tt3">مشکل<br>10s</div></div><h2 style="text-align:center;margin-top:14px" id="t_qnum">کتنے سوال؟</h2><div id="numGroup" style="display:flex;gap:8px;justify-content:center;margin-top:8px"><button class="sel" onclick="setNum(5,this)">5</button><button class="sel active" onclick="setNum(10,this)">10</button><button class="sel" onclick="setNum(20,this)">20</button></div><button id="startBtn" onclick="startQuiz()" class="btn" id="t_start">شروع کریں →</button><div style="text-align:center"><span class="footer-made">MADE BY ZOHAIB</span></div></div>
+<div id="s_quiz" style="display:none"><div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:10px;font-weight:700"><span id="qCount">1/10</span><span>⏱ <b id="time">20</b>s</span></div><div class="q-card"><div id="qText" style="font-weight:800;margin-bottom:12px"></div><div id="opts"></div><button id="nextBtn" onclick="nextQ()" style="display:none" class="btn" id="t_next">اگلا →</button></div><div style="text-align:center"><span class="footer-made">MADE BY ZOHAIB</span></div></div>
+<div id="s_result" style="display:none;text-align:center"><h2 id="t_result">رزلٹ</h2><div style="background:var(--card);border-radius:14px;padding:14px;margin-top:10px;text-align:left"><p><span id="t_rname">نام</span>: <b id="rName"></b></p><p><span id="t_rscore">سکور</span>: <b id="rPerc"></b> | <b id="rCorrect"></b>/<b id="rTotal"></b></p><p>🪙 <span id="t_rcoins">کوائنز</span>: <b id="rCoins"></b></p><p id="rMsg" style="text-align:center;font-weight:900;margin-top:10px"></p></div><canvas id="certCanvas" width="1200" height="850" style="width:100%;margin-top:12px;border-radius:20px"></canvas><div style="display:grid;grid-template-columns:1fr 1fr;gap:8px"><button onclick="downloadCert()" class="btn" style="background:#10b981" id="t_pdf">📜 سرٹیفکیٹ</button><button onclick="shareWA()" class="btn" style="background:#25D366" id="t_share">🟢 شیئر</button></div><button onclick="location.reload()" class="btn" id="t_replay">دوبارہ کھیلیں</button><div style="text-align:center;margin-top:12px"><span class="footer-made">MADE BY ZOHAIB - V25 LOOK & FEEL</span></div></div>
 </div>
 <script>
-function hideSplash(){var s=document.getElementById('splash');if(s){s.classList.add('hide');}}
+var isDark=localStorage.getItem('darkMode')==='true';var soundOn=localStorage.getItem('soundOn')!=='false';if(isDark) document.body.classList.add('dark-mode');
+function toggleDark(){isDark=!isDark;document.body.classList.toggle('dark-mode',isDark);localStorage.setItem('darkMode',isDark);document.getElementById('darkBtn').innerText=isDark?'☀️':'🌙';playClick()}
+function toggleSound(){soundOn=!soundOn;localStorage.setItem('soundOn',soundOn);document.getElementById('soundBtn').innerText=soundOn?'🔊':'🔇';if(soundOn) playCorrect()}
+var audioCtx=null;function getCtx(){if(!audioCtx) audioCtx=new (window.AudioContext||window.webkitAudioContext)();return audioCtx;}
+function playTone(f,d,v,t){if(!soundOn) return;try{var ctx=getCtx();var o=ctx.createOscillator();var g=ctx.createGain();o.type=t||'sine';o.frequency.value=f;g.gain.value=v||0.3;o.connect(g);g.connect(ctx.destination);o.start();g.gain.exponentialRampToValueAtTime(0.01,ctx.currentTime+d);o.stop(ctx.currentTime+d);}catch(e){}}
+function playClick(){playTone(800,0.1,0.2,'sine')}
+function playCorrect(){playTone(600,0.15,0.4,'sine');setTimeout(function(){playTone(900,0.3,0.4,'sine')},120)}
+function playWrong(){playTone(200,0.4,0.4,'sawtooth')}
+function playTick(){playTone(1000,0.05,0.1,'sine')}
+function hideSplash(){var s=document.getElementById('splash');if(s){s.classList.add('hide');}if(soundOn) getCtx();}
 setTimeout(function(){hideSplash();},2200);
 var lang='ur';var selClass='junior';var selCat='mix';var selNum=10;var timerSec=20;var curQs=[];var cur=0;var correct=0;var timer;var timeLeft=20;var answered=false;var userName='';var coins=parseInt(localStorage.getItem('coins')||'0');
 var T={ur:{app:"Z-QUIZ",name:"اپنا نام لکھیں",cont:"آگے بڑھیں →",class:"کلاس منتخب کریں",junior:"🧒 کلاس 1 سے 5",senior:"🎓 کلاس 6 سے 10",topic:"موضوع منتخب کریں",islamic:"🕌 اسلامی",math:"🔢 ریاضی",english:"🔤 انگلش",gk:"🌍 جنرل نالج",mix:"✨ مکس (120 UNIQUE)",timer:"ٹائمر منتخب کریں",qnum:"کتنے سوال؟",start:"شروع کریں →",next:"اگلا سوال →",result:"آپ کا رزلٹ",rname:"نام",rscore:"سکور",rcoins:"کوائنز",replay:"دوبارہ کھیلیں",pdf:"📜 سرٹیفکیٹ",share:"🟢 شیئر",easy:"آسان",med:"میڈیم",hard:"مشکل",msg100:"ماشاءاللہ شاندار 🌟",msg70:"بہت خوب! 🌸🎉",msg50:"بہت خوب 👏",msg0:"کوشش جاری رکھیں 💪"},en:{app:"Z-QUIZ",name:"Enter Name",cont:"Continue →",class:"Select Class",junior:"🧒 Class 1-5",senior:"🎓 Class 6-10",topic:"Select Topic",islamic:"🕌 Islamic",math:"🔢 Math",english:"🔤 English",gk:"🌍 GK",mix:"✨ Mix (120 UNIQUE)",timer:"Select Timer",qnum:"How many?",start:"Start Quiz →",next:"Next →",result:"Your Result",rname:"Name",rscore:"Score",rcoins:"Coins",replay:"Play Again",pdf:"📜 Certificate",share:"🟢 Share",easy:"Easy",med:"Medium",hard:"Hard",msg100:"Excellent 🌟",msg70:"Excellent! 🌸🎉",msg50:"Very Good 👏",msg0:"Keep Trying 💪"}};
-function shuffleArray(arr){for(var i=arr.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var tmp=arr[i];arr[i]=arr[j];arr[j]=tmp;}return arr;}
+function shuffleArray(a){for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t;}return a;}
 function genQs(){
-var islamic=[];var math=[];var english=[];var gk=[];
-var islBase=[
-["اللہ کتنے ہیں؟","How many Allah?","ایک","دو","تین","چار"],
-["ہمارے نبی ﷺ کا نام؟","Our Prophet name?","محمد ﷺ","احمد","علی","عمر"],
-["قرآن میں پارے کتنے؟","How many Paras?","30","20","40","10"],
-["قرآن کی پہلی سورت؟","First Surah?","الفاتحہ","البقرہ","الناس","الاخلاص"],
-["قرآن کی آخری سورت؟","Last Surah?","الناس","الفلق","الاخلاص","الفاتحہ"],
-["پہلی وحی کہاں؟","Where first revelation?","غار حرا","غار ثور","مسجد نبوی","کعبہ"],
-["نمازیں کتنی؟","How many prayers?","5","6","4","3"],
-["کعبہ کہاں ہے؟","Where is Kaaba?","مکہ","مدینہ","بغداد","دبئی"],
-["روزے کس مہینے؟","Fasting month?","رمضان","شعبان","رجب","محرم"],
-["زکوۃ کس پر؟","Zakat on whom?","صاحب نصاب","غریب","مسافر","بچہ"],
-["حج کہاں؟","Where Hajj?","مکہ","مدینہ","عرفات","منی"],
-["ارکان اسلام؟","Pillars of Islam?","5","6","4","3"],
-["کلمہ طیبہ؟","First Kalma?","لا الہ الا اللہ","سبحان اللہ","الحمدللہ","اللہ اکبر"],
-["غزوہ بدر کب؟","Battle of Badr when?","2 ہجری","3 ہجری","4 ہجری","1 ہجری"],
-["قرآن کتنے سال میں؟","Quran in years?","23 سال","20 سال","25 سال","30 سال"],
-["نبی ﷺ پیدائش کہاں؟","Prophet born where?","مکہ","مدینہ","طائف","بصرہ"],
-["مسجد نبوی کہاں؟","Masjid Nabawi where?","مدینہ","مکہ","قدس","بغداد"],
-["اذان کتنی بار؟","How many Azans?","5","6","4","3"],
-["وضو فرض کتنے؟","Farz in Wudu?","4","3","5","6"],
-["تیمم کس سے؟","Tayammum with?","مٹی","پانی","ریت","پتھر"],
-["جمعہ خطبے کتنے؟","Khutbas Friday?","2","1","3","4"],
-["عیدیں کتنی؟","How many Eids?","2","3","1","4"],
-["سجدہ آیات کتنی؟","Sajdah verses?","14","15","13","12"],
-["پہلی اذان کس نے؟","First Azan who?","حضرت بلال","حضرت عمر","حضرت علی","ابوبکر"],
-["کعبہ غلاف رنگ؟","Kaaba cover color?","کالا","سفید","سبز","سرخ"],
-["جنت دروازے کتنے؟","Doors of Jannah?","8","7","6","5"],
-["دوزخ دروازے؟","Doors of Hell?","7","8","6","5"],
-["سورتیں کتنی؟","Total Surahs?","114","112","115","113"],
-["بسم اللہ کتنی سورتوں میں؟","Bismillah in Surahs?","113","114","112","110"],
-["ہجرت مدینہ کب؟","Migration when?","622 عیسوی","620","624","630"],
-];
-var mathBase=[
-["2+2=?","2+2=?","4","5","3","6"],
-["5x5=?","5x5=?","25","20","30","15"],
-["10-3=?","10-3=?","7","8","6","9"],
-["12x12=?","12x12=?","144","124","142","132"],
-["100/2=?","100/2=?","50","40","60","30"],
-["7x8=?","7x8=?","56","54","58","52"],
-["9x9=?","9x9=?","81","80","82","79"],
-["15+15=?","15+15=?","30","25","35","20"],
-["20-10=?","20-10=?","10","5","15","20"],
-["6x7=?","6x7=?","42","40","44","41"],
-["81/9=?","81/9=?","9","8","7","10"],
-["11x11=?","11x11=?","121","111","122","120"],
-["50+50=?","50+50=?","100","90","110","80"],
-["3x15=?","3x15=?","45","40","50","35"],
-["100-25=?","100-25=?","75","70","80","65"],
-["8x8=?","8x8=?","64","62","66","60"],
-["14+6=?","14+6=?","20","18","22","24"],
-["30/3=?","30/3=?","10","9","11","8"],
-["13x2=?","13x2=?","26","24","28","22"],
-["90/3=?","90/3=?","30","20","40","25"],
-["4x25=?","4x25=?","100","90","110","80"],
-["5x12=?","5x12=?","60","50","70","55"],
-["18/2=?","18/2=?","9","8","10","7"],
-["7+7+7=?","7+7+7=?","21","20","22","19"],
-["16x2=?","16x2=?","32","30","34","28"],
-["200/4=?","200/4=?","50","40","60","45"],
-["9x6=?","9x6=?","54","52","56","50"],
-["25x4=?","25x4=?","100","90","110","95"],
-["33+33=?","33+33=?","66","60","70","65"],
-["49/7=?","49/7=?","7","6","8","9"],
-];
-var engBase=[
-["A for?","A for?","Apple","Ball","Cat","Dog"],
-["B for?","B for?","Ball","Apple","Cat","Dog"],
-["Go past?","Past of Go?","Went","Gone","Going","Goes"],
-["Apple means?","Apple means?","سیب","کیلا","آم","انار"],
-["Hello reply?","Reply Hello?","Hi","Bye","No","Yes"],
-["Cat means?","Cat means?","بلی","کتا","چوہا","شیر"],
-["Book means?","Book means?","کتاب","قلم","کاپی","کاغذ"],
-["Water means?","Water means?","پانی","آگ","ہوا","مٹی"],
-["Sun means?","Sun means?","سورج","چاند","ستارہ","بادل"],
-["Eat past?","Past of Eat?","Ate","Eaten","Eating","Eats"],
-["I am short?","Short I am?","I'm","I've","I'll","I'd"],
-["Good opposite?","Opposite Good?","Bad","Best","Better","Gooder"],
-["Big opposite?","Opposite Big?","Small","Bigger","Biggest","Large"],
-["One plural?","Plural One?","Ones","One","Oneses","Oner"],
-["Child plural?","Plural Child?","Children","Childs","Childes","Childrens"],
-["He means?","He is?","مرد","عورت","لڑکا","لڑکی"],
-["Run past?","Past Run?","Ran","Runned","Running","Runs"],
-["Come past?","Past Come?","Came","Comed","Coming","Comes"],
-["Do past?","Past Do?","Did","Done","Doing","Does"],
-["What means?","What means?","کیا","کون","کہاں","کب"],
-["Where means?","Where means?","کہاں","کیا","کون","کیوں"],
-["Alphabets?","How many alphabets?","26","24","25","27"],
-["Vowels?","A,E,I,O,U are?","Vowels","Consonants","Words","Letters"],
-["After Z?","After Z?","A","Y","End","B"],
-["Pen means?","Pen means?","قلم","کتاب","کاپی","سیاہی"],
-["School means?","School means?","سکول","گھر","مسجد","بازار"],
-["Teacher means?","Teacher means?","استاد","طالب علم","ڈاکٹر","انجینئر"],
-["Student means?","Student means?","طالب علم","استاد","ڈاکٹر","وکیل"],
-["Thank you reply?","Reply Thank you?","Welcome","Sorry","Hi","Bye"],
-["Yes opposite?","Opposite Yes?","No","Not","Never","None"],
-];
-var gkBase=[
-["دارالحکومت؟","Capital Pakistan?","اسلام آباد","لاہور","کراچی","پشاور"],
-["قومی جانور؟","National animal?","مارخور","شیر","ہاتھی","گھوڑا"],
-["پاکستان کب بنا؟","Pakistan made?","1947","1948","1946","1945"],
-["قومی کھیل؟","National game?","ہاکی","کرکٹ","فٹبال","والی بال"],
-["سب سے بڑا سمندر؟","Largest ocean?","Pacific","Atlantic","Indian","Arctic"],
-["چاند پر پہلا؟","First man moon?","Neil Armstrong","Yuri Gagarin","Buzz Aldrin","John Glenn"],
-["قومی پرندہ؟","National bird?","چکور","طوطا","کبوتر","شاہین"],
-["قومی پھول؟","National flower?","چنبیلی","گلاب","کنول","گیندا"],
-["سب سے بڑا ملک؟","Largest country?","روس","کینیڈا","چین","امریکہ"],
-["لمبی ندی؟","Longest river?","نیل","ایمیزون","سندھ","گنگا"],
-["سب سے بڑا شہر؟","Largest city Pakistan?","کراچی","لاہور","اسلام آباد","فیصل آباد"],
-["کمپیوٹر دماغ؟","Brain computer?","CPU","RAM","Hard Disk","Mouse"],
-["دل خانے کتنے؟","Chambers heart?","4","2","3","5"],
-["سورج کہاں سے؟","Sun rises?","مشرق","مغرب","شمال","جنوب"],
-["سال میں دن؟","Days in year?","365","360","366","364"],
-["ہفتے میں دن؟","Days in week?","7","6","8","5"],
-["ترانہ کس نے لکھا؟","Anthem who wrote?","حفیظ جالندھری","اقبال","فیض","میر"],
-["قائد اعظم نام؟","Quaid name?","محمد علی جناح","لیاقت علی","اقبال","سر سید"],
-["اقبال مزار کہاں؟","Iqbal tomb where?","لاہور","کراچی","اسلام آباد","سیالکوٹ"],
-["صوبے کتنے؟","Provinces how many?","4","5","3","6"],
-["چھوٹا سیارہ؟","Smallest planet?","عطارد","مریخ","زہرہ","زمین"],
-["بڑا سیارہ؟","Largest planet?","مشتری","زحل","زمین","مریخ"],
-["انگلیاں کتنی؟","Fingers how many?","10","8","12","9"],
-["کرکٹ کھلاڑی؟","Players cricket?","11","10","12","9"],
-["فٹبال کھلاڑی؟","Players football?","11","10","12","9"],
-["اولمپکس کتنے سال؟","Olympics years?","4 سال","2 سال","3 سال","5 سال"],
-["براعظم کتنے؟","Continents how many?","7","6","5","8"],
-["بڑا براعظم؟","Largest continent?","ایشیا","افریقہ","یورپ","امریکہ"],
-["پانی فارمولا؟","Water formula?","H2O","O2","CO2","H2"],
-["ہوا میں زیادہ گیس؟","Most gas air?","نائٹروجن","آکسیجن","کاربن","ہائیڈروجن"],
-];
-function makeList(base){var arr=[];for(var i=0;i<base.length;i++){var q=base[i];var opts=[q[2],q[3],q[4],q[5]];var idx=[0,1,2,3];shuffleArray(idx);var newOpts=[];var newCorrect=0;for(var k=0;k<4;k++){newOpts.push(opts[idx[k]]);if(idx[k]==0) newCorrect=k;}arr.push({q_ur:q[0],q_en:q[1],o_ur:newOpts.slice(),o_en:newOpts.slice(),a:newCorrect});}return arr;}
-islamic=makeList(islBase);math=makeList(mathBase);english=makeList(engBase);gk=makeList(gkBase);
+var islBase=[["اللہ کتنے ہیں؟","How many Allah?","ایک","دو","تین","چار"],["ہمارے نبی ﷺ کا نام؟","Our Prophet name?","محمد ﷺ","احمد","علی","عمر"],["قرآن میں پارے کتنے؟","How many Paras?","30","20","40","10"],["قرآن کی پہلی سورت؟","First Surah?","الفاتحہ","البقرہ","الناس","الاخلاص"],["قرآن کی آخری سورت؟","Last Surah?","الناس","الفلق","الاخلاص","الفاتحہ"],["پہلی وحی کہاں؟","Where first revelation?","غار حرا","غار ثور","مسجد نبوی","کعبہ"],["نمازیں کتنی؟","How many prayers?","5","6","4","3"],["کعبہ کہاں ہے؟","Where is Kaaba?","مکہ","مدینہ","بغداد","دبئی"],["روزے کس مہینے؟","Fasting month?","رمضان","شعبان","رجب","محرم"],["زکوۃ کس پر؟","Zakat on whom?","صاحب نصاب","غریب","مسافر","بچہ"],["حج کہاں؟","Where Hajj?","مکہ","مدینہ","عرفات","منی"],["ارکان اسلام؟","Pillars of Islam?","5","6","4","3"],["کلمہ طیبہ؟","First Kalma?","لا الہ الا اللہ","سبحان اللہ","الحمدللہ","اللہ اکبر"],["غزوہ بدر کب؟","Battle of Badr when?","2 ہجری","3 ہجری","4 ہجری","1 ہجری"],["قرآن کتنے سال میں؟","Quran in years?","23 سال","20 سال","25 سال","30 سال"],["نبی ﷺ پیدائش کہاں؟","Prophet born where?","مکہ","مدینہ","طائف","بصرہ"],["مسجد نبوی کہاں؟","Masjid Nabawi where?","مدینہ","مکہ","قدس","بغداد"],["اذان کتنی بار؟","How many Azans?","5","6","4","3"],["وضو فرض کتنے؟","Farz in Wudu?","4","3","5","6"],["تیمم کس سے؟","Tayammum with?","مٹی","پانی","ریت","پتھر"],["جمعہ خطبے کتنے؟","Khutbas Friday?","2","1","3","4"],["عیدیں کتنی؟","How many Eids?","2","3","1","4"],["سجدہ آیات کتنی؟","Sajdah verses?","14","15","13","12"],["پہلی اذان کس نے؟","First Azan who?","حضرت بلال","حضرت عمر","حضرت علی","ابوبکر"],["کعبہ غلاف رنگ؟","Kaaba cover color?","کالا","سفید","سبز","سرخ"],["جنت دروازے کتنے؟","Doors of Jannah?","8","7","6","5"],["دوزخ دروازے؟","Doors of Hell?","7","8","6","5"],["سورتیں کتنی؟","Total Surahs?","114","112","115","113"],["بسم اللہ کتنی سورتوں میں؟","Bismillah in Surahs?","113","114","112","110"],["ہجرت مدینہ کب؟","Migration when?","622 عیسوی","620","624","630"],];
+var mathBase=[["2+2=?","2+2=?","4","5","3","6"],["5x5=?","5x5=?","25","20","30","15"],["10-3=?","10-3=?","7","8","6","9"],["12x12=?","12x12=?","144","124","142","132"],["100/2=?","100/2=?","50","40","60","30"],["7x8=?","7x8=?","56","54","58","52"],["9x9=?","9x9=?","81","80","82","79"],["15+15=?","15+15=?","30","25","35","20"],["20-10=?","20-10=?","10","5","15","20"],["6x7=?","6x7=?","42","40","44","41"],["81/9=?","81/9=?","9","8","7","10"],["11x11=?","11x11=?","121","111","122","120"],["50+50=?","50+50=?","100","90","110","80"],["3x15=?","3x15=?","45","40","50","35"],["100-25=?","100-25=?","75","70","80","65"],["8x8=?","8x8=?","64","62","66","60"],["14+6=?","14+6=?","20","18","22","24"],["30/3=?","30/3=?","10","9","11","8"],["13x2=?","13x2=?","26","24","28","22"],["90/3=?","90/3=?","30","20","40","25"],["4x25=?","4x25=?","100","90","110","80"],["5x12=?","5x12=?","60","50","70","55"],["18/2=?","18/2=?","9","8","10","7"],["7+7+7=?","7+7+7=?","21","20","22","19"],["16x2=?","16x2=?","32","30","34","28"],["200/4=?","200/4=?","50","40","60","45"],["9x6=?","9x6=?","54","52","56","50"],["25x4=?","25x4=?","100","90","110","95"],["33+33=?","33+33=?","66","60","70","65"],["49/7=?","49/7=?","7","6","8","9"],];
+var engBase=[["A for?","A for?","Apple","Ball","Cat","Dog"],["B for?","B for?","Ball","Apple","Cat","Dog"],["Go past?","Past of Go?","Went","Gone","Going","Goes"],["Apple means?","Apple means?","سیب","کیلا","آم","انار"],["Hello reply?","Reply Hello?","Hi","Bye","No","Yes"],["Cat means?","Cat means?","بلی","کتا","چوہا","شیر"],["Book means?","Book means?","کتاب","قلم","کاپی","کاغذ"],["Water means?","Water means?","پانی","آگ","ہوا","مٹی"],["Sun means?","Sun means?","سورج","چاند","ستارہ","بادل"],["Eat past?","Past of Eat?","Ate","Eaten","Eating","Eats"],["I am short?","Short I am?","I'm","I've","I'll","I'd"],["Good opposite?","Opposite Good?","Bad","Best","Better","Gooder"],["Big opposite?","Opposite Big?","Small","Bigger","Biggest","Large"],["One plural?","Plural One?","Ones","One","Oneses","Oner"],["Child plural?","Plural Child?","Children","Childs","Childes","Childrens"],["He means?","He is?","مرد","عورت","لڑکا","لڑکی"],["Run past?","Past Run?","Ran","Runned","Running","Runs"],["Come past?","Past Come?","Came","Comed","Coming","Comes"],["Do past?","Past Do?","Did","Done","Doing","Does"],["What means?","What means?","کیا","کون","کہاں","کب"],["Where means?","Where means?","کہاں","کیا","کون","کیوں"],["Alphabets?","How many alphabets?","26","24","25","27"],["Vowels?","A,E,I,O,U are?","Vowels","Consonants","Words","Letters"],["After Z?","After Z?","A","Y","End","B"],["Pen means?","Pen means?","قلم","کتاب","کاپی","سیاہی"],["School means?","School means?","سکول","گھر","مسجد","بازار"],["Teacher means?","Teacher means?","استاد","طالب علم","ڈاکٹر","انجینئر"],["Student means?","Student means?","طالب علم","استاد","ڈاکٹر","وکیل"],["Thank you reply?","Reply Thank you?","Welcome","Sorry","Hi","Bye"],["Yes opposite?","Opposite Yes?","No","Not","Never","None"],];
+var gkBase=[["دارالحکومت؟","Capital Pakistan?","اسلام آباد","لاہور","کراچی","پشاور"],["قومی جانور؟","National animal?","مارخور","شیر","ہاتھی","گھوڑا"],["پاکستان کب بنا؟","Pakistan made?","1947","1948","1946","1945"],["قومی کھیل؟","National game?","ہاکی","کرکٹ","فٹبال","والی بال"],["سب سے بڑا سمندر؟","Largest ocean?","Pacific","Atlantic","Indian","Arctic"],["چاند پر پہلا؟","First man moon?","Neil Armstrong","Yuri Gagarin","Buzz Aldrin","John Glenn"],["قومی پرندہ؟","National bird?","چکور","طوطا","کبوتر","شاہین"],["قومی پھول؟","National flower?","چنبیلی","گلاب","کنول","گیندا"],["سب سے بڑا ملک؟","Largest country?","روس","کینیڈا","چین","امریکہ"],["لمبی ندی؟","Longest river?","نیل","ایمیزون","سندھ","گنگا"],["سب سے بڑا شہر؟","Largest city Pakistan?","کراچی","لاہور","اسلام آباد","فیصل آباد"],["کمپیوٹر دماغ؟","Brain computer?","CPU","RAM","Hard Disk","Mouse"],["دل خانے کتنے؟","Chambers heart?","4","2","3","5"],["سورج کہاں سے؟","Sun rises?","مشرق","مغرب","شمال","جنوب"],["سال میں دن؟","Days in year?","365","360","366","364"],["ہفتے میں دن؟","Days in week?","7","6","8","5"],["ترانہ کس نے لکھا؟","Anthem who wrote?","حفیظ جالندھری","اقبال","فیض","میر"],["قائد اعظم نام؟","Quaid name?","محمد علی جناح","لیاقت علی","اقبال","سر سید"],["اقبال مزار کہاں؟","Iqbal tomb where?","لاہور","کراچی","اسلام آباد","سیالکوٹ"],["صوبے کتنے؟","Provinces how many?","4","5","3","6"],["چھوٹا سیارہ؟","Smallest planet?","عطارد","مریخ","زہرہ","زمین"],["بڑا سیارہ؟","Largest planet?","مشتری","زحل","زمین","مریخ"],["انگلیاں کتنی؟","Fingers how many?","10","8","12","9"],["کرکٹ کھلاڑی؟","Players cricket?","11","10","12","9"],["فٹبال کھلاڑی؟","Players football?","11","10","12","9"],["اولمپکس کتنے سال؟","Olympics years?","4 سال","2 سال","3 سال","5 سال"],["براعظم کتنے؟","Continents how many?","7","6","5","8"],["بڑا براعظم؟","Largest continent?","ایشیا","افریقہ","یورپ","امریکہ"],["پانی فارمولا؟","Water formula?","H2O","O2","CO2","H2"],["ہوا میں زیادہ گیس؟","Most gas air?","نائٹروجن","آکسیجن","کاربن","ہائیڈروجن"],];
+function makeList(b){var a=[];for(var i=0;i<b.length;i++){var q=b[i];var o=[q[2],q[3],q[4],q[5]];var idx=[0,1,2,3];shuffleArray(idx);var n=[];var nc=0;for(var k=0;k<4;k++){n.push(o[idx[k]]);if(idx[k]==0) nc=k;}a.push({q_ur:q[0],q_en:q[1],o_ur:n.slice(),o_en:n.slice(),a:nc});}return a;}
+var islamic=makeList(islBase);var math=makeList(mathBase);var english=makeList(engBase);var gk=makeList(gkBase);
 var mix=[];mix=mix.concat(islamic,math,english,gk);mix=shuffleArray(mix.slice());
 return{islamic:islamic,math:math,english:english,gk:gk,mix:mix};
 }
 var DB={junior:genQs(),senior:genQs()};
 function applyLang(){var d=T[lang];document.getElementById('appTitle').innerText=d.app;document.getElementById('t_name').innerText=d.name;document.getElementById('t_cont').innerText=d.cont;document.getElementById('t_class').innerText=d.class;document.getElementById('t_junior').innerText=d.junior;document.getElementById('t_senior').innerText=d.senior;document.getElementById('t_topic').innerText=d.topic;document.getElementById('t_islamic').innerText=d.islamic;document.getElementById('t_math').innerText=d.math;document.getElementById('t_english').innerText=d.english;document.getElementById('t_gk').innerText=d.gk;document.getElementById('t_mix').innerText=d.mix;document.getElementById('t_timer').innerText=d.timer;document.getElementById('t_qnum').innerText=d.qnum;document.getElementById('t_start').innerText=d.start;document.getElementById('t_next').innerText=d.next;document.getElementById('t_result').innerText=d.result;document.getElementById('t_rname').innerText=d.rname;document.getElementById('t_rscore').innerText=d.rscore;document.getElementById('t_rcoins').innerText=d.rcoins;document.getElementById('t_replay').innerText=d.replay;document.getElementById('t_pdf').innerText=d.pdf;document.getElementById('t_share').innerText=d.share;document.getElementById('tt1').innerHTML=d.easy+"<br>20s";document.getElementById('tt2').innerHTML=d.med+"<br>15s";document.getElementById('tt3').innerHTML=d.hard+"<br>10s";document.getElementById('langBtn').innerText=(lang==='ur')?'اردو ✓':'English ✓';}
-function toggleLang(){lang=(lang==='ur')?'en':'ur';applyLang();if(curQs.length>0)loadQ();}
-function updateTop(){document.getElementById('coinD').innerText='🪙 '+coins;var b='Newbie';if(coins>=100)b='🔥 PRO';document.getElementById('badgeD').innerText=b;}
+function toggleLang(){lang=(lang==='ur')?'en':'ur';applyLang();if(curQs.length>0)loadQ();playClick();}
+function updateTop(){document.getElementById('coinD').innerText='🪙 '+coins;}
 function hideAll(){var ids=['s_login','s_home','s_cat','s_timer','s_quiz','s_result'];for(var i=0;i<ids.length;i++){var el=document.getElementById(ids[i]);if(el)el.style.display='none';}}
-function goHome(){var n=document.getElementById('userName').value.trim();if(n)userName=n;if(!userName){hideAll();document.getElementById('s_login').style.display='block';return;}hideAll();document.getElementById('s_home').style.display='block';}
-function setClass(c){selClass=c;hideAll();document.getElementById('s_cat').style.display='block';}
-function setCat(c){selCat=c;hideAll();document.getElementById('s_timer').style.display='block';}
-function setTimer(s,el){timerSec=s;var all=document.querySelectorAll('#s_timer .sel');for(var i=0;i<all.length;i++){if(all[i].id&&all[i].id.indexOf('tt')===0)all[i].classList.remove('active');}el.classList.add('active');}
-function setNum(n,el){selNum=n;var all=document.querySelectorAll('#numGroup .sel');for(var i=0;i<all.length;i++)all[i].classList.remove('active');el.classList.add('active');document.getElementById('startBtn').style.display='block';}
-function startQuiz(){if(selNum===0) selNum=10;var pool=[];var src=DB[selClass][selCat];for(var i=0;i<src.length;i++) pool.push(src[i]);pool=shuffleArray(pool);curQs=[];for(var j=0;j<selNum;j++) curQs.push(pool[j]);cur=0;correct=0;hideAll();document.getElementById('s_quiz').style.display='block';loadQ();}
-function loadQ(){answered=false;timeLeft=timerSec;document.getElementById('time').innerText=timeLeft;document.getElementById('qCount').innerText=(cur+1)+'/'+curQs.length;var q=curQs[cur];document.getElementById('qText').innerText=(lang==='ur')?q.q_ur:q.q_en;var div=document.getElementById('opts');div.innerHTML='';var opts=(lang==='ur')?q.o_ur:q.o_en;for(var i=0;i<opts.length;i++){div.innerHTML+='<div class="opt" onclick="checkAns('+i+')">'+opts[i]+'</div>';}document.getElementById('nextBtn').style.display='none';clearInterval(timer);timer=setInterval(function(){timeLeft--;document.getElementById('time').innerText=timeLeft;if(timeLeft<=0){clearInterval(timer);checkAns(-1);}},1000);}
-function checkAns(i){if(answered)return;answered=true;clearInterval(timer);var all=document.querySelectorAll('.opt');for(var k=0;k<all.length;k++){if(k===curQs[cur].a)all[k].classList.add('correct');if(k===i&&k!==curQs[cur].a)all[k].classList.add('wrong');}if(i===curQs[cur].a)correct++;document.getElementById('nextBtn').style.display='block';}
-function nextQ(){cur++;if(cur>=curQs.length)showRes();else loadQ();}
+function goHome(){var n=document.getElementById('userName').value.trim();if(n)userName=n;if(!userName){hideAll();document.getElementById('s_login').style.display='block';return;}playClick();hideAll();document.getElementById('s_home').style.display='block';}
+function setClass(c){selClass=c;playClick();hideAll();document.getElementById('s_cat').style.display='block';}
+function setCat(c){selCat=c;playClick();hideAll();document.getElementById('s_timer').style.display='block';}
+function setTimer(s,el){timerSec=s;var all=document.querySelectorAll('#s_timer .sel');for(var i=0;i<all.length;i++){if(all[i].id&&all[i].id.indexOf('tt')===0)all[i].classList.remove('active');}el.classList.add('active');playClick();}
+function setNum(n,el){selNum=n;var all=document.querySelectorAll('#numGroup .sel');for(var i=0;i<all.length;i++)all[i].classList.remove('active');el.classList.add('active');document.getElementById('startBtn').style.display='block';playClick();}
+function startQuiz(){if(selNum===0) selNum=10;var pool=[];var src=DB[selClass][selCat];for(var i=0;i<src.length;i++) pool.push(src[i]);pool=shuffleArray(pool);curQs=[];for(var j=0;j<selNum;j++) curQs.push(pool[j]);cur=0;correct=0;hideAll();document.getElementById('s_quiz').style.display='block';loadQ();playClick();}
+function loadQ(){answered=false;timeLeft=timerSec;document.getElementById('time').innerText=timeLeft;document.getElementById('qCount').innerText=(cur+1)+'/'+curQs.length;var q=curQs[cur];document.getElementById('qText').innerText=(lang==='ur')?q.q_ur:q.q_en;var div=document.getElementById('opts');div.innerHTML='';var opts=(lang==='ur')?q.o_ur:q.o_en;for(var i=0;i<opts.length;i++){div.innerHTML+='<div class="opt" onclick="checkAns('+i+')">'+opts[i]+'</div>';}document.getElementById('nextBtn').style.display='none';clearInterval(timer);timer=setInterval(function(){timeLeft--;document.getElementById('time').innerText=timeLeft;if(timeLeft<=10&&timeLeft>0) playTick();if(timeLeft<=0){clearInterval(timer);checkAns(-1);}},1000);}
+function checkAns(i){if(answered)return;answered=true;clearInterval(timer);var all=document.querySelectorAll('.opt');for(var k=0;k<all.length;k++){if(k===curQs[cur].a)all[k].classList.add('correct');if(k===i&&k!==curQs[cur].a)all[k].classList.add('wrong');}if(i===curQs[cur].a){correct++;playCorrect();} else {playWrong();}document.getElementById('nextBtn').style.display='block';}
+function nextQ(){cur++;playClick();if(cur>=curQs.length)showRes();else loadQ();}
 function setResultMsg(p){var d=T[lang];var el=document.getElementById('rMsg');if(p>=100)el.innerText=d.msg100;else if(p>=70)el.innerText=d.msg70;else if(p>=50)el.innerText=d.msg50;else el.innerText=d.msg0;}
-function showRes(){hideAll();document.getElementById('s_result').style.display='block';var earned=correct*10;coins+=earned;localStorage.setItem('coins',coins);updateTop();document.getElementById('rName').innerText=userName;document.getElementById('rTotal').innerText=curQs.length;document.getElementById('rCorrect').innerText=correct;document.getElementById('rCoins').innerText='+'+earned;var perc=Math.round(correct/curQs.length*100);document.getElementById('rPerc').innerText=perc+'%';setResultMsg(perc);makeCert();if(perc>=60)launchFlowers();}
+function showRes(){hideAll();document.getElementById('s_result').style.display='block';var earned=correct*10;coins+=earned;localStorage.setItem('coins',coins);updateTop();document.getElementById('rName').innerText=userName;document.getElementById('rTotal').innerText=curQs.length;document.getElementById('rCorrect').innerText=correct;document.getElementById('rCoins').innerText='+'+earned;var perc=Math.round(correct/curQs.length*100);document.getElementById('rPerc').innerText=perc+'%';setResultMsg(perc);makeCert();if(perc>=60)launchFlowers();if(perc>=80) playCorrect();}
 function launchFlowers(){for(var i=0;i<40;i++){(function(idx){setTimeout(function(){var f=document.createElement('div');f.className='flower';f.innerText=['🌸','🌺','🌼','✨','🎉','💐'][Math.floor(Math.random()*6)];f.style.left=Math.random()*100+'vw';f.style.animationDuration=(2+Math.random()*3)+'s';document.body.appendChild(f);setTimeout(function(){f.remove();},4000);},idx*80);})(i);}}
-function makeCert(){
-var c=document.getElementById('certCanvas');var ctx=c.getContext('2d');var perc=document.getElementById('rPerc').innerText;var w=1200,h=850;
-var grad=ctx.createLinearGradient(0,0,w,h);grad.addColorStop(0,'#FFFBEB');grad.addColorStop(0.5,'#FEF3C7');grad.addColorStop(1,'#FDE68A');ctx.fillStyle=grad;ctx.fillRect(0,0,w,h);
-ctx.fillStyle='#ffffff';ctx.beginPath();ctx.roundRect(30,30,w-60,h-60,28);ctx.fill();
-ctx.strokeStyle='#D97706';ctx.lineWidth=3;ctx.stroke();
-ctx.strokeStyle='#F59E0B';ctx.lineWidth=1.5;ctx.beginPath();ctx.roundRect(48,48,w-96,h-96,20);ctx.stroke();
-ctx.fillStyle='#F59E0B';ctx.font='28px sans-serif';ctx.textAlign='left';ctx.fillText('✦',60,80);ctx.textAlign='right';ctx.fillText('✦',w-60,80);ctx.textAlign='left';ctx.fillText('✦',60,h-60);ctx.textAlign='right';ctx.fillText('✦',w-60,h-60);
-ctx.textAlign='center';ctx.fillStyle='#1e293b';ctx.font='900 22px sans-serif';ctx.fillText('MADE BY ZOHAIB',w/2,95);
-ctx.fillStyle='#1e293b';ctx.font='900 54px sans-serif';ctx.fillText('CERTIFICATE',w/2,170);ctx.fillStyle='#B45309';ctx.font='700 20px sans-serif';ctx.fillText('OF EXCELLENCE',w/2,205);
-ctx.strokeStyle='#FDE68A';ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(w/2-120,225);ctx.lineTo(w/2+120,225);ctx.stroke();
-ctx.fillStyle='#1e293b';ctx.font='800 36px sans-serif';ctx.fillText(userName,w/2,290);
-ctx.fillStyle='#059669';ctx.font='900 64px sans-serif';ctx.fillText(perc,w/2,380);
-var d=T[lang];var msg='';var pNum=parseInt(perc);if(pNum>=100) msg=d.msg100; else if(pNum>=70) msg=d.msg70; else if(pNum>=50) msg=d.msg50; else msg=d.msg0;
-ctx.fillStyle='#6B7280';ctx.font='600 22px sans-serif';ctx.fillText(msg,w/2,430);
-ctx.fillStyle='#FFFBEB';ctx.beginPath();ctx.roundRect(w/2-250,460,500,90,16);ctx.fill();
-ctx.fillStyle='#1e293b';ctx.font='700 18px sans-serif';ctx.fillText('Z-QUIZ • '+curQs.length+' Questions • '+new Date().toLocaleDateString(),w/2,495);
-ctx.fillStyle='#D97706';ctx.font='800 14px sans-serif';ctx.fillText('MADE BY ZOHAIB • V24 AESTHETIC • SHUFFLED',w/2,525);
-ctx.beginPath();ctx.arc(w-180, h-180, 62, 0, Math.PI*2);ctx.fillStyle='#FEF3C7';ctx.fill();ctx.strokeStyle='#D97706';ctx.lineWidth=2;ctx.stroke();
-ctx.fillStyle='#B45309';ctx.font='900 32px sans-serif';ctx.fillText('★',w-180,h-170);ctx.font='800 12px sans-serif';ctx.fillText('Z-QUIZ',w-180,h-145);
-ctx.fillStyle='#9CA3AF';ctx.font='600 12px sans-serif';ctx.fillText('https://zabi32300.github.io/Z-QUIZ-/',w/2,h-55);
-}
+function makeCert(){var c=document.getElementById('certCanvas');var ctx=c.getContext('2d');var perc=document.getElementById('rPerc').innerText;var w=1200,h=850;var isDarkBody=document.body.classList.contains('dark-mode');var grad=ctx.createLinearGradient(0,0,w,h);if(isDarkBody){grad.addColorStop(0,'#1e293b');grad.addColorStop(1,'#0f172a');}else{grad.addColorStop(0,'#FFFBEB');grad.addColorStop(0.5,'#FEF3C7');grad.addColorStop(1,'#FDE68A');}ctx.fillStyle=grad;ctx.fillRect(0,0,w,h);ctx.fillStyle=isDarkBody?'#1e293b':'#ffffff';ctx.beginPath();ctx.roundRect(30,30,w-60,h-60,28);ctx.fill();ctx.strokeStyle='#D97706';ctx.lineWidth=3;ctx.stroke();ctx.strokeStyle='#F59E0B';ctx.lineWidth=1.5;ctx.beginPath();ctx.roundRect(48,48,w-96,h-96,20);ctx.stroke();ctx.fillStyle='#F59E0B';ctx.font='28px sans-serif';ctx.textAlign='left';ctx.fillText('✦',60,80);ctx.textAlign='right';ctx.fillText('✦',w-60,80);ctx.textAlign='left';ctx.fillText('✦',60,h-60);ctx.textAlign='right';ctx.fillText('✦',w-60,h-60);ctx.textAlign='center';ctx.fillStyle=isDarkBody?'#f8fafc':'#1e293b';ctx.font='900 22px sans-serif';ctx.fillText('MADE BY ZOHAIB - V25 LOOK & FEEL',w/2,95);ctx.fillStyle=isDarkBody?'#f8fafc':'#1e293b';ctx.font='900 54px sans-serif';ctx.fillText('CERTIFICATE',w/2,170);ctx.fillStyle='#B45309';ctx.font='700 20px sans-serif';ctx.fillText('OF EXCELLENCE',w/2,205);ctx.strokeStyle='#FDE68A';ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(w/2-120,225);ctx.lineTo(w/2+120,225);ctx.stroke();ctx.fillStyle=isDarkBody?'#f1f5f9':'#1e293b';ctx.font='800 36px sans-serif';ctx.fillText(userName,w/2,290);ctx.fillStyle='#059669';ctx.font='900 64px sans-serif';ctx.fillText(perc,w/2,380);var d=T[lang];var msg='';var pNum=parseInt(perc);if(pNum>=100) msg=d.msg100; else if(pNum>=70) msg=d.msg70; else if(pNum>=50) msg=d.msg50; else msg=d.msg0;ctx.fillStyle='#6B7280';ctx.font='600 22px sans-serif';ctx.fillText(msg,w/2,430);ctx.fillStyle=isDarkBody?'#334155':'#FFFBEB';ctx.beginPath();ctx.roundRect(w/2-250,460,500,90,16);ctx.fill();ctx.fillStyle=isDarkBody?'#f1f5f9':'#1e293b';ctx.font='700 18px sans-serif';ctx.fillText('Z-QUIZ • '+curQs.length+' Questions • '+new Date().toLocaleDateString(),w/2,495);ctx.fillStyle='#D97706';ctx.font='800 14px sans-serif';ctx.fillText('MADE BY ZOHAIB • V25 LOOK & FEEL • SHUFFLED',w/2,525);ctx.beginPath();ctx.arc(w-180, h-180, 62, 0, Math.PI*2);ctx.fillStyle=isDarkBody?'#334155':'#FEF3C7';ctx.fill();ctx.strokeStyle='#D97706';ctx.lineWidth=2;ctx.stroke();ctx.fillStyle='#B45309';ctx.font='900 32px sans-serif';ctx.fillText('★',w-180,h-170);ctx.font='800 12px sans-serif';ctx.fillText('Z-QUIZ',w-180,h-145);ctx.fillStyle='#9CA3AF';ctx.font='600 12px sans-serif';ctx.fillText('https://zabi32300.github.io/Z-QUIZ-/',w/2,h-55);}
 function downloadCert(){var cv=document.getElementById('certCanvas');var a=document.createElement('a');a.download='Z-QUIZ-'+userName+'-Certificate.png';a.href=cv.toDataURL();a.click();}
 function shareWA(){var p=document.getElementById('rPerc').innerText;var t='*Z-QUIZ Certificate*%0A'+userName+' - '+p+'%0AMade by ZOHAIB%0Ahttps://zabi32300.github.io/Z-QUIZ-/';window.open('https://wa.me/?text='+t,'_blank');}
 updateTop();applyLang();
