@@ -4,90 +4,266 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Z-QUIZ FINAL - Made by Zohaib</title>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&family=Noto+Nastaliq+Urdu:wght@500;700&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#FFFBEB;--card:#fff;--text:#1e293b;--border:#FDE68A;--primary:#1e293b;--skin:#FEF3C7}
-*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins','Noto Nastaliq Urdu',sans-serif}
+:root{--bg:#FFFBEB;--card:#ffffff;--text:#1e293b;--border:#FDE68A;--primary:#1e293b}
+*{margin:0;padding:0;box-sizing:border-box;font-family:system-ui,sans-serif}
 body{background:var(--bg);color:var(--text)}
-#splash{position:fixed;inset:0;background:linear-gradient(135deg,#FFFBEB,#FDE68A);display:flex;flex-direction:column;justify-content:center;align-items:center;z-index:9999;transition:.7s}
-#splash.hide{transform:translateY(-100%)}
-#app{max-width:460px;margin:0 auto;padding:14px;min-height:100vh;display:flex;flex-direction:column}
+#splash{position:fixed;inset:0;background:#FFFBEB;display:flex;flex-direction:column;justify-content:center;align-items:center;z-index:99999;transition:0.6s}
+#splash.hide{transform:translateY(-100%);opacity:0;pointer-events:none}
+#app{max-width:460px;margin:0 auto;padding:14px}
 .top{display:flex;justify-content:space-between;align-items:center;background:var(--card);padding:10px 14px;border-radius:14px;box-shadow:0 4px 15px rgba(0,0,0,.06);margin-bottom:12px}
-.coin{background:var(--skin);padding:5px 10px;border-radius:20px;font-weight:800;font-size:12px}
-.card{background:var(--card);padding:16px;border-radius:16px;margin-bottom:10px;cursor:pointer;box-shadow:0 4px 15px rgba(0,0,0,.06);text-align:center;font-weight:700;border:2px solid transparent}
-.card.dark{background:var(--primary);color:white}
-.selBox{border:2px solid var(--border);padding:10px;border-radius:12px;text-align:center;cursor:pointer;background:var(--card);font-weight:700}
-.selBox.active{background:var(--primary);color:white}
-.q-card{background:var(--card);border-radius:18px;padding:18px;box-shadow:0 8px 25px rgba(0,0,0,.07)}
+.card{background:var(--card);padding:16px;border-radius:16px;margin-bottom:10px;cursor:pointer;box-shadow:0 4px 15px rgba(0,0,0,.06);text-align:center;font-weight:700}
+.card.dark{background:var(--primary);color:#fff}
+.btn{width:100%;padding:13px;background:var(--primary);color:white;border:none;border-radius:12px;font-weight:800;margin-top:10px;cursor:pointer}
 .opt{background:var(--bg);border:2px solid var(--border);padding:12px;border-radius:12px;margin-bottom:8px;cursor:pointer}
-.opt.correct{background:#10b981;color:white}.opt.wrong{background:#ef4444;color:white}
-.btn{width:100%;padding:13px;background:var(--primary);color:white;border:none;border-radius:12px;font-weight:800;cursor:pointer;margin-top:10px}
-input{width:100%;padding:12px;border-radius:10px;border:2px solid var(--border);outline:none;background:var(--card);color:var(--text)}
+.opt.correct{background:#10b981;color:#fff}
+.opt.wrong{background:#ef4444;color:#fff}
+.q-card{background:var(--card);border-radius:18px;padding:18px;box-shadow:0 8px 25px rgba(0,0,0,.07)}
+input{width:100%;padding:12px;border-radius:10px;border:2px solid var(--border);outline:none}
+.sel{border:2px solid var(--border);padding:10px;border-radius:12px;text-align:center;cursor:pointer;background:var(--card);font-weight:700}
+.sel.active{background:var(--primary);color:#fff}
 </style>
 </head>
 <body>
-<div id="splash">
-<div style="font-size:60px;background:white;width:100px;height:100px;border-radius:50%;display:flex;justify-content:center;align-items:center;box-shadow:0 10px 20px rgba(0,0,0,.1)">🧠</div>
-<div style="margin-top:15px;font-weight:800;font-size:22px">WELCOME TO Z-QUIZ</div>
-<div style="margin-top:8px;background:#1e293b;color:#FDE68A;padding:6px 18px;border-radius:20px;font-size:11px;letter-spacing:2px;font-weight:700">MADE BY ZOHAIB</div>
+
+<div id="splash" onclick="hideSplash()">
+  <div style="font-size:60px;background:white;width:100px;height:100px;border-radius:50%;display:flex;justify-content:center;align-items:center">🧠</div>
+  <div style="margin-top:15px;font-weight:800;font-size:22px">WELCOME TO Z-QUIZ</div>
+  <div style="margin-top:8px;background:#1e293b;color:#FDE68A;padding:6px 18px;border-radius:20px;font-size:11px">MADE BY ZOHAIB</div>
+  <div style="margin-top:18px;font-size:11px;color:#888">Tap to continue</div>
 </div>
 
 <div id="app">
-<div class="top"><b>Z-QUIZ</b><div style="display:flex;gap:6px;align-items:center"><span class="coin" id="coinD">🪙 0</span><span id="badgeD" style="background:#e2e8f0;padding:5px 10px;border-radius:20px;font-size:11px;font-weight:800">Newbie</span><button onclick="toggleLang()" id="langBtn" style="border:none;background:var(--primary);color:white;padding:6px 10px;border-radius:20px;font-size:11px">English</button></div></div>
+  <div class="top">
+    <b>Z-QUIZ FINAL</b>
+    <div style="display:flex;gap:6px;align-items:center">
+      <span id="coinD" style="background:#FEF3C7;padding:5px 10px;border-radius:20px;font-size:12px;font-weight:800">🪙 0</span>
+      <span id="badgeD" style="background:#e2e8f0;padding:5px 10px;border-radius:20px;font-size:11px;font-weight:800">Newbie</span>
+      <button onclick="toggleLang()" id="langBtn" style="border:none;background:#1e293b;color:white;padding:6px 10px;border-radius:20px;font-size:11px">English</button>
+    </div>
+  </div>
 
-<div id="s_login"><h2 style="text-align:center" id="t_name">اپنا نام لکھیں</h2><input id="userName" placeholder="Zohaib Ahmed" style="margin-top:10px"><button onclick="goHome()" class="btn" id="t_cont">آگے بڑھیں →</button><div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px"><div class="card" style="background:#FEF3C7" onclick="openDaily()">🔥 <span id="t_daily">روزانہ</span><br><small id="streakT">0 Day</small></div><div class="card" style="background:#DBEAFE" onclick="openDash()">📊 <span id="t_dash">گراف</span></div></div></div>
+  <div id="s_login">
+    <h2 style="text-align:center" id="t_name">اپنا نام لکھیں</h2>
+    <input id="userName" placeholder="Zohaib Ahmed" style="margin-top:10px">
+    <button onclick="goHome()" class="btn" id="t_cont">آگے بڑھیں →</button>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px">
+      <div class="card" style="background:#FEF3C7" onclick="openDaily()">🔥 <span id="t_daily">روزانہ</span><br><small id="streakT">0 Day</small></div>
+      <div class="card" style="background:#DBEAFE" onclick="openDash()">📊 <span id="t_dash">گراف</span></div>
+    </div>
+  </div>
 
-<div id="s_home" style="display:none"><h2 style="text-align:center" id="t_class">کلاس منتخب کریں</h2><div style="margin-top:12px"><div class="card" onclick="setClass('junior')" id="t_junior">🧒 کلاس 1-5</div><div class="card dark" onclick="setClass('senior')" id="t_senior">🎓 کلاس 6-10</div></div></div>
-<div id="s_cat" style="display:none"><h2 style="text-align:center" id="t_topic">موضوع</h2><div style="margin-top:12px"><div class="card" onclick="setCat('islamic')" id="t_islamic">🕌 اسلامی</div><div class="card" onclick="setCat('math')" id="t_math">🔢 ریاضی</div><div class="card" onclick="setCat('english')" id="t_english">🔤 انگلش</div><div class="card" onclick="setCat('gk')" id="t_gk">🌍 جنرل نالج</div><div class="card dark" onclick="setCat('mix')" id="t_mix">✨ مکس</div></div></div>
-<div id="s_timer" style="display:none"><h2 style="text-align:center" id="t_timer">ٹائمر</h2><div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:12px"><div class="selBox active" onclick="setTimer(20,this)" id="tt1">آسان<br>20s</div><div class="selBox" onclick="setTimer(15,this)" id="tt2">میڈیم<br>15s</div><div class="selBox" onclick="setTimer(10,this)" id="tt3">مشکل<br>10s</div></div><h2 style="text-align:center;margin-top:12px" id="t_qnum">کتنے سوال؟</h2><div style="display:flex;gap:8px;justify-content:center;margin-top:8px"><button class="selBox" onclick="setNum(5)">5</button><button class="selBox" onclick="setNum(10)">10</button><button class="selBox" onclick="setNum(20)">20</button></div><button id="startBtn" onclick="startQuiz()" style="display:none" class="btn" id="t_start">شروع کریں →</button></div>
+  <div id="s_home" style="display:none"><h2 style="text-align:center" id="t_class">کلاس منتخب کریں</h2><div style="margin-top:12px"><div class="card" onclick="setClass('junior')" id="t_junior">🧒 کلاس 1-5</div><div class="card dark" onclick="setClass('senior')" id="t_senior">🎓 کلاس 6-10</div></div></div>
+  <div id="s_cat" style="display:none"><h2 style="text-align:center" id="t_topic">موضوع</h2><div style="margin-top:12px"><div class="card" onclick="setCat('islamic')" id="t_islamic">🕌 اسلامی</div><div class="card" onclick="setCat('math')" id="t_math">🔢 ریاضی</div><div class="card" onclick="setCat('english')" id="t_english">🔤 انگلش</div><div class="card" onclick="setCat('gk')" id="t_gk">🌍 جنرل نالج</div><div class="card dark" onclick="setCat('mix')" id="t_mix">✨ مکس</div></div></div>
 
-<div id="s_daily" style="display:none"><h2 style="text-align:center">🔥 Daily</h2><div class="card" style="margin-top:10px"><div id="dailyStatus"></div><div id="dailyBig" style="font-size:28px;font-weight:800">🔥 0</div></div><button onclick="startDaily()" class="btn">Challenge کھیلیں</button><button onclick="goHome()" class="btn" style="background:#e2e8f0;color:#000">واپس</button></div>
-<div id="s_dash" style="display:none"><h2 style="text-align:center">📊 Parent Dashboard</h2><div style="background:var(--card);border-radius:14px;padding:12px;margin-top:10px"><canvas id="myChart" height="200"></canvas></div><div id="dashDetail" style="background:var(--card);padding:10px;border-radius:12px;margin-top:8px;font-size:13px"></div><button onclick="goHome()" class="btn" style="background:#e2e8f0;color:#000">واپس</button></div>
-<div id="s_quiz" style="display:none"><div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:8px"><span id="qCount">1/5</span><span>⏱ <b id="time">20</b>s | 🪙 +10</span></div><div class="q-card"><div id="qText" style="font-weight:700;margin-bottom:10px;font-size:17px"></div><div id="opts"></div><button id="nextBtn" onclick="nextQ()" style="display:none" class="btn" id="t_next">اگلا →</button></div></div>
+  <div id="s_timer" style="display:none">
+    <h2 style="text-align:center" id="t_timer">ٹائمر</h2>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:12px">
+      <div class="sel active" onclick="setTimer(20,this)" id="tt1">آسان<br>20s</div>
+      <div class="sel" onclick="setTimer(15,this)" id="tt2">میڈیم<br>15s</div>
+      <div class="sel" onclick="setTimer(10,this)" id="tt3">مشکل<br>10s</div>
+    </div>
+    <h2 style="text-align:center;margin-top:12px" id="t_qnum">کتنے سوال؟</h2>
+    <div style="display:flex;gap:8px;justify-content:center;margin-top:8px">
+      <button class="sel" onclick="setNum(5)">5</button><button class="sel" onclick="setNum(10)">10</button><button class="sel" onclick="setNum(20)">20</button>
+    </div>
+    <button id="startBtn" onclick="startQuiz()" style="display:none" class="btn" id="t_start">شروع کریں →</button>
+  </div>
 
-<div id="s_result" style="display:none;text-align:center"><h2 id="t_result">رزلٹ</h2><div style="background:var(--card);border-radius:14px;padding:14px;margin-top:10px;text-align:left"><p><span id="t_rname">نام</span>: <b id="rName"></b></p><p>Score: <b id="rPerc"></b> | <b id="rCorrect"></b>/<b id="rTotal"></b></p><p>🪙 Coins: <b id="rCoins"></b> | <span id="rBadge"></span></p><p id="rMsg" style="text-align:center;font-weight:700;margin-top:6px"></p></div><canvas id="certCanvas" width="1200" height="800" style="width:100%;margin-top:12px;border-radius:12px;box-shadow:0 8px 20px rgba(0,0,0,.2)"></canvas><button onclick="downloadPDF()" class="btn" style="background:#10b981">📜 PDF ڈاؤن لوڈ کریں</button><button onclick="shareWA()" class="btn" style="background:#25D366">🟢 واٹس ایپ پر شیئر کریں</button><button onclick="goHome()" class="btn">دوبارہ کھیلیں</button></div>
+  <div id="s_quiz" style="display:none"><div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:8px"><span id="qCount">1/5</span><span>⏱ <b id="time">20</b>s</span></div><div class="q-card"><div id="qText" style="font-weight:700;margin-bottom:10px"></div><div id="opts"></div><button id="nextBtn" onclick="nextQ()" style="display:none" class="btn" id="t_next">اگلا →</button></div></div>
+  <div id="s_daily" style="display:none"><h2 style="text-align:center">🔥 Daily</h2><div class="card"><div id="dailyStatus"></div><div id="dailyBig" style="font-size:28px;font-weight:800">🔥 0</div></div><button onclick="startDaily()" class="btn">Challenge کھیلیں</button><button onclick="goHome()" class="btn" style="background:#e2e8f0;color:#000">واپس</button></div>
+  <div id="s_dash" style="display:none"><h2 style="text-align:center">📊 Dashboard</h2><div style="background:white;border-radius:14px;padding:12px;margin-top:10px"><canvas id="myChart" height="200"></canvas></div><div id="dashDetail" style="background:white;padding:10px;border-radius:12px;margin-top:8px;font-size:13px"></div><button onclick="goHome()" class="btn" style="background:#e2e8f0;color:#000">واپس</button></div>
 
-<div style="text-align:center;margin-top:12px;color:#94a3b8;font-size:10px">MADE BY ZOHAIB - FINAL V12</div>
+  <div id="s_result" style="display:none;text-align:center">
+    <h2 id="t_result">رزلٹ</h2>
+    <div style="background:white;border-radius:14px;padding:14px;margin-top:10px;text-align:left">
+      <p><span id="t_rname">نام</span>: <b id="rName"></b></p>
+      <p>Score: <b id="rPerc"></b> | <b id="rCorrect"></b>/<b id="rTotal"></b></p>
+      <p>🪙 Coins: <b id="rCoins"></b> | <span id="rBadge"></span></p>
+      <p id="rMsg" style="text-align:center;font-weight:700;margin-top:6px"></p>
+    </div>
+    <canvas id="certCanvas" width="1200" height="800" style="width:100%;margin-top:12px;border-radius:12px"></canvas>
+    <button onclick="downloadPDF()" class="btn" style="background:#10b981">📜 PDF ڈاؤن لوڈ کریں</button>
+    <button onclick="shareWA()" class="btn" style="background:#25D366">🟢 واٹس ایپ شیئر</button>
+    <button onclick="goHome()" class="btn">دوبارہ کھیلیں</button>
+  </div>
+
+  <div style="text-align:center;margin-top:12px;color:#94a3b8;font-size:10px">MADE BY ZOHAIB - FINAL FIXED</div>
 </div>
 
 <script>
-let lang='ur', selClass='', selCat='', selNum=5, timerSec=20, curQs=[], cur=0, correct=0, timer, timeLeft, answered=false, userName='', isDaily=false;
-let coins=parseInt(localStorage.getItem('coins')||'0'), history=JSON.parse(localStorage.getItem('history')||'[]'), streak=parseInt(localStorage.getItem('streak')||'0'), lastDaily=localStorage.getItem('lastDaily')||'';
-const T={
-ur:{name:"اپنا نام لکھیں",cont:"آگے بڑھیں →",class:"کلاس منتخب کریں",junior:"🧒 کلاس 1 سے 5 - آسان",senior:"🎓 کلاس 6 سے 10 - مشکل",topic:"موضوع منتخب کریں",islamic:"🕌 اسلامی",math:"🔢 ریاضی",english:"🔤 انگلش",gk:"🌍 جنرل نالج",mix:"✨ مکس سب کچھ",timer:"ٹائمر منتخب کریں",qnum:"کتنے سوال؟",start:"شروع کریں →",next:"اگلا →",result:"رزلٹ",rname:"نام",daily:"روزانہ چیلنج",dash:"والدین ڈیش بورڈ",done:"آج کا چیلنج ہو گیا",remain:"آج کا چیلنج باقی ہے",easy:"آسان",med:"میڈیم",hard:"مشکل"},
-en:{name:"Enter Your Name",cont:"Continue →",class:"Select Class",junior:"🧒 Class 1-5 Easy",senior:"🎓 Class 6-10 Hard",topic:"Select Topic",islamic:"🕌 Islamic",math:"🔢 Math",english:"🔤 English",gk:"🌍 GK",mix:"✨ Mix All",timer:"Select Timer",qnum:"How many Qs?",start:"Start Quiz →",next:"Next →",result:"Result",rname:"Name",daily:"Daily Challenge",dash:"Parent Dashboard",done:"Done for today",remain:"Challenge remaining",easy:"Easy",med:"Medium",hard:"Hard"}
-};
-let DB={
-junior:{islamic:[{q_ur:"اللہ کتنے ہیں؟",q_en:"How many Allah?",o_ur:["ایک","دو"],o_en:["One","Two"],a:0},{q_ur:"کعبہ کہاں ہے؟",q_en:"Where is Kaaba?",o_ur:["مکہ","مدینہ"],o_en:["Makkah","Madina"],a:0},{q_ur:"ہمارے نبی کون ہیں؟",q_en:"Who is our Prophet?",o_ur:["محمد ﷺ","عیسیٰ"],o_en:["Muhammad ﷺ","Isa"],a:0}],math:[{q_ur:"2+2=؟",q_en:"2+2=?",o_ur:["3","4"],o_en:["3","4"],a:1},{q_ur:"5 بڑا یا 3؟",q_en:"Bigger 5 or 3?",o_ur:["5","3"],o_en:["5","3"],a:0}],english:[{q_ur:"A کس کے لیے؟",q_en:"A for?",o_ur:["سیب","گیند"],o_en:["Apple","Ball"],a:0},{q_ur:"بلی کو کیا کہتے ہیں؟",q_en:"Cat means?",o_ur:["بلی","کتا"],o_en:["Cat","Dog"],a:0}],gk:[{q_ur:"ہم کہاں رہتے ہیں؟",q_en:"We live in?",o_ur:["پاکستان","انڈیا"],o_en:["Pakistan","India"],a:0}]},
-senior:{islamic:[{q_ur:"غزوہ بدر کب ہوئی؟",q_en:"When was Battle of Badr?",o_ur:["2 ہجری","3 ہجری"],o_en:["2 Hijri","3 Hijri"],a:0},{q_ur:"سب سے بڑی سورۃ؟",q_en:"Largest Surah?",o_ur:["البقرہ","آل عمران"],o_en:["Baqarah","Imran"],a:0}],math:[{q_ur:"12x12=؟",q_en:"12x12=?",o_ur:["144","124"],o_en:["144","124"],a:0},{q_ur:"64 کا جزر؟",q_en:"Square root of 64?",o_ur:["8","6"],o_en:["8","6"],a:0}],english:[{q_ur:"Go کا ماضی؟",q_en:"Past of Go?",o_ur:["Went","Gone"],o_en:["Went","Gone"],a:0},{q_ur:"Big کا الٹ؟",q_en:"Opposite of Big?",o_ur:["چھوٹا","بڑا"],o_en:["Small","Big"],a:0}],gk:[{q_ur:"پاکستان کا دارالحکومت؟",q_en:"Capital of Pakistan?",o_ur:["اسلام آباد","لاہور"],o_en:["Islamabad","Lahore"],a:0}]}
-};
-DB.junior.mix=[...DB.junior.islamic,...DB.junior.math,...DB.junior.english,...DB.junior.gk];
-DB.senior.mix=[...DB.senior.islamic,...DB.senior.math,...DB.senior.english,...DB.senior.gk];
+function hideSplash(){
+  var s = document.getElementById('splash');
+  s.classList.add('hide');
+  setTimeout(function(){ s.style.display='none'; }, 600);
+}
+setTimeout(hideSplash, 2500);
 
-function applyLang(){let d=T[lang];document.getElementById('t_name').innerText=d.name;document.getElementById('t_cont').innerText=d.cont;document.getElementById('t_class').innerText=d.class;document.getElementById('t_junior').innerText=d.junior;document.getElementById('t_senior').innerText=d.senior;document.getElementById('t_topic').innerText=d.topic;document.getElementById('t_islamic').innerText=d.islamic;document.getElementById('t_math').innerText=d.math;document.getElementById('t_english').innerText=d.english;document.getElementById('t_gk').innerText=d.gk;document.getElementById('t_mix').innerText=d.mix;document.getElementById('t_timer').innerText=d.timer;document.getElementById('t_qnum').innerText=d.qnum;document.getElementById('t_start').innerText=d.start;document.getElementById('t_next').innerText=d.next;document.getElementById('t_result').innerText=d.result;document.getElementById('t_rname').innerText=d.rname;document.getElementById('t_daily').innerText=d.daily;document.getElementById('t_dash').innerText=d.dash;document.getElementById('tt1').innerHTML=d.easy+'<br>20s';document.getElementById('tt2').innerHTML=d.med+'<br>15s';document.getElementById('tt3').innerHTML=d.hard+'<br>10s';document.getElementById('langBtn').innerText=lang==='ur'?'English':'اردو';document.getElementById('dailyStatus').innerText=lastDaily===new Date().toDateString()?d.done:d.remain;if(curQs.length)loadQ();}
-function toggleLang(){lang=lang==='ur'?'en':'ur';applyLang();updateTop()}
-function updateTop(){document.getElementById('coinD').innerText='🪙 '+coins;let badge='Newbie',color='#e2e8f0';if(coins>=500){badge='👑 KING';color='#fde68a'}else if(coins>=300){badge='👸 QUEEN';color='#fbcfe8'}else if(coins>=100){badge='🔥 PRO';color='#bbf7d0'}document.getElementById('badgeD').innerText=badge;document.getElementById('badgeD').style.background=color;document.getElementById('streakT').innerText=streak+' Day';document.getElementById('dailyBig').innerText='🔥 '+streak}
-function hideAll(){['s_login','s_home','s_cat','s_timer','s_quiz','s_result','s_daily','s_dash'].forEach(id=>document.getElementById(id).style.display='none')}
-function goHome(){hideAll();let n=document.getElementById('userName').value.trim();if(n)userName=n;if(!userName){document.getElementById('s_login').style.display='block';return}document.getElementById('s_home').style.display='block'}
-function setClass(c){selClass=c;hideAll();document.getElementById('s_cat').style.display='block'}
-function setCat(c){selCat=c;hideAll();document.getElementById('s_timer').style.display='block'}
-function setTimer(s,el){timerSec=s;document.querySelectorAll('#s_timer .selBox').forEach((e,i)=>{if(i<3)e.classList.remove('active')});el.classList.add('active')}
-function setNum(n){selNum=n;document.getElementById('startBtn').style.display='block'}
-function openDaily(){hideAll();document.getElementById('s_daily').style.display='block';applyLang()}
-function startDaily(){isDaily=true;selClass='junior';selCat='mix';selNum=5;timerSec=15;startQuiz()}
-function openDash(){hideAll();document.getElementById('s_dash').style.display='block';drawGraph()}
-function drawGraph(){let ctx=document.getElementById('myChart').getContext('2d');let labels=history.map((h,i)=>`Day ${i+1}`);let scores=history.map(h=>Math.round(h.correct/h.total*100));if(labels.length==0){labels=['Day 1'];scores=[0]}if(window.myChart)window.myChart.destroy();window.myChart=new Chart(ctx,{type:'line',data:{labels:labels,[STRIPPED] %',data:scores,[STRIPPED] ${history.length} | Coins: ${coins} | Badge: ${document.getElementById('badgeD').innerText}`}
-function startQuiz(){let pool=[...DB[selClass][selCat]];pool.sort(()=>0.5-Math.random());curQs=pool.slice(0,Math.min(selNum,pool.length));cur=0;correct=0;hideAll();document.getElementById('s_quiz').style.display='block';loadQ()}
-function loadQ(){answered=false;timeLeft=timerSec;document.getElementById('time').innerText=timeLeft;document.getElementById('qCount').innerText=`${cur+1}/${curQs.length}`;let q=curQs[cur];document.getElementById('qText').innerText=lang==='ur'?q.q_ur:q.q_en;let div=document.getElementById('opts');div.innerHTML='';let opts=lang==='ur'?q.o_ur:q.o_en;opts.forEach((o,i)=>{div.innerHTML+=`<div class="opt" onclick="checkAns(${i})">${o}</div>`});document.getElementById('nextBtn').style.display='none';clearInterval(timer);timer=setInterval(()=>{timeLeft--;document.getElementById('time').innerText=timeLeft;if(timeLeft<=0){clearInterval(timer);checkAns(-1)}},1000)}
-function checkAns(i){if(answered)return;answered=true;clearInterval(timer);let els=document.querySelectorAll('.opt');els.forEach((e,idx)=>{if(idx==curQs[cur].a)e.classList.add('correct');if(idx==i&&idx!=curQs[cur].a)e.classList.add('wrong')});if(i==curQs[cur].a)correct++;document.getElementById('nextBtn').style.display='block'}
-function nextQ(){cur++;if(cur>=curQs.length){showRes()}else{loadQ()}}
-function showRes(){hideAll();document.getElementById('s_result').style.display='block';let earned=correct*10;if(isDaily)earned+=20;coins+=earned;localStorage.setItem('coins',coins);history.push({correct:correct,total:curQs.length});localStorage.setItem('history',JSON.stringify(history));if(isDaily){let today=new Date().toDateString();if(lastDaily!==today){streak++;localStorage.setItem('streak',streak);localStorage.setItem('lastDaily',today);lastDaily=today}isDaily=false}updateTop();document.getElementById('rName').innerText=userName||'Player';document.getElementById('rTotal').innerText=curQs.length;document.getElementById('rCorrect').innerText=correct;document.getElementById('rCoins').innerText='+'+earned;document.getElementById('rBadge').innerText=document.getElementById('badgeD').innerText;document.getElementById('rPerc').innerText=Math.round(correct/curQs.length*100)+'%';document.getElementById('rMsg').innerText=correct==curQs.length?'ماشاءاللہ 🌟':'بہت خوب 👏';makeCert()}
-function makeCert(){let c=document.getElementById('certCanvas');let ctx=c.getContext('2d');ctx.fillStyle='#FFFBEB';ctx.fillRect(0,0,1200,800);ctx.strokeStyle='#B45309';ctx.lineWidth=12;ctx.strokeRect(10,10,1180,780);ctx.strokeStyle='#F59E0B';ctx.lineWidth=3;ctx.strokeRect(30,30,1140,740);ctx.fillStyle='#1e293b';ctx.font='bold 50px Poppins';ctx.textAlign='center';ctx.fillText('CERTIFICATE OF EXCELLENCE',600,150);ctx.fillStyle='#d97706';ctx.font='26px Poppins';ctx.fillText('Z-QUIZ - MADE BY ZOHAIB',600,200);ctx.fillStyle='#1e293b';ctx.font='24px Poppins';ctx.fillText(`${T[lang].rname}: ${userName} | Score: ${correct}/${curQs.length} (${Math.round(correct/curQs.length*100)}%)`,600,280);ctx.fillText(`Badge: ${document.getElementById('badgeD').innerText} | Coins: ${coins} | Date: ${new Date().toLocaleDateString()}`,600,330);ctx.font='18px Poppins';ctx.fillText('You have shown excellent performance - ماشاءاللہ',600,400);ctx.fillStyle='#f59e0b';ctx.beginPath();ctx.arc(600,500,50,0,Math.PI*2);ctx.fill();ctx.fillStyle='white';ctx.font='bold 40px Poppins';ctx.fillText('★',600,513)}
-function downloadPDF(){const {jsPDF}=window.jspdf;let canvas=document.getElementById('certCanvas');let img=canvas.toDataURL('image/png');let pdf=new jsPDF('landscape','px',[1200,800]);pdf.addImage(img,'PNG',0,0,1200,800);pdf.save(`Z-QUIZ-${userName}.pdf`)}
-function shareWA(){let txt=`*Z-QUIZ FINAL RESULT*%0A👤 ${userName}%0A🏆 ${correct}/${curQs.length} (${Math.round(correct/curQs.length*100)}%)%0A🪙 Coins: ${coins} - ${document.getElementById('badgeD').innerText}%0A📜 Certificate PDF%0Ahttps://zabi32300.github.io/Z-QUIZ-/`;window.open(`https://wa.me/?text=${txt}`,'_blank')}
-window.onload=()=>{updateTop();applyLang();setTimeout(()=>{document.getElementById('splash').classList.add('hide')},2000)}
+let lang = 'ur';
+let selClass = '';
+let selCat = '';
+let selNum = 5;
+let timerSec = 20;
+let curQs = [];
+let cur = 0;
+let correct = 0;
+let timer;
+let timeLeft;
+let answered = false;
+let userName = '';
+let isDaily = false;
+let coins = parseInt(localStorage.getItem('coins') || '0');
+let history = JSON.parse(localStorage.getItem('history') || '[]');
+let streak = parseInt(localStorage.getItem('streak') || '0');
+let lastDaily = localStorage.getItem('lastDaily') || '';
+
+const T = {
+  ur: {name:"اپنا نام لکھیں",cont:"آگے بڑھیں →",class:"کلاس منتخب کریں",junior:"🧒 کلاس 1 سے 5 - آسان",senior:"🎓 کلاس 6 سے 10 - مشکل",topic:"موضوع منتخب کریں",islamic:"🕌 اسلامی",math:"🔢 ریاضی",english:"🔤 انگلش",gk:"🌍 جنرل نالج",mix:"✨ مکس سب کچھ",timer:"ٹائمر منتخب کریں",qnum:"کتنے سوال؟",start:"شروع کریں →",next:"اگلا →",result:"رزلٹ",rname:"نام",daily:"روزانہ چیلنج",dash:"والدین ڈیش بورڈ",done:"آج کا چیلنج ہو گیا",remain:"آج کا چیلنج باقی ہے",easy:"آسان",med:"میڈیم",hard:"مشکل"},
+  en: {name:"Enter Your Name",cont:"Continue →",class:"Select Class",junior:"🧒 Class 1-5 Easy",senior:"🎓 Class 6-10 Hard",topic:"Select Topic",islamic:"🕌 Islamic",math:"🔢 Math",english:"🔤 English",gk:"🌍 GK",mix:"✨ Mix All",timer:"Select Timer",qnum:"How many Qs?",start:"Start Quiz →",next:"Next →",result:"Result",rname:"Name",daily:"Daily Challenge",dash:"Parent Dashboard",done:"Done for today",remain:"Challenge remaining",easy:"Easy",med:"Medium",hard:"Hard"}
+};
+
+let DB = {
+  junior: {
+    islamic: [{q_ur:"اللہ کتنے ہیں؟",q_en:"How many Allah?",o_ur:["ایک","دو"],o_en:["One","Two"],a:0},{q_ur:"کعبہ کہاں ہے؟",q_en:"Where is Kaaba?",o_ur:["مکہ","مدینہ"],o_en:["Makkah","Madina"],a:0}],
+    math: [{q_ur:"2+2=؟",q_en:"2+2=?",o_ur:["3","4"],o_en:["3","4"],a:1}],
+    english: [{q_ur:"A کس کے لیے؟",q_en:"A for?",o_ur:["سیب","گیند"],o_en:["Apple","Ball"],a:0}],
+    gk: [{q_ur:"ہم کہاں رہتے ہیں؟",q_en:"We live in?",o_ur:["پاکستان","انڈیا"],o_en:["Pakistan","India"],a:0}]
+  },
+  senior: {
+    islamic: [{q_ur:"غزوہ بدر کب ہوئی؟",q_en:"When was Battle of Badr?",o_ur:["2 ہجری","3 ہجری"],o_en:["2 Hijri","3 Hijri"],a:0}],
+    math: [{q_ur:"12x12=؟",q_en:"12x12=?",o_ur:["144","124"],o_en:["144","124"],a:0}],
+    english: [{q_ur:"Go کا ماضی؟",q_en:"Past of Go?",o_ur:["Went","Gone"],o_en:["Went","Gone"],a:0}],
+    gk: [{q_ur:"پاکستان کا دارالحکومت؟",q_en:"Capital of Pakistan?",o_ur:["اسلام آباد","لاہور"],o_en:["Islamabad","Lahore"],a:0}]
+  }
+};
+DB.junior.mix = [...DB.junior.islamic, ...DB.junior.math, ...DB.junior.english, ...DB.junior.gk];
+DB.senior.mix = [...DB.senior.islamic, ...DB.senior.math, ...DB.senior.english, ...DB.senior.gk];
+
+function applyLang(){
+  let d = T[lang];
+  document.getElementById('t_name').innerText = d.name;
+  document.getElementById('t_cont').innerText = d.cont;
+  document.getElementById('t_class').innerText = d.class;
+  document.getElementById('t_junior').innerText = d.junior;
+  document.getElementById('t_senior').innerText = d.senior;
+  document.getElementById('t_topic').innerText = d.topic;
+  document.getElementById('t_islamic').innerText = d.islamic;
+  document.getElementById('t_math').innerText = d.math;
+  document.getElementById('t_english').innerText = d.english;
+  document.getElementById('t_gk').innerText = d.gk;
+  document.getElementById('t_mix').innerText = d.mix;
+  document.getElementById('t_timer').innerText = d.timer;
+  document.getElementById('t_qnum').innerText = d.qnum;
+  document.getElementById('t_start').innerText = d.start;
+  document.getElementById('t_next').innerText = d.next;
+  document.getElementById('t_result').innerText = d.result;
+  document.getElementById('t_rname').innerText = d.rname;
+  document.getElementById('t_daily').innerText = d.daily;
+  document.getElementById('t_dash').innerText = d.dash;
+  document.getElementById('tt1').innerHTML = d.easy + '<br>20s';
+  document.getElementById('tt2').innerHTML = d.med + '<br>15s';
+  document.getElementById('tt3').innerHTML = d.hard + '<br>10s';
+  document.getElementById('langBtn').innerText = lang === 'ur' ? 'English' : 'اردو';
+  document.getElementById('dailyStatus').innerText = lastDaily === new Date().toDateString() ? d.done : d.remain;
+}
+
+function toggleLang(){ lang = lang === 'ur' ? 'en' : 'ur'; applyLang(); updateTop(); if(curQs.length) loadQ(); }
+function updateTop(){
+  document.getElementById('coinD').innerText = '🪙 ' + coins;
+  let badge = 'Newbie'; let color = '#e2e8f0';
+  if(coins >= 500){ badge = '👑 KING'; color = '#fde68a'; }
+  else if(coins >= 300){ badge = '👸 QUEEN'; color = '#fbcfe8'; }
+  else if(coins >= 100){ badge = '🔥 PRO'; color = '#bbf7d0'; }
+  document.getElementById('badgeD').innerText = badge;
+  document.getElementById('badgeD').style.background = color;
+  document.getElementById('streakT').innerText = streak + ' Day';
+  document.getElementById('dailyBig').innerText = '🔥 ' + streak;
+}
+function hideAll(){ ['s_login','s_home','s_cat','s_timer','s_quiz','s_result','s_daily','s_dash'].forEach(id => document.getElementById(id).style.display='none'); }
+function goHome(){ hideAll(); let n = document.getElementById('userName').value.trim(); if(n) userName = n; if(!userName){ document.getElementById('s_login').style.display='block'; return; } document.getElementById('s_home').style.display='block'; }
+function setClass(c){ selClass = c; hideAll(); document.getElementById('s_cat').style.display='block'; }
+function setCat(c){ selCat = c; hideAll(); document.getElementById('s_timer').style.display='block'; }
+function setTimer(s, el){ timerSec = s; document.querySelectorAll('#s_timer .sel').forEach((e,i)=>{ if(i<3) e.classList.remove('active'); }); el.classList.add('active'); }
+function setNum(n){ selNum = n; document.getElementById('startBtn').style.display='block'; }
+function openDaily(){ hideAll(); document.getElementById('s_daily').style.display='block'; applyLang(); }
+function startDaily(){ isDaily = true; selClass = 'junior'; selCat = 'mix'; selNum = 5; timerSec = 15; startQuiz(); }
+function openDash(){ hideAll(); document.getElementById('s_dash').style.display='block'; drawGraph(); }
+function drawGraph(){
+  try{
+    var ctx = document.getElementById('myChart').getContext('2d');
+    var labels = history.map((h,i) => 'Day ' + (i+1));
+    var scores = history.map(h => Math.round(h.correct/h.total*100));
+    if(labels.length==0){ labels=['Day 1']; scores=[0]; }
+    if(window.myChart) window.myChart.destroy();
+    window.myChart = new Chart(ctx,{type:'line',data:{labels:labels,datasets:[{label:'Score %',data:scores,borderColor:'#10b981',backgroundColor:'#D1FAE5',tension:0.4}]}});
+    document.getElementById('dashDetail').innerHTML = 'Total Quiz: <b>' + history.length + '</b> | Coins: <b>' + coins + '</b> | Badge: <b>' + document.getElementById('badgeD').innerText + '</b>';
+  }catch(e){}
+}
+function startQuiz(){ var pool = [...DB[selClass][selCat]]; pool.sort(()=>0.5-Math.random()); curQs = pool.slice(0, Math.min(selNum, pool.length)); cur=0; correct=0; hideAll(); document.getElementById('s_quiz').style.display='block'; loadQ(); }
+function loadQ(){
+  answered=false; timeLeft=timerSec; document.getElementById('time').innerText=timeLeft;
+  document.getElementById('qCount').innerText=(cur+1)+'/'+curQs.length;
+  var q=curQs[cur]; document.getElementById('qText').innerText=lang==='ur'?q.q_ur:q.q_en;
+  var div=document.getElementById('opts'); div.innerHTML='';
+  var opts=lang==='ur'?q.o_ur:q.o_en;
+  opts.forEach((o,i)=>{ div.innerHTML+='<div class="opt" onclick="checkAns('+i+')">'+o+'</div>'; });
+  document.getElementById('nextBtn').style.display='none';
+  clearInterval(timer);
+  timer=setInterval(()=>{ timeLeft--; document.getElementById('time').innerText=timeLeft; if(timeLeft<=0){ clearInterval(timer); checkAns(-1); } },1000);
+}
+function checkAns(i){
+  if(answered) return; answered=true; clearInterval(timer);
+  var els=document.querySelectorAll('.opt');
+  els.forEach((e,idx)=>{ if(idx==curQs[cur].a) e.classList.add('correct'); if(idx==i && idx!=curQs[cur].a) e.classList.add('wrong'); });
+  if(i==curQs[cur].a) correct++;
+  document.getElementById('nextBtn').style.display='block';
+}
+function nextQ(){ cur++; if(cur>=curQs.length){ showRes(); } else { loadQ(); } }
+function showRes(){
+  hideAll(); document.getElementById('s_result').style.display='block';
+  var earned=correct*10; if(isDaily) earned+=20; coins+=earned;
+  localStorage.setItem('coins',coins); history.push({correct:correct,total:curQs.length}); localStorage.setItem('history',JSON.stringify(history));
+  if(isDaily){ var today=new Date().toDateString(); if(lastDaily!==today){ streak++; localStorage.setItem('streak',streak); localStorage.setItem('lastDaily',today); lastDaily=today; } isDaily=false; }
+  updateTop();
+  document.getElementById('rName').innerText=userName||'Player';
+  document.getElementById('rTotal').innerText=curQs.length;
+  document.getElementById('rCorrect').innerText=correct;
+  document.getElementById('rCoins').innerText='+'+earned;
+  document.getElementById('rBadge').innerText=document.getElementById('badgeD').innerText;
+  document.getElementById('rPerc').innerText=Math.round(correct/curQs.length*100)+'%';
+  document.getElementById('rMsg').innerText=correct==curQs.length?'ماشاءاللہ شاندار 🌟':'بہت خوب 👏';
+  makeCert();
+}
+function makeCert(){
+  var c=document.getElementById('certCanvas'); var ctx=c.getContext('2d');
+  ctx.fillStyle='#FFFBEB'; ctx.fillRect(0,0,1200,800);
+  ctx.strokeStyle='#B45309'; ctx.lineWidth=12; ctx.strokeRect(10,10,1180,780);
+  ctx.fillStyle='#1e293b'; ctx.font='bold 50px sans-serif'; ctx.textAlign='center';
+  ctx.fillText('CERTIFICATE OF EXCELLENCE',600,150);
+  ctx.fillStyle='#d97706'; ctx.font='26px sans-serif'; ctx.fillText('Z-QUIZ - MADE BY ZOHAIB',600,200);
+  ctx.fillStyle='#1e293b'; ctx.font='24px sans-serif';
+  ctx.fillText(T[lang].rname+': '+userName+' | Score: '+correct+'/'+curQs.length,600,280);
+  ctx.fillText('Badge: '+document.getElementById('badgeD').innerText+' | Coins: '+coins,600,330);
+}
+function downloadPDF(){
+  try{
+    var jsPDF = window.jspdf.jsPDF;
+    var canvas = document.getElementById('certCanvas');
+    var img = canvas.toDataURL('image/png');
+    var pdf = new jsPDF('landscape','px',[1200,800]);
+    pdf.addImage(img,'PNG',0,0,1200,800);
+    pdf.save('Z-QUIZ-'+userName+'.pdf');
+  }catch(e){ alert('PDF load ho raha hai, 2 sec baad try karo'); }
+}
+function shareWA(){
+  var txt = '*Z-QUIZ RESULT*%0A👤 '+userName+'%0A🏆 '+correct+'/'+curQs.length+'%0A🪙 '+coins+' - '+document.getElementById('badgeD').innerText+'%0Ahttps://zabi32300.github.io/Z-QUIZ-/';
+  window.open('https://wa.me/?text='+txt,'_blank');
+}
+updateTop();
+applyLang();
 </script>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 </body>
 </html>
