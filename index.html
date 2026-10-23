@@ -4,70 +4,36 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="google" content="notranslate">
-<title>Z-QUIZ - Made by Zohaib</title>
+<title>Z-QUIZ V15 FINAL - Made by Zohaib</title>
 <style>
-  :root {
-    --bg: #FFFBEB;
-    --card: #fff;
-    --text: #1e293b;
-    --border: #FDE68A;
-    --primary: #1e293b;
-  }
-    * { margin:0; padding:0; box-sizing:border-box; font-family: system-ui, sans-serif; }
-  body { background: var(--bg); color: var(--text); }
-  
-  /* FIX - CSS auto hide after 1.6s */
-  #splash {
-    position: fixed; inset: 0;
-    background: #FFFBEB;
-    display: flex; flex-direction: column;
-    justify-content: center; align-items: center;
-    z-index: 99999;
-    animation: autoHide 0.6s forwards;
-    animation-delay: 1.6s;
-  }
-  @keyframes autoHide {
-    to { transform: translateY(-100%); opacity:0; visibility:hidden; }
-  }
-  #splash.hide {
-    transform: translateY(-100%);
-    opacity:0;
-    visibility:hidden;
-    transition: 0.5s;
-  }
-  #app { max-width: 460px; margin: 0 auto; padding: 14px; }
-  .top {
-    display:flex; justify-content:space-between; align-items:center;
-    background: var(--card); padding:10px 14px;
-    border-radius:14px; box-shadow:0 4px 15px rgba(0,0,0,.06);
-    margin-bottom:12px;
-  }
-  .card {
-    background: var(--card); padding:16px; border-radius:16px;
-    margin-bottom:10px; cursor:pointer;
-    box-shadow:0 4px 15px rgba(0,0,0,.06);
-    text-align:center; font-weight:700;
-  }
-  .card.dark { background: var(--primary); color:#fff; }
-  .btn {
-    width:100%; padding:13px; background:var(--primary);
-    color:white; border:none; border-radius:12px;
-    font-weight:800; margin-top:10px; cursor:pointer;
-  }
-  .opt {
-    background: var(--bg); border:2px solid var(--border);
-    padding:12px; border-radius:12px; margin-bottom:8px; cursor:pointer;
-  }
-  .opt.correct { background:#10b981; color:#fff; }
-  .opt.wrong { background:#ef4444; color:#fff; }
-  .q-card { background:var(--card); border-radius:18px; padding:18px; box-shadow:0 8px 25px rgba(0,0,0,.07); }
-  input { width:100%; padding:12px; border-radius:10px; border:2px solid var(--border); }
-  .sel {
-    border:2px solid var(--border); padding:10px;
-    border-radius:12px; text-align:center;
-    cursor:pointer; background:var(--card); font-weight:700;
-  }
-  .sel.active { background:var(--primary); color:#fff; }
+:root{--bg:#FFFBEB;--card:#fff;--text:#1e293b;--border:#FDE68A;--primary:#1e293b}
+*{margin:0;padding:0;box-sizing:border-box;font-family:system-ui,sans-serif}
+body{background:var(--bg);color:var(--text);overflow-x:hidden}
+#splash{
+  position:fixed;inset:0;
+  background:linear-gradient(135deg,#FFFBEB,#FDE68A);
+  display:flex;flex-direction:column;
+  justify-content:center;align-items:center;
+  z-index:99999;
+  animation:autoHide .6s forwards;
+  animation-delay:1.6s
+}
+@keyframes autoHide{to{transform:translateY(-100%);opacity:0;visibility:hidden}}
+#splash.hide{transform:translateY(-100%);opacity:0;visibility:hidden;transition:.5s}
+#app{max-width:460px;margin:0 auto;padding:14px}
+.top{display:flex;justify-content:space-between;align-items:center;background:var(--card);padding:10px 14px;border-radius:14px;box-shadow:0 4px 15px rgba(0,0,0,.06);margin-bottom:12px}
+.card{background:var(--card);padding:16px;border-radius:16px;margin-bottom:10px;cursor:pointer;box-shadow:0 4px 15px rgba(0,0,0,.06);text-align:center;font-weight:700}
+.card.dark{background:var(--primary);color:#fff}
+.btn{width:100%;padding:13px;background:var(--primary);color:white;border:none;border-radius:12px;font-weight:800;margin-top:10px;cursor:pointer}
+.opt{background:var(--bg);border:2px solid var(--border);padding:12px;border-radius:12px;margin-bottom:8px;cursor:pointer}
+.opt.correct{background:#10b981;color:#fff}
+.opt.wrong{background:#ef4444;color:#fff}
+.q-card{background:var(--card);border-radius:18px;padding:18px;box-shadow:0 8px 25px rgba(0,0,0,.07)}
+input{width:100%;padding:12px;border-radius:10px;border:2px solid var(--border);outline:none}
+.sel{border:2px solid var(--border);padding:10px;border-radius:12px;text-align:center;cursor:pointer;background:var(--card);font-weight:700}
+.sel.active{background:var(--primary);color:#fff}
+.flower{position:fixed;top:-20px;font-size:24px;animation:fall linear forwards;z-index:100000;pointer-events:none}
+@keyframes fall{to{transform:translateY(110vh) rotate(720deg)}}
 </style>
 </head>
 <body>
@@ -75,12 +41,12 @@
 <div id="splash" onclick="this.classList.add('hide')">
   <div style="font-size:60px;background:white;width:100px;height:100px;border-radius:50%;display:flex;justify-content:center;align-items:center;box-shadow:0 10px 20px rgba(0,0,0,.1)">🧠</div>
   <div style="margin-top:15px;font-weight:800;font-size:22px">WELCOME TO Z-QUIZ</div>
-  <div style="margin-top:8px;background:#1e293b;color:#FDE68A;padding:6px 18px;border-radius:20px;font-size:11px">MADE BY ZOHAIB - FIXED</div>
+  <div style="margin-top:8px;background:#1e293b;color:#FDE68A;padding:6px 18px;border-radius:20px;font-size:11px">MADE BY ZOHAIB - V15 FINAL</div>
 </div>
 
 <div id="app">
   <div class="top">
-    <b>Z-QUIZ FIXED</b>
+    <b id="appTitle">Z-QUIZ</b>
     <div style="display:flex;gap:6px;align-items:center">
       <span id="coinD" style="background:#FEF3C7;padding:5px 10px;border-radius:20px;font-size:12px;font-weight:800">🪙 0</span>
       <span id="badgeD" style="background:#e2e8f0;padding:5px 10px;border-radius:20px;font-size:11px;font-weight:800">Newbie</span>
@@ -90,7 +56,7 @@
 
   <div id="s_login">
     <h2 style="text-align:center" id="t_name">اپنا نام لکھیں</h2>
-    <input id="userName" placeholder="Zohaib">
+    <input id="userName" placeholder="SAMI">
     <button onclick="goHome()" class="btn" id="t_cont">آگے بڑھیں →</button>
   </div>
 
@@ -145,256 +111,459 @@
     <h2 id="t_result">رزلٹ</h2>
     <div style="background:white;border-radius:14px;padding:14px;margin-top:10px;text-align:left">
       <p><span id="t_rname">نام</span>: <b id="rName"></b></p>
-      <p>Score: <b id="rPerc"></b> | <b id="rCorrect"></b>/<b id="rTotal"></b></p>
-      <p>🪙 Coins: <b id="rCoins"></b> | <span id="rBadge"></span></p>
-      <p id="rMsg" style="text-align:center;font-weight:700;margin-top:6px"></p>
+      <p><span id="t_rscore">سکور</span>: <b id="rPerc"></b> | <b id="rCorrect"></b>/<b id="rTotal"></b></p>
+      <p>🪙 <span id="t_rcoins">کوائنز</span>: <b id="rCoins"></b> | <span id="rBadge"></span></p>
+      <p id="rMsg" style="text-align:center;font-weight:800;margin-top:8px;font-size:16px"></p>
     </div>
-    <button onclick="goHome()" class="btn">دوبارہ کھیلیں</button>
+    <canvas id="certCanvas" width="1200" height="750" style="width:100%;margin-top:12px;border-radius:16px;box-shadow:0 10px 30px rgba(0,0,0,.15)"></canvas>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+      <button onclick="downloadCert()" class="btn" style="background:#10b981" id="t_pdf">📜 PDF ڈاؤن لوڈ</button>
+      <button onclick="shareWA()" class="btn" style="background:#25D366" id="t_share">🟢 شیئر</button>
+    </div>
+    <button onclick="goHome()" class="btn" id="t_replay">دوبارہ کھیلیں</button>
   </div>
 
 </div>
 
 <script>
-  // Double safety
-  setTimeout(function(){
-    var s = document.getElementById('splash');
-    if(s) s.classList.add('hide');
-  }, 1600);
+setTimeout(function(){
+  var s = document.getElementById('splash');
+  if(s) s.classList.add('hide');
+}, 1600);
 
-  let lang = 'ur';
-  let selClass = '';
-  let selCat = '';
-  let selNum = 5;
-  let timerSec = 20;
-  let curQs = [];
-  let cur = 0;
-  let correct = 0;
-  let timer;
-  let timeLeft;
-  let answered = false;
-  let userName = '';
-  let coins = parseInt(localStorage.getItem('coins') || '0');
+let lang = 'ur';
+let selClass = '';
+let selCat = '';
+let selNum = 5;
+let timerSec = 20;
+let curQs = [];
+let cur = 0;
+let correct = 0;
+let timer;
+let timeLeft;
+let answered = false;
+let userName = '';
+let coins = parseInt(localStorage.getItem('coins') || '0');
 
-  const T = {
-    ur: {
-      name:"اپنا نام لکھیں", cont:"آگے بڑھیں →",
-      class:"کلاس منتخب کریں",
-      junior:"🧒 کلاس 1 سے 5 - آسان",
-      senior:"🎓 کلاس 6 سے 10 - مشکل",
-      topic:"موضوع منتخب کریں",
-      islamic:"🕌 اسلامی", math:"🔢 ریاضی",
-      english:"🔤 انگلش", gk:"🌍 جنرل نالج", mix:"✨ مکس سب کچھ",
-      timer:"ٹائمر منتخب کریں", qnum:"کتنے سوال؟",
-      start:"شروع کریں →", next:"اگلا →",
-      result:"رزلٹ", rname:"نام",
-      easy:"آسان", med:"میڈیم", hard:"مشکل"
-    },
-    en: {
-      name:"Enter Your Name", cont:"Continue →",
-      class:"Select Class",
-      junior:"🧒 Class 1-5 Easy",
-      senior:"🎓 Class 6-10 Hard",
-      topic:"Select Topic",
-      islamic:"🕌 Islamic", math:"🔢 Math",
-      english:"🔤 English", gk:"🌍 GK", mix:"✨ Mix All",
-      timer:"Select Timer", qnum:"How many Qs?",
-      start:"Start Quiz →", next:"Next →",
-      result:"Result", rname:"Name",
-      easy:"Easy", med:"Medium", hard:"Hard"
-    }
-  };
-
-  let DB = {
-    junior: {
-      islamic: [
-        {q_ur:"اللہ کتنے ہیں؟", q_en:"How many Allah?", o_ur:["ایک","دو"], o_en:["One","Two"], a:0},
-        {q_ur:"کعبہ کہاں ہے؟", q_en:"Where is Kaaba?", o_ur:["مکہ","مدینہ"], o_en:["Makkah","Madina"], a:0}
-      ],
-      math: [
-        {q_ur:"2+2=؟", q_en:"2+2=?", o_ur:["3","4"], o_en:["3","4"], a:1}
-      ],
-      english: [
-        {q_ur:"A کس کے لیے؟", q_en:"A for?", o_ur:["سیب","گیند"], o_en:["Apple","Ball"], a:0}
-      ],
-      gk: [
-        {q_ur:"ہم کہاں رہتے ہیں؟", q_en:"We live in?", o_ur:["پاکستان","انڈیا"], o_en:["Pakistan","India"], a:0}
-      ]
-    },
-    senior: {
-      islamic: [
-        {q_ur:"غزوہ بدر کب ہوئی؟", q_en:"When Battle of Badr?", o_ur:["2 ہجری","3 ہجری"], o_en:["2 Hijri","3 Hijri"], a:0}
-      ],
-      math: [
-        {q_ur:"12x12=؟", q_en:"12x12=?", o_ur:["144","124"], o_en:["144","124"], a:0}
-      ],
-      english: [
-        {q_ur:"Go کا ماضی؟", q_en:"Past of Go?", o_ur:["Went","Gone"], o_en:["Went","Gone"], a:0}
-      ],
-      gk: [
-        {q_ur:"پاکستان کا دارالحکومت؟", q_en:"Capital?", o_ur:["اسلام آباد","لاہور"], o_en:["Islamabad","Lahore"], a:0}
-      ]
-    }
-  };
-  DB.junior.mix = [...DB.junior.islamic, ...DB.junior.math, ...DB.junior.english, ...DB.junior.gk];
-  DB.senior.mix = [...DB.senior.islamic, ...DB.senior.math, ...DB.senior.english, ...DB.senior.gk];
-
-  function applyLang(){
-    let d = T[lang];
-    document.getElementById('t_name').innerText = d.name;
-    document.getElementById('t_cont').innerText = d.cont;
-    document.getElementById('t_class').innerText = d.class;
-    document.getElementById('t_junior').innerText = d.junior;
-    document.getElementById('t_senior').innerText = d.senior;
-    document.getElementById('t_topic').innerText = d.topic;
-    document.getElementById('t_islamic').innerText = d.islamic;
-    document.getElementById('t_math').innerText = d.math;
-    document.getElementById('t_english').innerText = d.english;
-    document.getElementById('t_gk').innerText = d.gk;
-    document.getElementById('t_mix').innerText = d.mix;
-    document.getElementById('t_timer').innerText = d.timer;
-    document.getElementById('t_qnum').innerText = d.qnum;
-    document.getElementById('t_start').innerText = d.start;
-    document.getElementById('t_next').innerText = d.next;
-    document.getElementById('t_result').innerText = d.result;
-    document.getElementById('t_rname').innerText = d.rname;
-    document.getElementById('tt1').innerHTML = d.easy + '<br>20s';
-    document.getElementById('tt2').innerHTML = d.med + '<br>15s';
-    document.getElementById('tt3').innerHTML = d.hard + '<br>10s';
-    document.getElementById('langBtn').innerText = lang === 'ur' ? 'English' : 'اردو';
+const T = {
+  ur: {
+    app: "Z-QUIZ",
+    name: "اپنا نام لکھیں",
+    cont: "آگے بڑھیں →",
+    class: "کلاس منتخب کریں",
+    junior: "🧒 کلاس 1 سے 5 - آسان",
+    senior: "🎓 کلاس 6 سے 10 - مشکل",
+    topic: "موضوع منتخب کریں",
+    islamic: "🕌 اسلامی",
+    math: "🔢 ریاضی",
+    english: "🔤 انگلش",
+    gk: "🌍 جنرل نالج",
+    mix: "✨ مکس سب کچھ",
+    timer: "ٹائمر منتخب کریں",
+    qnum: "کتنے سوال؟",
+    start: "شروع کریں →",
+    next: "اگلا →",
+    result: "رزلٹ",
+    rname: "نام",
+    rscore: "سکور",
+    rcoins: "کوائنز",
+    replay: "دوبارہ کھیلیں",
+    pdf: "📜 PDF ڈاؤن لوڈ",
+    share: "🟢 شیئر",
+    easy: "آسان",
+    med: "میڈیم",
+    hard: "مشکل",
+    msg100: "ماشاءاللہ شاندار 🌟",
+    msg70: "بہت خوب! پھولوں کی مبارک 🌸🎉",
+    msg50: "بہت خوب 👏",
+    msg0: "کوشش جاری رکھیں 💪"
+  },
+  en: {
+    app: "Z-QUIZ",
+    name: "Enter Your Name",
+    cont: "Continue →",
+    class: "Select Class",
+    junior: "🧒 Class 1-5 - Easy",
+    senior: "🎓 Class 6-10 - Hard",
+    topic: "Select Topic",
+    islamic: "🕌 Islamic",
+    math: "🔢 Math",
+    english: "🔤 English",
+    gk: "🌍 GK",
+    mix: "✨ Mix All",
+    timer: "Select Timer",
+    qnum: "How many Qs?",
+    start: "Start Quiz →",
+    next: "Next →",
+    result: "Result",
+    rname: "Name",
+    rscore: "Score",
+    rcoins: "Coins",
+    replay: "Play Again",
+    pdf: "📜 Download PDF",
+    share: "🟢 Share WhatsApp",
+    easy: "Easy",
+    med: "Medium",
+    hard: "Hard",
+    msg100: "MashaAllah Excellent 🌟",
+    msg70: "Excellent! Flowers for you 🌸🎉",
+    msg50: "Very Good 👏",
+    msg0: "Keep Trying 💪"
   }
+};
 
-  function toggleLang(){
-    lang = lang === 'ur' ? 'en' : 'ur';
-    applyLang();
-    updateTop();
-    if(curQs.length) loadQ();
+let DB = {
+  junior: {
+    islamic: [
+      {q_ur:"اللہ کتنے ہیں؟", q_en:"How many Allah?", o_ur:["ایک","دو"], o_en:["One","Two"], a:0},
+      {q_ur:"کعبہ کہاں ہے؟", q_en:"Where is Kaaba?", o_ur:["مکہ","مدینہ"], o_en:["Makkah","Madina"], a:0}
+    ],
+    math: [
+      {q_ur:"2+2=؟", q_en:"2+2=?", o_ur:["3","4"], o_en:["3","4"], a:1}
+    ],
+    english: [
+      {q_ur:"A کس کے لیے؟", q_en:"A for?", o_ur:["سیب","گیند"], o_en:["Apple","Ball"], a:0}
+    ],
+    gk: [
+      {q_ur:"ہم کہاں رہتے ہیں؟", q_en:"We live in?", o_ur:["پاکستان","انڈیا"], o_en:["Pakistan","India"], a:0}
+    ]
+  },
+  senior: {
+    islamic: [
+      {q_ur:"غزوہ بدر کب ہوئی؟", q_en:"When Battle of Badr?", o_ur:["2 ہجری","3 ہجری"], o_en:["2 Hijri","3 Hijri"], a:0}
+    ],
+    math: [
+      {q_ur:"12x12=؟", q_en:"12x12=?", o_ur:["144","124"], o_en:["144","124"], a:0}
+    ],
+    english: [
+      {q_ur:"Go کا ماضی؟", q_en:"Past of Go?", o_ur:["Went","Gone"], o_en:["Went","Gone"], a:0}
+    ],
+    gk: [
+      {q_ur:"پاکستان کا دارالحکومت؟", q_en:"Capital?", o_ur:["اسلام آباد","لاہور"], o_en:["Islamabad","Lahore"], a:0}
+    ]
   }
+};
 
-  function updateTop(){
-    document.getElementById('coinD').innerText = '🪙 ' + coins;
-    let badge = 'Newbie';
-    if(coins >= 100) badge = '🔥 PRO';
-    document.getElementById('badgeD').innerText = badge;
+DB.junior.mix = [];
+DB.junior.mix = DB.junior.mix.concat(DB.junior.islamic);
+DB.junior.mix = DB.junior.mix.concat(DB.junior.math);
+DB.junior.mix = DB.junior.mix.concat(DB.junior.english);
+DB.junior.mix = DB.junior.mix.concat(DB.junior.gk);
+
+DB.senior.mix = [];
+DB.senior.mix = DB.senior.mix.concat(DB.senior.islamic);
+DB.senior.mix = DB.senior.mix.concat(DB.senior.math);
+DB.senior.mix = DB.senior.mix.concat(DB.senior.english);
+DB.senior.mix = DB.senior.mix.concat(DB.senior.gk);
+
+function applyLang(){
+  let d = T[lang];
+  document.getElementById('appTitle').innerText = d.app;
+  document.getElementById('t_name').innerText = d.name;
+  document.getElementById('t_cont').innerText = d.cont;
+  document.getElementById('t_class').innerText = d.class;
+  document.getElementById('t_junior').innerText = d.junior;
+  document.getElementById('t_senior').innerText = d.senior;
+  document.getElementById('t_topic').innerText = d.topic;
+  document.getElementById('t_islamic').innerText = d.islamic;
+  document.getElementById('t_math').innerText = d.math;
+  document.getElementById('t_english').innerText = d.english;
+  document.getElementById('t_gk').innerText = d.gk;
+  document.getElementById('t_mix').innerText = d.mix;
+  document.getElementById('t_timer').innerText = d.timer;
+  document.getElementById('t_qnum').innerText = d.qnum;
+  document.getElementById('t_start').innerText = d.start;
+  document.getElementById('t_next').innerText = d.next;
+  document.getElementById('t_result').innerText = d.result;
+  document.getElementById('t_rname').innerText = d.rname;
+  document.getElementById('t_rscore').innerText = d.rscore;
+  document.getElementById('t_rcoins').innerText = d.rcoins;
+  document.getElementById('t_replay').innerText = d.replay;
+  document.getElementById('t_pdf').innerText = d.pdf;
+  document.getElementById('t_share').innerText = d.share;
+  document.getElementById('tt1').innerHTML = d.easy + '<br>20s';
+  document.getElementById('tt2').innerHTML = d.med + '<br>15s';
+  document.getElementById('tt3').innerHTML = d.hard + '<br>10s';
+  document.getElementById('langBtn').innerText = lang === 'ur' ? 'English' : 'اردو';
+  if(document.getElementById('rPerc').innerText){
+    let perc = parseInt(document.getElementById('rPerc').innerText);
+    setResultMsg(perc);
+    makeCert();
   }
+}
 
-  function hideAll(){
-    ['s_login','s_home','s_cat','s_timer','s_quiz','s_result'].forEach(id => {
-      document.getElementById(id).style.display = 'none';
-    });
-  }
-
-  function goHome(){
-    hideAll();
-    let n = document.getElementById('userName').value.trim();
-    if(n) userName = n;
-    if(!userName){
-      document.getElementById('s_login').style.display = 'block';
-      return;
-    }
-    document.getElementById('s_home').style.display = 'block';
-  }
-
-  function setClass(c){
-    selClass = c;
-    hideAll();
-    document.getElementById('s_cat').style.display = 'block';
-  }
-
-  function setCat(c){
-    selCat = c;
-    hideAll();
-    document.getElementById('s_timer').style.display = 'block';
-  }
-
-  function setTimer(s, el){
-    timerSec = s;
-    document.querySelectorAll('#s_timer .sel').forEach((e,i)=>{
-      if(i<3) e.classList.remove('active');
-    });
-    el.classList.add('active');
-  }
-
-  function setNum(n){
-    selNum = n;
-    document.getElementById('startBtn').style.display = 'block';
-  }
-
-  function startQuiz(){
-    let pool = [...DB[selClass][selCat]];
-    pool.sort(()=> 0.5 - Math.random());
-    curQs = pool.slice(0, Math.min(selNum, pool.length));
-    cur = 0;
-    correct = 0;
-    hideAll();
-    document.getElementById('s_quiz').style.display = 'block';
+function toggleLang(){
+  lang = lang === 'ur' ? 'en' : 'ur';
+  applyLang();
+  updateTop();
+  if(curQs.length > 0){
     loadQ();
   }
+}
 
-  function loadQ(){
-    answered = false;
-    timeLeft = timerSec;
-    document.getElementById('time').innerText = timeLeft;
-    document.getElementById('qCount').innerText = (cur+1) + '/' + curQs.length;
-    let q = curQs[cur];
-    document.getElementById('qText').innerText = lang === 'ur' ? q.q_ur : q.q_en;
-    let div = document.getElementById('opts');
-    div.innerHTML = '';
-    let opts = lang === 'ur' ? q.o_ur : q.o_en;
-    opts.forEach((o,i)=>{
-      div.innerHTML += '<div class="opt" onclick="checkAns('+i+')">'+o+'</div>';
-    });
-    document.getElementById('nextBtn').style.display = 'none';
-    clearInterval(timer);
-    timer = setInterval(()=>{
-      timeLeft--;
-      document.getElementById('time').innerText = timeLeft;
-      if(timeLeft <= 0){
-        clearInterval(timer);
-        checkAns(-1);
-      }
-    },1000);
+function updateTop(){
+  document.getElementById('coinD').innerText = '🪙 ' + coins;
+  let badge = 'Newbie';
+  if(coins >= 100){
+    badge = '🔥 PRO';
   }
+  document.getElementById('badgeD').innerText = badge;
+}
 
-  function checkAns(i){
-    if(answered) return;
-    answered = true;
-    clearInterval(timer);
-    let els = document.querySelectorAll('.opt');
-    els.forEach((e,idx)=>{
-      if(idx == curQs[cur].a) e.classList.add('correct');
-      if(idx == i && idx != curQs[cur].a) e.classList.add('wrong');
-    });
-    if(i == curQs[cur].a) correct++;
-    document.getElementById('nextBtn').style.display = 'block';
+function hideAll(){
+  let ids = ['s_login','s_home','s_cat','s_timer','s_quiz','s_result'];
+  ids.forEach(function(id){
+    document.getElementById(id).style.display = 'none';
+  });
+}
+
+function goHome(){
+  hideAll();
+  let n = document.getElementById('userName').value.trim();
+  if(n){
+    userName = n;
   }
+  if(!userName){
+    document.getElementById('s_login').style.display = 'block';
+    return;
+  }
+  document.getElementById('s_home').style.display = 'block';
+}
 
-  function nextQ(){
-    cur++;
-    if(cur >= curQs.length){
-      showRes();
-    }else{
-      loadQ();
+function setClass(c){
+  selClass = c;
+  hideAll();
+  document.getElementById('s_cat').style.display = 'block';
+}
+
+function setCat(c){
+  selCat = c;
+  hideAll();
+  document.getElementById('s_timer').style.display = 'block';
+}
+
+function setTimer(s, el){
+  timerSec = s;
+  let sels = document.querySelectorAll('#s_timer .sel');
+  sels.forEach(function(e,i){
+    if(i < 3){
+      e.classList.remove('active');
     }
-  }
+  });
+  el.classList.add('active');
+}
 
-  function showRes(){
-    hideAll();
-    document.getElementById('s_result').style.display = 'block';
-    let earned = correct * 10;
-    coins += earned;
-    localStorage.setItem('coins', coins);
-    updateTop();
-    document.getElementById('rName').innerText = userName || 'Player';
-    document.getElementById('rTotal').innerText = curQs.length;
-    document.getElementById('rCorrect').innerText = correct;
-    document.getElementById('rCoins').innerText = '+' + earned;
-    document.getElementById('rBadge').innerText = document.getElementById('badgeD').innerText;
-    document.getElementById('rPerc').innerText = Math.round(correct/curQs.length*100) + '%';
-    document.getElementById('rMsg').innerText = correct == curQs.length ? 'ماشاءاللہ شاندار 🌟' : 'بہت خوب 👏';
-  }
+function setNum(n){
+  selNum = n;
+  document.getElementById('startBtn').style.display = 'block';
+}
 
+function startQuiz(){
+  let pool = [];
+  pool = pool.concat(DB[selClass][selCat]);
+  pool.sort(function(){ return 0.5 - Math.random(); });
+  curQs = pool.slice(0, Math.min(selNum, pool.length));
+  cur = 0;
+  correct = 0;
+  hideAll();
+  document.getElementById('s_quiz').style.display = 'block';
+  loadQ();
+}
+
+function loadQ(){
+  answered = false;
+  timeLeft = timerSec;
+  document.getElementById('time').innerText = timeLeft;
+  document.getElementById('qCount').innerText = (cur+1) + '/' + curQs.length;
+  let q = curQs[cur];
+  if(lang === 'ur'){
+    document.getElementById('qText').innerText = q.q_ur;
+  } else {
+    document.getElementById('qText').innerText = q.q_en;
+  }
+  let div = document.getElementById('opts');
+  div.innerHTML = '';
+  let opts = lang === 'ur' ? q.o_ur : q.o_en;
+  opts.forEach(function(o,i){
+    let html = '<div class="opt" onclick="checkAns('+i+')">'+o+'</div>';
+    div.innerHTML += html;
+  });
+  document.getElementById('nextBtn').style.display = 'none';
+  clearInterval(timer);
+  timer = setInterval(function(){
+    timeLeft--;
+    document.getElementById('time').innerText = timeLeft;
+    if(timeLeft <= 0){
+      clearInterval(timer);
+      checkAns(-1);
+    }
+  }, 1000);
+}
+
+function checkAns(i){
+  if(answered) return;
+  answered = true;
+  clearInterval(timer);
+  let els = document.querySelectorAll('.opt');
+  els.forEach(function(e,idx){
+    if(idx == curQs[cur].a){
+      e.classList.add('correct');
+    }
+    if(idx == i && idx != curQs[cur].a){
+      e.classList.add('wrong');
+    }
+  });
+  if(i == curQs[cur].a){
+    correct++;
+  }
+  document.getElementById('nextBtn').style.display = 'block';
+}
+
+function nextQ(){
+  cur++;
+  if(cur >= curQs.length){
+    showRes();
+  } else {
+    loadQ();
+  }
+}
+
+function setResultMsg(perc){
+  let d = T[lang];
+  if(perc >= 100){
+    document.getElementById('rMsg').innerText = d.msg100;
+  } else if(perc >= 70){
+    document.getElementById('rMsg').innerText = d.msg70;
+  } else if(perc >= 50){
+    document.getElementById('rMsg').innerText = d.msg50;
+  } else {
+    document.getElementById('rMsg').innerText = d.msg0;
+  }
+}
+
+function showRes(){
+  hideAll();
+  document.getElementById('s_result').style.display = 'block';
+  let earned = correct * 10;
+  coins = coins + earned;
+  localStorage.setItem('coins', coins);
   updateTop();
-  applyLang();
+  document.getElementById('rName').innerText = userName || 'SAMI';
+  document.getElementById('rTotal').innerText = curQs.length;
+  document.getElementById('rCorrect').innerText = correct;
+  document.getElementById('rCoins').innerText = '+' + earned;
+  document.getElementById('rBadge').innerText = document.getElementById('badgeD').innerText;
+  let perc = Math.round(correct / curQs.length * 100);
+  document.getElementById('rPerc').innerText = perc + '%';
+  setResultMsg(perc);
+  makeCert();
+  if(perc >= 70){
+    launchFlowers();
+  }
+}
+
+function launchFlowers(){
+  for(let i=0;i<30;i++){
+    setTimeout(function(){
+      let f = document.createElement('div');
+      f.className = 'flower';
+      let flowers = ['🌸','🌺','🌼','✨','🎉','💐'];
+      f.innerText = flowers[Math.floor(Math.random()*flowers.length)];
+      f.style.left = Math.random()*100 + 'vw';
+      f.style.animationDuration = (2 + Math.random()*3) + 's';
+      f.style.fontSize = (20 + Math.random()*20) + 'px';
+      document.body.appendChild(f);
+      setTimeout(function(){ f.remove(); }, 4000);
+    }, i*100);
+  }
+}
+
+function makeCert(){
+  let c = document.getElementById('certCanvas');
+  let ctx = c.getContext('2d');
+  let d = T[lang];
+  let percText = document.getElementById('rPerc').innerText || '0%';
+  
+  ctx.fillStyle = '#FFFBEB';
+  ctx.fillRect(0,0,1200,750);
+  
+  ctx.fillStyle = '#FFFFFF';
+  ctx.fillRect(18,18,1164,714);
+  
+  ctx.strokeStyle = '#B45309';
+  ctx.lineWidth = 8;
+  ctx.strokeRect(12,12,1176,726);
+  
+  ctx.strokeStyle = '#FBBF24';
+  ctx.lineWidth = 3;
+  ctx.strokeRect(26,26,1148,698);
+  
+  ctx.strokeStyle = '#FEF3C7';
+  ctx.lineWidth = 1;
+  ctx.strokeRect(32,32,1136,686);
+  
+  ctx.fillStyle = '#1e293b';
+  ctx.font = 'bold 54px sans-serif';
+  ctx.textAlign = 'center';
+  ctx.fillText('CERTIFICATE OF EXCELLENCE',600,150);
+  
+  ctx.fillStyle = '#d97706';
+  ctx.font = 'bold 20px sans-serif';
+  ctx.fillText('Z-QUIZ • MADE BY ZOHAIB • AESTHETIC EDITION',600,185);
+  
+  ctx.strokeStyle = '#FDE68A';
+  ctx.lineWidth = 2;
+  ctx.beginPath();
+  ctx.moveTo(300,210);
+  ctx.lineTo(900,210);
+  ctx.stroke();
+  
+  ctx.fillStyle = '#1e293b';
+  ctx.font = 'bold 28px sans-serif';
+  ctx.fillText(d.rname + ': ' + userName + ' | ' + d.rscore + ': ' + percText + ' (' + correct + '/' + curQs.length + ')',600,270);
+  
+  ctx.font = '20px sans-serif';
+  ctx.fillStyle = '#475569';
+  ctx.fillText('Badge: ' + document.getElementById('badgeD').innerText + ' | 🪙 ' + d.rcoins + ': ' + coins + ' | Date: ' + new Date().toLocaleDateString(),600,310);
+  
+  ctx.font = 'italic 18px sans-serif';
+  ctx.fillStyle = '#6b7280';
+  ctx.fillText(d.msg100,600,345);
+  
+  ctx.fillStyle = '#FBBF24';
+  ctx.beginPath();
+  ctx.arc(600,460,58,0,Math.PI*2);
+  ctx.fill();
+  
+  ctx.strokeStyle = '#B45309';
+  ctx.lineWidth = 2;
+  ctx.stroke();
+  
+  ctx.fillStyle = 'white';
+  ctx.font = 'bold 54px sans-serif';
+  ctx.fillText('★',600,480);
+  
+  ctx.fillStyle = '#1e293b';
+  ctx.font = '12px sans-serif';
+  ctx.fillText('https://zabi32300.github.io/Z-QUIZ-/',600,710);
+}
+
+function downloadCert(){
+  let canvas = document.getElementById('certCanvas');
+  let link = document.createElement('a');
+  link.download = 'Z-QUIZ-' + userName + '.png';
+  link.href = canvas.toDataURL('image/png');
+  link.click();
+}
+
+function shareWA(){
+  let perc = document.getElementById('rPerc').innerText;
+  let txt = '*' + T[lang].result + ' - Z-QUIZ*%0A👤 ' + T[lang].rname + ': ' + userName + '%0A🏆 ' + T[lang].rscore + ': ' + perc + ' (' + correct + '/' + curQs.length + ')%0A🪙 ' + T[lang].rcoins + ': ' + coins + '%0A%0Ahttps://zabi32300.github.io/Z-QUIZ-/';
+  window.open('https://wa.me/?text=' + txt, '_blank');
+}
+
+updateTop();
+applyLang();
 </script>
 
 </body>
