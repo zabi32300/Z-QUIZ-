@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Z-QUIZ V2 - Made by Zohaib</title>
+<title>Z-QUIZ V3 - Made by Zohaib</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:sans-serif;}
 body{background:#0f172a;color:white;}
@@ -11,28 +11,59 @@ body{background:#0f172a;color:white;}
 .welcome{font-size:26px;font-weight:800;margin-top:20px;} .made{margin-top:10px;background:rgba(255,255,255,0.2);padding:6px 18px;border-radius:20px;letter-spacing:2px;}
 #app{max-width:420px;margin:0 auto;padding:20px;min-height:100vh;display:none;flex-direction:column;}#app.active{display:flex;}
 .cat-card{background:#1e293b;padding:16px;border-radius:14px;margin-bottom:12px;cursor:pointer;border:2px solid #334155;text-align:center;font-weight:600;}
-.cat-card:hover{border-color:#4f46e5;transform:scale(1.02);}
+.cat-card:hover{border-color:#4f46e5;}
+.num-btn{background:#1e293b;padding:12px 20px;border-radius:10px;border:2px solid #334155;cursor:pointer;font-weight:700;margin:5px;}
+.num-btn.selected{background:#4f46e5;border-color:#4f46e5;}
 .question-card{background:#1e293b;border-radius:20px;padding:20px;margin-top:15px;flex:1;}
 .option{background:#0f172a;border:2px solid #334155;padding:12px;border-radius:12px;margin-bottom:10px;cursor:pointer;}
 .option.correct{background:#10b981;} .option.wrong{background:#ef4444;}
 .footer-made{text-align:center;margin-top:15px;color:#64748b;font-size:12px;letter-spacing:2px;}
+.result-circle{width:140px;height:140px;border-radius:50%;background:linear-gradient(135deg,#4f46e5,#06b6d4);margin:0 auto 15px;display:flex;justify-content:center;align-items:center;font-size:30px;font-weight:800;}
 </style>
 </head>
 <body>
 <div id="splash"><div style="font-size:50px;background:white;width:100px;height:100px;border-radius:50%;display:flex;justify-content:center;align-items:center;">🧠</div><div class="welcome">WELCOME TO QUIZ APP</div><div class="made">MADE BY ZOHAIB</div></div>
 
 <div id="app">
-  <h2 style="text-align:center;">Z-QUIZ - سوال منتخب کریں</h2>
-  <div id="categoryScreen" style="margin-top:30px;">
-    <div class="cat-card" onclick="startQuiz('islamic')">🕌 Islamic Quiz</div>
-    <div class="cat-card" onclick="startQuiz('math')">🔢 Math Quiz</div>
-    <div class="cat-card" onclick="startQuiz('country')">🌍 Country & GK Quiz</div>
-    <div class="cat-card" onclick="startQuiz('mix')" style="background:linear-gradient(135deg,#4f46e5,#06b6d4);border:none;">✨ Mix - سب کچھ</div>
+  <div id="categoryScreen">
+    <h2 style="text-align:center;">کوئز کا موضوع منتخب کریں</h2>
+    <div style="margin-top:25px;">
+      <div class="cat-card" onclick="selectCat('islamic')">🕌 اسلامی کوئز</div>
+      <div class="cat-card" onclick="selectCat('math')">🔢 ریاضی کوئز</div>
+      <div class="cat-card" onclick="selectCat('country')">🌍 ملک اور جنرل نالج</div>
+      <div class="cat-card" onclick="selectCat('mix')" style="background:linear-gradient(135deg,#4f46e5,#06b6d4);border:none;">✨ مکس - سب کچھ</div>
+    </div>
+  </div>
+
+  <div id="numberScreen" style="display:none;">
+    <h2 style="text-align:center;">کتنے سوال؟</h2>
+    <p style="text-align:center;color:#94a3b8;margin-top:8px;font-size:14px;">تعداد منتخب کریں</p>
+    <div style="display:flex;flex-wrap:wrap;justify-content:center;margin-top:20px;">
+      <button class="num-btn" onclick="selectNumber(5)">5 سوال</button>
+      <button class="num-btn" onclick="selectNumber(10)">10 سوال</button>
+      <button class="num-btn" onclick="selectNumber(15)">15 سوال</button>
+      <button class="num-btn" onclick="selectNumber(20)">20 سوال</button>
+      <button class="num-btn" onclick="selectNumber(25)">25 سوال</button>
+    </div>
+    <button id="startBtn" onclick="startQuiz()" style="display:none;width:100%;margin-top:25px;padding:14px;background:#4f46e5;border:none;border-radius:12px;color:white;font-weight:800;">کوئز شروع کریں →</button>
   </div>
 
   <div id="quizScreen" style="display:none;">
-    <div style="display:flex;justify-content:space-between;margin-bottom:10px;"><span>Score: <b id="score">0</b></span><span>⏱ <span id="time">20</span>s</span></div>
-    <div class="question-card"><div id="qText" style="font-size:19px;font-weight:600;margin-bottom:15px;"></div><div id="options"></div><button id="nextBtn" onclick="nextQ()" style="display:none;width:100%;margin-top:15px;padding:12px;background:#4f46e5;border:none;border-radius:10px;color:white;font-weight:700;">Next →</button></div>
+    <div style="display:flex;justify-content:space-between;margin-bottom:10px;"><span>سوال: <b id="qCount">1</b></span><span>⏱ <span id="time">20</span>s</span></div>
+    <div class="question-card"><div id="qText" style="font-size:19px;font-weight:600;margin-bottom:15px;"></div><div id="options"></div><button id="nextBtn" onclick="nextQ()" style="display:none;width:100%;margin-top:15px;padding:12px;background:#4f46e5;border:none;border-radius:10px;color:white;font-weight:700;">اگلا سوال →</button></div>
+  </div>
+
+  <div id="resultScreen" style="display:none;text-align:center;padding-top:30px;">
+    <div class="result-circle" id="resultCircle">0/0</div>
+    <h2>رزلٹ</h2>
+    <div style="background:#1e293b;border-radius:16px;padding:20px;margin-top:20px;text-align:left;">
+      <p style="margin-bottom:10px;">📊 کل سوال: <b id="totalQ">0</b></p>
+      <p style="margin-bottom:10px;color:#10b981;">✅ درست جواب: <b id="correctQ">0</b></p>
+      <p style="margin-bottom:10px;color:#ef4444;">❌ غلط جواب: <b id="wrongQ">0</b></p>
+      <p>🏆 فیصد: <b id="percent">0%</b></p>
+      <p style="margin-top:15px;font-size:18px;text-align:center;font-weight:700;" id="msg"></p>
+    </div>
+    <button onclick="location.reload()" style="width:100%;margin-top:20px;padding:14px;background:#4f46e5;border:none;border-radius:12px;color:white;font-weight:800;">دوبارہ کھیلیں</button>
   </div>
   <div class="footer-made">MADE BY ZOHAIB</div>
 </div>
@@ -40,53 +71,34 @@ body{background:#0f172a;color:white;}
 <script>
 const allQuestions={
   islamic:[
-    {q:"قرآن پاک میں کتنے پارے ہیں؟",opts:["30","40","20","33"],ans:0},
-    {q:"نمازیں دن میں کتنی فرض ہیں؟",opts:["4","5","6","3"],ans:1},
-    {q:"روزہ کس مہینے میں فرض ہے؟",opts:["شعبان","رمضان","رجب","محرم"],ans:1},
-    {q:"خانہ کعبہ کہاں ہے؟",opts:["مدینہ","مکہ","بغداد","قدس"],ans:1},
-    {q:"حضور ﷺ کے والد کا نام؟",opts:["عبداللہ","عبدالمطلب","ابو طالب","عباس"],ans:0},
-    {q:"سب سے پہلی وحی کونسی تھی؟",opts:["اقرأ","الحمد","قل ھو","انا انزلنا"],ans:0},
-    {q:"اسلام کے کتنے ارکان ہیں؟",opts:["4","5","6","3"],ans:1},
-    {q:"زکوٰۃ کا نصاب سونا کتنا ہے؟",opts:["7 تولہ","7.5 تولہ","8 تولہ","10 تولہ"],ans:1}
+    {q:"قرآن پاک میں کتنے پارے ہیں؟",opts:["30","40","20","33"],ans:0},{q:"نمازیں دن میں کتنی فرض ہیں؟",opts:["4","5","6","3"],ans:1},{q:"روزہ کس مہینے میں فرض ہے؟",opts:["شعبان","رمضان","رجب","محرم"],ans:1},{q:"خانہ کعبہ کہاں ہے؟",opts:["مدینہ","مکہ","بغداد","قدس"],ans:1},{q:"حضور ﷺ کے والد کا نام؟",opts:["عبداللہ","عبدالمطلب","ابو طالب","عباس"],ans:0},{q:"سب سے پہلی وحی کونسی تھی؟",opts:["اقرأ","الحمد","قل ھو","انا انزلنا"],ans:0},{q:"اسلام کے کتنے ارکان ہیں؟",opts:["4","5","6","3"],ans:1},{q:"زکوٰۃ کا نصاب سونا کتنا ہے؟",opts:["7 تولہ","7.5 تولہ","8 تولہ","10 تولہ"],ans:1},{q:"غزوہ بدر کب ہوئی؟",opts:["2 ہجری","3 ہجری","4 ہجری","5 ہجری"],ans:0},{q:"قرآن کی سب سے بڑی سورۃ؟",opts:["البقرہ","آل عمران","النساء","المائدہ"],ans:0}
   ],
   math:[
-    {q:"2+2x2 = ?",opts:["8","6","4","10"],ans:1},
-    {q:"10 کا 50% کتنا ہے؟",opts:["5","10","15","20"],ans:0},
-    {q:"ایک گھنٹے میں کتنے منٹ؟",opts:["60","100","90","30"],ans:0},
-    {q:"9x9 = ?",opts:["81","72","99","80"],ans:0},
-    {q:"مثلث کے کتنے کونے ہوتے ہیں؟",opts:["2","3","4","5"],ans:1},
-    {q:"1000 میں سے 100 نکالو؟",opts:["900","100","1100","800"],ans:0},
-    {q:"ایک درجن میں کتنے؟",opts:["10","12","11","13"],ans:1},
-    {q:"0 سے ضرب کا جواب؟",opts:["0","1","وہی عدد","لا متناہی"],ans:0}
+    {q:"2+2x2 = ?",opts:["8","6","4","10"],ans:1},{q:"10 کا 50% کتنا ہے؟",opts:["5","10","15","20"],ans:0},{q:"ایک گھنٹے میں کتنے منٹ؟",opts:["60","100","90","30"],ans:0},{q:"9x9 = ?",opts:["81","72","99","80"],ans:0},{q:"مثلث کے کتنے کونے ہوتے ہیں؟",opts:["2","3","4","5"],ans:1},{q:"1000 میں سے 100 نکالو؟",opts:["900","100","1100","800"],ans:0},{q:"ایک درجن میں کتنے؟",opts:["10","12","11","13"],ans:1},{q:"0 سے ضرب کا جواب؟",opts:["0","1","وہی عدد","لا متناہی"],ans:0},{q:"5 کا مربع کیا ہے؟",opts:["10","20","25","15"],ans:2},{q:"100/4 = ?",opts:["20","25","30","40"],ans:1}
   ],
   country:[
-    {q:"پاکستان کا دارالحکومت؟",opts:["لاہور","اسلام آباد","کراچی","پشاور"],ans:1},
-    {q:"پاکستان کا قومی کھیل؟",opts:["کرکٹ","ہاکی","فٹبال","کبڈی"],ans:1},
-    {q:"دنیا کا سب سے بڑا ملک رقبے میں؟",opts:["چین","امریکہ","روس","کینیڈا"],ans:2},
-    {q:"تاج محل کہاں ہے؟",opts:["پاکستان","انڈیا","ایران","ترکی"],ans:1},
-    {q:"جاپان کا دارالحکومت؟",opts:["بیجنگ","ٹوکیو","سیول","بنکاک"],ans:1},
-    {q:"سعودیہ کا جھنڈا کس رنگ کا ہے؟",opts:["سبز","سفید","کالا","لال"],ans:0},
-    {q:"دنیا میں کتنے براعظم ہیں؟",opts:["5","6","7","8"],ans:2},
-    {q:"نیل دریا کس ملک میں ہے؟",opts:["مصر","عراق","ایران","ترکی"],ans:0}
+    {q:"پاکستان کا دارالحکومت؟",opts:["لاہور","اسلام آباد","کراچی","پشاور"],ans:1},{q:"پاکستان کا قومی کھیل؟",opts:["کرکٹ","ہاکی","فٹبال","کبڈی"],ans:1},{q:"دنیا کا سب سے بڑا ملک رقبے میں؟",opts:["چین","امریکہ","روس","کینیڈا"],ans:2},{q:"تاج محل کہاں ہے؟",opts:["پاکستان","انڈیا","ایران","ترکی"],ans:1},{q:"جاپان کا دارالحکومت؟",opts:["بیجنگ","ٹوکیو","سیول","بنکاک"],ans:1},{q:"سعودیہ کا جھنڈا کس رنگ کا ہے؟",opts:["سبز","سفید","کالا","لال"],ans:0},{q:"دنیا میں کتنے براعظم ہیں؟",opts:["5","6","7","8"],ans:2},{q:"نیل دریا کس ملک میں ہے؟",opts:["مصر","عراق","ایران","ترکی"],ans:0},{q:"پاکستان کا قومی پھول؟",opts:["گلاب","چنبیلی","سورج مکھی","موتیا"],ans:1},{q:"کراچی کس سمندر پر ہے؟",opts:["بحیرہ عرب","بحیرہ احمر","بحیرہ روم","خلیج"],ans:0}
   ]
 };
 allQuestions.mix=[...allQuestions.islamic,...allQuestions.math,...allQuestions.country];
 
-let currentQs=[],current=0,score=0,timeLeft=20,timer,answered=false;
+let selectedCat='', selectedNum=0, currentQs=[], current=0, correctCount=0, timer, timeLeft=20, answered=false;
 
-function shuffle(arr){return arr.sort(()=>0.5-Math.random()).slice(0,5);}
+function selectCat(cat){selectedCat=cat;document.getElementById('categoryScreen').style.display='none';document.getElementById('numberScreen').style.display='block';}
+function selectNumber(num){selectedNum=num;document.querySelectorAll('.num-btn').forEach(b=>b.classList.remove('selected'));event.target.classList.add('selected');document.getElementById('startBtn').style.display='block';}
 
-function startQuiz(cat){
-  currentQs=shuffle(allQuestions[cat]);
-  current=0;score=0;
-  document.getElementById('categoryScreen').style.display='none';
+function startQuiz(){
+  let pool=[...allQuestions[selectedCat]];
+  pool.sort(()=>0.5-Math.random());
+  currentQs=pool.slice(0,Math.min(selectedNum, pool.length));
+  current=0;correctCount=0;
+  document.getElementById('numberScreen').style.display='none';
   document.getElementById('quizScreen').style.display='block';
-  document.getElementById('score').innerText=score;
   loadQ();
 }
 function loadQ(){
-  if(current>=currentQs.length){alert('Quiz Complete! Score: '+score); location.reload(); return;}
   answered=false;timeLeft=20;document.getElementById('time').innerText=timeLeft;
+  document.getElementById('qCount').innerText=`${current+1} / ${currentQs.length}`;
   document.getElementById('qText').innerText=currentQs[current].q;
   let optDiv=document.getElementById('options');optDiv.innerHTML="";
   currentQs[current].opts.forEach((o,i)=>{optDiv.innerHTML+=`<div class="option" onclick="checkAns(${i})">${o}</div>`});
@@ -97,10 +109,28 @@ function checkAns(idx){
   if(answered)return;answered=true;clearInterval(timer);
   let opts=document.querySelectorAll('.option');let cor=currentQs[current].ans;
   opts.forEach((el,i)=>{if(i==cor)el.classList.add('correct'); if(i==idx&&i!=cor)el.classList.add('wrong');});
-  if(idx==cor){score+=10;document.getElementById('score').innerText=score;}
+  if(idx==cor)correctCount++;
   document.getElementById('nextBtn').style.display='block';
 }
-function nextQ(){current++;loadQ();}
+function nextQ(){
+  current++;
+  if(current>=currentQs.length){showResult();} else {loadQ();}
+}
+function showResult(){
+  document.getElementById('quizScreen').style.display='none';
+  document.getElementById('resultScreen').style.display='block';
+  let total=currentQs.length;let wrong=total-correctCount;let perc=Math.round((correctCount/total)*100);
+  document.getElementById('resultCircle').innerText=`${correctCount}/${total}`;
+  document.getElementById('totalQ').innerText=total;
+  document.getElementById('correctQ').innerText=correctCount;
+  document.getElementById('wrongQ').innerText=wrong;
+  document.getElementById('percent').innerText=perc+'%';
+  let msg=document.getElementById('msg');
+  if(perc==100)msg.innerText="ماشاءاللہ! آپ تو جینئس ہیں! 🌟";
+  else if(perc>=70)msg.innerText="بہت خوب! اچھی کارکردگی! 👏";
+  else if(perc>=50)msg.innerText="اچھا ہے، اور محنت کریں! 💪";
+  else msg.innerText="کوشش جاری رکھیں! 📚";
+}
 setTimeout(()=>{document.getElementById('app').classList.add('active');},3000);
 </script>
 </body>
