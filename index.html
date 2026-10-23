@@ -3,149 +3,224 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Z-QUIZ V5 - Class Wise - Made by Zohaib</title>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+<title>Z-QUIZ ULTIMATE - Made by Zohaib</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&family=Noto+Nastaliq+Urdu:wght@600&display=swap" rel="stylesheet">
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
-body{background:#FFFBEB;color:#1e293b;}
-#splash{position:fixed;top:0;left:0;width:100%;height:100%;background:linear-gradient(135deg,#fef3c7,#fde68a,#fffbeb);display:flex;flex-direction:column;justify-content:center;align-items:center;z-index:9999;animation:hide 0.8s ease forwards 3s;}
-@keyframes hide{to{transform:translateY(-100%)}}
-#app{max-width:440px;margin:0 auto;padding:20px;min-height:100vh;display:none;flex-direction:column;}#app.active{display:flex;}
-.top-bar{display:flex;justify-content:space-between;align-items:center;background:white;padding:10px 16px;border-radius:14px;box-shadow:0 4px 12px rgba(0,0,0,0.05);margin-bottom:20px;}
-.lang-btn{background:#1e293b;color:white;border:none;padding:6px 14px;border-radius:20px;font-size:12px;cursor:pointer;}
-.card{background:white;padding:18px;border-radius:16px;margin-bottom:14px;cursor:pointer;box-shadow:0 4px 15px rgba(0,0,0,0.06);border:2px solid transparent;text-align:center;font-weight:600;transition:0.2s;}
-.card:hover{border-color:#f59e0b;transform:translateY(-2px);}
-.card.primary{background:linear-gradient(135deg,#f59e0b,#fbbf24);}
-.card.dark{background:linear-gradient(135deg,#1e293b,#334155);color:white;}
-.num-btn{background:white;padding:12px 22px;border-radius:12px;border:2px solid #f1f5f9;cursor:pointer;font-weight:700;margin:5px;box-shadow:0 2px 8px rgba(0,0,0,0.04);}
-.num-btn.selected{background:#1e293b;color:white;}
-.question-card{background:white;border-radius:22px;padding:22px;box-shadow:0 8px 25px rgba(0,0,0,0.07);flex:1;}
-.option{background:#FFFBEB;border:2px solid #fef3c7;padding:13px;border-radius:12px;margin-bottom:10px;cursor:pointer;}
-.option.correct{background:#10b981;color:white;} .option.wrong{background:#ef4444;color:white;}
-.result-circle{width:130px;height:130px;border-radius:50%;background:linear-gradient(135deg,#1e293b,#334155);margin:0 auto 15px;display:flex;justify-content:center;align-items:center;font-size:28px;font-weight:800;color:white;}
-.footer{text-align:center;margin-top:20px;color:#94a3b8;font-size:11px;letter-spacing:3px;}
+:root{--bg:#FFFBEB;--card:#fff;--text:#1e293b;--border:#fef3c7;--primary:#1e293b}
+body.dark{--bg:#0f172a;--card:#1e293b;--text:#f1f5f9;--border:#334155;--primary:#f59e0b}
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif}
+body{background:var(--bg);color:var(--text);transition:.3s}
+#app{max-width:460px;margin:0 auto;padding:16px;min-height:100vh;display:flex;flex-direction:column}
+.top{display:flex;justify-content:space-between;align-items:center;background:var(--card);padding:10px 14px;border-radius:14px;box-shadow:0 4px 12px rgba(0,0,0,.06);margin-bottom:16px}
+.btn{border:none;padding:7px 14px;border-radius:20px;font-weight:700;cursor:pointer;font-size:12px}
+.btn-dark{background:var(--primary);color:white}
+.card{background:var(--card);padding:18px;border-radius:16px;margin-bottom:12px;cursor:pointer;box-shadow:0 4px 15px rgba(0,0,0,.06);text-align:center;font-weight:600;border:2px solid transparent;transition:.2s}
+.card:hover{transform:translateY(-2px);border-color:#f59e0b}
+.card.sel{border-color:#f59e0b;background:#fffbeb;color:#1e293b}
+body.dark .card.sel{background:#334155;color:white}
+.q-card{background:var(--card);border-radius:20px;padding:20px;box-shadow:0 8px 25px rgba(0,0,0,.07)}
+.opt{background:var(--bg);border:2px solid var(--border);padding:12px;border-radius:12px;margin-bottom:10px;cursor:pointer;font-weight:500}
+.opt.correct{background:#10b981;color:white;border-color:#10b981}
+.opt.wrong{background:#ef4444;color:white;border-color:#ef4444}
+.num{padding:10px 18px;background:var(--card);border:2px solid var(--border);border-radius:10px;margin:5px;cursor:pointer;font-weight:700}
+.num.sel{background:var(--primary);color:white}
+#confetti{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:9999;display:none}
+.explain{background:#fef3c7;color:#92400e;padding:10px;border-radius:10px;margin-top:10px;font-size:13px;display:none}
+body.dark .explain{background:#334155;color:#fde68a}
+input{width:100%;padding:12px;border-radius:10px;border:2px solid var(--border);background:var(--card);color:var(--text);outline:none}
 </style>
 </head>
 <body>
-<div id="splash"><div style="font-size:45px;background:white;width:90px;height:90px;border-radius:50%;display:flex;justify-content:center;align-items:center;">🎓</div><div style="margin-top:20px;font-weight:800;font-size:22px;">WELCOME TO QUIZ APP</div><div style="margin-top:8px;background:#1e293b;color:#fde68a;padding:6px 18px;border-radius:20px;letter-spacing:2px;font-size:12px;">MADE BY ZOHAIB</div></div>
-
+<canvas id="confetti"></canvas>
 <div id="app">
-  <div class="top-bar"><div style="font-weight:800;">Z-QUIZ V5</div><button class="lang-btn" onclick="toggleLang()" id="langBtn">اردو</button></div>
+<div class="top">
+<b>Z-QUIZ ULTIMATE</b>
+<div>
+<button class="btn" onclick="toggleDark()" id="darkBtn">🌙</button>
+<button class="btn btn-dark" onclick="toggleLang()" id="langBtn">اردو</button>
+<button class="btn" onclick="openAdmin()" style="background:#e2e8f0">⚙️</button>
+</div>
+</div>
 
-  <!-- STEP 1: CLASS SELECT -->
-  <div id="classScreen">
-    <h2 id="classTitle" style="text-align:center;">اپنی کلاس منتخب کریں</h2>
-    <p style="text-align:center;color:#64748b;font-size:13px;margin-top:6px;">Select Your Class Level</p>
-    <div style="margin-top:25px;">
-      <div class="card primary" onclick="selectClass('junior')"><div style="font-size:30px;">🧒</div><div style="margin-top:6px;">Class 1 to 5</div><div style="font-size:12px;font-weight:400;margin-top:4px;">چھوٹے بچوں کے لیے آسان سوال</div></div>
-      <div class="card dark" onclick="selectClass('senior')"><div style="font-size:30px;">🎓</div><div style="margin-top:6px;">Class 6 to 10</div><div style="font-size:12px;font-weight:400;margin-top:4px;">بڑے بچوں کے لیے ایڈوانس سوال</div></div>
-    </div>
-  </div>
+<!-- LOGIN -->
+<div id="loginScreen">
+<h2 style="text-align:center" id="l1">اپنا نام لکھیں</h2>
+<input id="userName" placeholder="Zohaib Ahmed" style="margin-top:15px">
+<div style="margin-top:15px">
+<div class="card sel" onclick="setTimer(30,this)" data-t="easy">🐢 آسان - 30 سیکنڈ</div>
+<div class="card" onclick="setTimer(20,this)" data-t="medium">⚡ میڈیم - 20 سیکنڈ</div>
+<div class="card" onclick="setTimer(10,this)" data-t="hard">🔥 مشکل - 10 سیکنڈ</div>
+</div>
+<button onclick="goClass()" style="width:100%;margin-top:15px;padding:14px;background:var(--primary);color:white;border:none;border-radius:12px;font-weight:800">آگے →</button>
 
-  <!-- STEP 2: CATEGORY -->
-  <div id="categoryScreen" style="display:none;">
-    <h2 id="catTitle" style="text-align:center;">موضوع منتخب کریں</h2>
-    <div style="margin-top:25px;">
-      <div class="card" onclick="selectCat('islamic')">🕌 اسلامی کوئز</div>
-      <div class="card" onclick="selectCat('math')">🔢 ریاضی کوئز</div>
-      <div class="card" onclick="selectCat('english')">🔤 انگلش کوئز</div>
-      <div class="card" onclick="selectCat('gk')">🌍 جنرل نالج</div>
-      <div class="card dark" onclick="selectCat('mix')">✨ مکس - سب کچھ</div>
-    </div>
-  </div>
+<div id="leaderboard" style="margin-top:20px;background:var(--card);padding:14px;border-radius:14px">
+<b id="lbTitle">🏆 لیڈر بورڈ</b>
+<div id="lbList" style="margin-top:8px;font-size:13px;color:#64748b">کوئی ریکارڈ نہیں</div>
+</div>
+</div>
 
-  <!-- STEP 3: NUMBER -->
-  <div id="numberScreen" style="display:none;">
-    <h2 style="text-align:center;">کتنے سوال؟</h2>
-    <div style="display:flex;flex-wrap:wrap;justify-content:center;margin-top:20px;">
-      <button class="num-btn" onclick="selectNumber(5)">5</button>
-      <button class="num-btn" onclick="selectNumber(10)">10</button>
-      <button class="num-btn" onclick="selectNumber(15)">15</button>
-      <button class="num-btn" onclick="selectNumber(20)">20</button>
-      <button class="num-btn" onclick="selectNumber(25)">25</button>
-    </div>
-    <button id="startBtn" onclick="startQuiz()" style="display:none;width:100%;margin-top:25px;padding:14px;background:#1e293b;border:none;border-radius:12px;color:white;font-weight:800;">شروع کریں →</button>
-  </div>
+<!-- CLASS -->
+<div id="classScreen" style="display:none">
+<h2 style="text-align:center" id="cTitle">کلاس منتخب کریں</h2>
+<div style="margin-top:20px">
+<div class="card" onclick="selectClass('junior')">🧒 Class 1-5 (آسان + تصویر والے سوال)</div>
+<div class="card" style="background:var(--primary);color:white" onclick="selectClass('senior')">🎓 Class 6-10 (ایڈوانس)</div>
+</div>
+</div>
 
-  <!-- QUIZ -->
-  <div id="quizScreen" style="display:none;">
-    <div style="display:flex;justify-content:space-between;margin-bottom:12px;font-size:14px;"><span id="qCountText">1/5</span><span>⏱ <span id="time">20</span>s</span></div>
-    <div class="question-card"><div id="qText" style="font-size:18px;font-weight:600;margin-bottom:15px;"></div><div id="options"></div><button id="nextBtn" onclick="nextQ()" style="display:none;width:100%;margin-top:15px;padding:12px;background:#1e293b;border:none;border-radius:10px;color:white;font-weight:700;">اگلا →</button></div>
-  </div>
+<!-- CATEGORY -->
+<div id="catScreen" style="display:none">
+<h2 style="text-align:center" id="catTitle">موضوع</h2>
+<div style="margin-top:20px">
+<div class="card" onclick="selectCat('islamic')" data-en="🕌 Islamic" data-ur="🕌 اسلامی">🕌 اسلامی</div>
+<div class="card" onclick="selectCat('math')" data-en="🔢 Math" data-ur="🔢 ریاضی">🔢 ریاضی</div>
+<div class="card" onclick="selectCat('english')" data-en="🔤 English" data-ur="🔤 انگلش">🔤 انگلش</div>
+<div class="card" onclick="selectCat('gk')" data-en="🌍 GK" data-ur="🌍 جنرل نالج">🌍 جنرل نالج</div>
+<div class="card" style="background:var(--primary);color:white" onclick="selectCat('mix')" data-en="✨ Mix All" data-ur="✨ مکس سب کچھ">✨ مکس سب کچھ</div>
+</div>
+</div>
 
-  <!-- RESULT -->
-  <div id="resultScreen" style="display:none;text-align:center;padding-top:20px;">
-    <div class="result-circle" id="resultCircle">0/0</div>
-    <h2>رزلٹ</h2>
-    <div style="background:white;border-radius:16px;padding:20px;margin-top:20px;text-align:left;box-shadow:0 8px 25px rgba(0,0,0,0.07);">
-      <p>📊 کل: <b id="totalQ">0</b></p><p style="margin-top:8px;color:#10b981;">✅ درست: <b id="correctQ">0</b></p><p style="margin-top:8px;color:#ef4444;">❌ غلط: <b id="wrongQ">0</b></p><p style="margin-top:8px;">🏆 فیصد: <b id="percent">0%</b></p>
-      <p style="margin-top:15px;text-align:center;font-weight:700;" id="msg"></p>
-    </div>
-    <button onclick="location.reload()" style="width:100%;margin-top:20px;padding:14px;background:#1e293b;border:none;border-radius:12px;color:white;font-weight:800;">دوبارہ کھیلیں</button>
-  </div>
-  <div class="footer">MADE BY ZOHAIB</div>
+<!-- NUMBER -->
+<div id="numScreen" style="display:none">
+<h2 style="text-align:center" id="numTitle">کتنے سوال؟</h2>
+<div style="display:flex;justify-content:center;flex-wrap:wrap;margin-top:15px">
+<button class="num" onclick="selectNum(5)">5</button>
+<button class="num" onclick="selectNum(10)">10</button>
+<button class="num" onclick="selectNum(15)">15</button>
+<button class="num" onclick="selectNum(20)">20</button>
+<button class="num" onclick="selectNum(25)">25</button>
+</div>
+<button id="startBtn" onclick="startQuiz()" style="display:none;width:100%;margin-top:20px;padding:14px;background:var(--primary);color:white;border:none;border-radius:12px;font-weight:800">کوئز شروع کریں →</button>
+</div>
+
+<!-- QUIZ -->
+<div id="quizScreen" style="display:none">
+<div style="display:flex;justify-content:space-between;margin-bottom:10px;font-size:13px"><span id="qCount">1/5</span><span>⏱ <b id="time">20</b>s</span></div>
+<div class="q-card">
+<img id="qImg" style="width:100%;border-radius:12px;margin-bottom:12px;display:none;max-height:160px;object-fit:cover">
+<div id="qText" style="font-weight:700;margin-bottom:14px;font-size:17px"></div>
+<div id="opts"></div>
+<div id="explainBox" class="explain"></div>
+<button id="nextBtn" onclick="nextQ()" style="display:none;width:100%;margin-top:14px;padding:12px;background:var(--primary);color:white;border:none;border-radius:10px;font-weight:700">اگلا →</button>
+</div>
+</div>
+
+<!-- RESULT -->
+<div id="resultScreen" style="display:none;text-align:center">
+<canvas id="certCanvas" width="800" height="500" style="display:none"></canvas>
+<img id="certImg" style="width:100%;border-radius:16px;box-shadow:0 10px 25px rgba(0,0,0,.2);display:none">
+<div id="resultInfo" style="background:var(--card);border-radius:16px;padding:18px;margin-top:15px;text-align:left">
+<p>👤 نام: <b id="rName"></b></p>
+<p>📊 کل: <b id="rTotal"></b></p>
+<p style="color:#10b981">✅ درست: <b id="rCorrect"></b></p>
+<p style="color:#ef4444">❌ غلط: <b id="rWrong"></b></p>
+<p>🏆 فیصد: <b id="rPerc"></b></p>
+<p style="text-align:center;margin-top:10px;font-weight:700" id="rMsg"></p>
+</div>
+<button onclick="downloadCert()" style="width:100%;margin-top:12px;padding:12px;background:#10b981;color:white;border:none;border-radius:10px;font-weight:700">📜 سرٹیفکیٹ ڈاؤنلوڈ کریں</button>
+<button onclick="shareWA()" style="width:100%;margin-top:8px;padding:12px;background:#25D366;color:white;border:none;border-radius:10px;font-weight:700">🟢 واٹس ایپ پر شیئر کریں</button>
+<button onclick="location.reload()" style="width:100%;margin-top:8px;padding:12px;background:var(--primary);color:white;border:none;border-radius:10px;font-weight:700">دوبارہ کھیلیں</button>
+</div>
+
+<!-- ADMIN -->
+<div id="adminScreen" style="display:none">
+<h2 style="text-align:center">⚙️ ایڈمن پینل - نیا سوال ایڈ کریں</h2>
+<div style="background:var(--card);padding:15px;border-radius:14px;margin-top:15px">
+<input id="aQ" placeholder="سوال لکھیں">
+<input id="aO1" placeholder="آپشن 1" style="margin-top:8px">
+<input id="aO2" placeholder="آپشن 2" style="margin-top:8px">
+<input id="aO3" placeholder="آپشن 3" style="margin-top:8px">
+<input id="aO4" placeholder="آپشن 4" style="margin-top:8px">
+<input id="aAns" type="number" placeholder="صحیح جواب نمبر 0-3" style="margin-top:8px">
+<input id="aExp" placeholder="وضاحت کیوں صحیح ہے؟" style="margin-top:8px">
+<select id="aCat" style="width:100%;padding:10px;border-radius:10px;margin-top:8px"><option value="islamic">اسلامی</option><option value="math">ریاضی</option><option value="english">انگلش</option><option value="gk">جنرل نالج</option></select>
+<select id="aClass" style="width:100%;padding:10px;border-radius:10px;margin-top:8px"><option value="junior">Class 1-5</option><option value="senior">Class 6-10</option></select>
+<button onclick="addQuestion()" style="width:100%;margin-top:10px;padding:12px;background:var(--primary);color:white;border:none;border-radius:10px">ایڈ کریں</button>
+<button onclick="closeAdmin()" style="width:100%;margin-top:8px;padding:10px;background:#e2e8f0;border:none;border-radius:10px">بند کریں</button>
+</div>
+</div>
+
+<div style="text-align:center;margin-top:20px;color:#94a3b8;font-size:10px;letter-spacing:3px">MADE BY ZOHAIB - ULTIMATE V7</div>
 </div>
 
 <script>
-let selectedClass='',selectedCat='',selectedNum=0,currentQs=[],current=0,correctCount=0,timer,timeLeft=20,answered=false,isUrdu=true;
+let lang='ur', isDark=false, selClass='', selCat='', selNum=0, timerSec=30, userName='', curQs=[], cur=0, correct=0, timer, timeLeft, answered=false;
 
-const junior={
-  math:[{q:"2 + 2 = ?",o:["3","4","5","6"],a:1},{q:"5 - 2 = ?",o:["2","3","4","5"],a:1},{q:"ایک ہاتھ میں کتنی انگلیاں؟",o:["4","5","6","3"],a:1},{q:"10 + 5 = ?",o:["12","15","20","10"],a:1},{q:"3 x 2 = ?",o:["5","6","4","8"],a:1},{q:"ایک ہفتے میں کتنے دن؟",o:["5","6","7","8"],a:2}],
-  english:[{q:"A for ?",o:["Apple","Ball","Cat","Dog"],a:0},{q:"B for ?",o:["Apple","Ball","Cat","Dog"],a:1},{q:"کتنے حروف انگریزی میں؟",o:["24","26","28","30"],a:1},{q:"Cat کا مطلب؟",o:["کتا","بلی","شیر","گائے"],a:1},{q:"Sun کا مطلب؟",o:["چاند","سورج","ستارہ","بادل"],a:1}],
-  islamic:[{q:"اللہ کتنے ہیں؟",o:["1","2","3","4"],a:0},{q:"ہمارے نبی ﷺ کا نام؟",o:["محمد ﷺ","عیسیٰ","موسیٰ","ابراہیم"],a:0},{q:"قرآن کتنی کتابیں؟",o:["1","2","4","30"],a:0},{q:"نماز کتنی؟",o:["3","4","5","6"],a:2},{q:"کعبہ کہاں ہے؟",o:["مکہ","مدینہ","لاہور","کراچی"],a:0}],
-  gk:[{q:"ہم کس ملک میں رہتے ہیں؟",o:["پاکستان","انڈیا","چین","امریکہ"],a:0},{q:"قومی جانور؟",o:["شیر","مارخور","بلی","کتا"],a:1},{q:"دن میں کب سورج نکلتا ہے؟",o:["صبح","شام","رات","دوپہر"],a:0},{q:"پاکستان کا جھنڈا کتنے رنگ؟",o:["1","2","3","4"],a:1}]
+// SOUND
+const audioCtx = new (window.AudioContext||window.webkitAudioContext)();
+function playTone(f,d,t){try{let o=audioCtx.createOscillator();let g=audioCtx.createGain();o.type=t;o.frequency.value=f;o.connect(g);g.connect(audioCtx.destination);g.gain.setValueAtTime(.3,audioCtx.currentTime);g.gain.exponentialRampToValueAtTime(0.01,audioCtx.currentTime+d);o.start();o.stop(audioCtx.currentTime+d)}catch(e){}}
+
+// DATABASE with Images + Explanation
+let DB = {
+junior:{
+islamic:[{q:{en:"How many Allah?",ur:"اللہ کتنے ہیں؟"},o:{en:["One","Two","Three"],ur:["ایک","دو","تین"]},a:0,exp:{en:"Allah is One",ur:"اللہ ایک ہے"},img:""},{q:{en:"Where is Kaaba?",ur:"کعبہ کہاں ہے؟"},o:{en:["Makkah","Madina"],ur:["مکہ","مدینہ"]},a:0,exp:{en:"Kaaba is in Makkah",ur:"کعبہ مکہ میں ہے"},img:"https://images.unsplash.com/photo-1591604466107-ec97de577aff?w=400"}],
+math:[{q:{en:"2+2=?",ur:"2+2=؟"},o:{en:["3","4","5"],ur:["3","4","5"]},a:1,exp:{en:"2+2=4",ur:"2 جمع 2 چار ہوتا ہے"},img:""},{q:{en:"Which is bigger? 5 or 3",ur:"بڑا کونسا؟ 5 یا 3"},o:{en:["5","3"],ur:["5","3"]},a:0,exp:{en:"5 is bigger",ur:"5 بڑا ہے"},img:""}],
+english:[{q:{en:"A for?",ur:"A کس کے لیے؟"},o:{en:["Apple","Ball"],ur:["Apple","Ball"]},a:0,exp:{en:"A for Apple",ur:"A سیب کے لیے"},img:"https://images.unsplash.com/photo-1568702846914-96b305d2aa34?w=400"},{q:{en:"Cat means?",ur:"Cat کا مطلب؟"},o:{en:["Billi","Kutta"],ur:["بلی","کتا"]},a:0,exp:{en:"Cat is Billi",ur:"بلی کو Cat کہتے ہیں"},img:"https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?w=400"}],
+gk:[{q:{en:"We live in?",ur:"ہم کہاں رہتے ہیں؟"},o:{en:["Pakistan","India"],ur:["پاکستان","انڈیا"]},a:0,exp:{en:"We live in Pakistan",ur:"ہم پاکستان میں رہتے ہیں"},img:""}]
+},
+senior:{
+islamic:[{q:{en:"Battle of Badr was in?",ur:"غزوہ بدر کب ہوئی؟"},o:{en:["2 Hijri","3 Hijri","4 Hijri"],ur:["2 ہجری","3 ہجری","4 ہجری"]},a:0,exp:{en:"Badr in 2 Hijri",ur:"بدر 2 ہجری میں ہوئی"},img:""},{q:{en:"Largest Surah?",ur:"سب سے بڑی سورۃ؟"},o:{en:["Baqarah","Imran"],ur:["البقرہ","آل عمران"]},a:0,exp:{en:"Surah Baqarah is largest",ur:"سورۃ البقرہ سب سے بڑی ہے"},img:""}],
+math:[{q:{en:"12x12=?",ur:"12x12=؟"},o:{en:["144","124","142"],ur:["144","124","142"]},a:0,exp:{en:"12x12=144",ur:"12 ضرب 12 = 144"},img:""},{q:{en:"√64=?",ur:"64 کا جزر؟"},o:{en:["8","6","7"],ur:["8","6","7"]},a:0,exp:{en:"Root of 64 is 8",ur:"64 کا جزر 8 ہے"},img:""}],
+english:[{q:{en:"Past of Go?",ur:"Go کا ماضی؟"},o:{en:["Went","Gone","Goes"],ur:["Went","Gone","Goes"]},a:0,exp:{en:"Go -> Went",ur:"Go کا ماضی Went ہے"},img:""},{q:{en:"Antonym of Big?",ur:"Big کا الٹ؟"},o:{en:["Small","Large","Huge"],ur:["Small","Large","Huge"]},a:0,exp:{en:"Opposite of Big is Small",ur:"Big کا الٹ Small ہے"},img:""}],
+gk:[{q:{en:"Capital of Pakistan?",ur:"پاکستان کا دارالحکومت؟"},o:{en:["Islamabad","Lahore","Karachi"],ur:["اسلام آباد","لاہور","کراچی"]},a:0,exp:{en:"Capital is Islamabad",ur:"دارالحکومت اسلام آباد ہے"},img:""},{q:{en:"UNO founded?",ur:"UNO کب بنا؟"},o:{en:["1945","1947","1950"],ur:["1945","1947","1950"]},a:0,exp:{en:"UNO in 1945",ur:"UNO 1945 میں بنا"},img:""}]
+}
 };
-const senior={
-  math:[{q:"12 x 12 = ?",o:["124","144","122","132"],a:1},{q:"(a+b)² = ?",o:["a²+b²","a²+2ab+b²","a²-2ab+b²","ab"],a:1},{q:"50 کا 20% = ?",o:["5","10","20","15"],a:1},{q:"ایک مثلث کے زاویوں کا مجموعہ؟",o:["90°","180°","360°","270°"],a:1},{q:"√64 = ?",o:["6","7","8","9"],a:2},{q:"x² - 9 = 0 میں x = ?",o:["3","-3","±3","9"],a:2}],
-  english:[{q:"Synonym of Happy?",o:["Sad","Joyful","Angry","Tired"],a:1},{q:"Past of Go?",o:["Gone","Went","Goes","Going"],a:1},{q:"He ___ playing.",o:["is","are","am","be"],a:0},{q:"Antonym of Big?",o:["Large","Small","Huge","Tall"],a:1},{q:"She ___ to school daily.",o:["go","goes","going","gone"],a:1}],
-  islamic:[{q:"غزوہ بدر کب ہوئی؟",o:["2 ہجری","3 ہجری","4 ہجری","5 ہجری"],a:0},{q:"قرآن کی سب سے بڑی سورۃ؟",o:["البقرہ","آل عمران","النساء","المائدہ"],a:0},{q:"زکوٰۃ کا نصاب سونا؟",o:["7 تولہ","7.5 تولہ","8 تولہ","10 تولہ"],a:1},{q:"حج کس مہینے میں؟",o:["شوال","ذوالقعدہ","ذوالحجہ","محرم"],a:2},{q:"وحی کی پہلی آیت؟",o:["اقرأ","الحمد","قل ھو","تبت"],a:0}],
-  gk:[{q:"پاکستان کا دارالحکومت؟",o:["لاہور","اسلام آباد","کراچی","پشاور"],a:1},{q:"دنیا کا سب سے بڑا ملک؟",o:["چین","امریکہ","روس","کینیڈا"],a:2},{q:"UNO کب بنا؟",o:["1945","1947","1950","1939"],a:0},{q:"نیل دریا کہاں؟",o:["مصر","عراق","ایران","ترکی"],a:0},{q:"پاکستان کا قومی کھیل؟",o:["کرکٹ","ہاکی","فٹبال","کبڈی"],a:1}]
-};
-junior.mix=[...junior.math,...junior.english,...junior.islamic,...junior.gk];
-senior.mix=[...senior.math,...senior.english,...senior.islamic,...senior.gk];
+DB.junior.mix=[...DB.junior.islamic,...DB.junior.math,...DB.junior.english,...DB.junior.gk];
+DB.senior.mix=[...DB.senior.islamic,...DB.senior.math,...DB.senior.english,...DB.senior.gk];
 
-function toggleLang(){isUrdu=!isUrdu;document.getElementById('langBtn').innerText=isUrdu?'English':'اردو';}
+// Load custom Qs
+let custom = JSON.parse(localStorage.getItem('customQs')||'[]');
+custom.forEach(c=>{ if(DB[c.cls] && DB[c.cls][c.cat]) DB[c.cls][c.cat].push(c.qObj); if(DB[c.cls].mix) DB[c.cls].mix.push(c.qObj); });
 
-function selectClass(c){selectedClass=c;document.getElementById('classScreen').style.display='none';document.getElementById('categoryScreen').style.display='block';}
-function selectCat(cat){selectedCat=cat;document.getElementById('categoryScreen').style.display='none';document.getElementById('numberScreen').style.display='block';}
-function selectNumber(num){selectedNum=num;document.querySelectorAll('.num-btn').forEach(b=>b.classList.remove('selected'));event.target.classList.add('selected');document.getElementById('startBtn').style.display='block';}
+function toggleLang(){lang=lang==='en'?'ur':'en';document.getElementById('langBtn').innerText=lang==='en'?'اردو':'English';document.getElementById('l1').innerText=lang==='en'?'Enter Your Name':'اپنا نام لکھیں';document.getElementById('cTitle').innerText=lang==='en'?'Select Class':'کلاس منتخب کریں';document.getElementById('catTitle').innerText=lang==='en'?'Select Topic':'موضوع منتخب کریں';document.getElementById('numTitle').innerText=lang==='en'?'How many Qs?':'کتنے سوال؟';document.querySelectorAll('[data-en]').forEach(e=>e.innerText=lang==='en'?e.dataset.en:e.dataset.ur); if(curQs.length) loadQ();}
+function toggleDark(){isDark=!isDark;document.body.classList.toggle('dark',isDark);document.getElementById('darkBtn').innerText=isDark?'☀️':'🌙'}
+function setTimer(s,el){timerSec=s;document.querySelectorAll('#loginScreen .card').forEach(c=>c.classList.remove('sel'));el.classList.add('sel')}
+function goClass(){userName=document.getElementById('userName').value.trim(); if(!userName){alert(lang==='en'?'Enter name':'نام لکھیں');return} document.getElementById('loginScreen').style.display='none';document.getElementById('classScreen').style.display='block'}
+function selectClass(c){selClass=c;document.getElementById('classScreen').style.display='none';document.getElementById('catScreen').style.display='block'}
+function selectCat(c){selCat=c;document.getElementById('catScreen').style.display='none';document.getElementById('numScreen').style.display='block'}
+function selectNum(n){selNum=n;document.querySelectorAll('.num').forEach(b=>b.classList.remove('sel'));event.target.classList.add('sel');document.getElementById('startBtn').style.display='block'}
+function startQuiz(){let pool=[...DB[selClass][selCat]];pool.sort(()=>0.5-Math.random());curQs=pool.slice(0,Math.min(selNum||5,pool.length));cur=0;correct=0;document.getElementById('numScreen').style.display='none';document.getElementById('quizScreen').style.display='block';loadQ()}
+function loadQ(){answered=false;timeLeft=timerSec;document.getElementById('time').innerText=timeLeft;let q=curQs[cur];document.getElementById('qCount').innerText=`${cur+1}/${curQs.length}`;document.getElementById('qText').innerText=q.q[lang]||q.q.ur;let img=document.getElementById('qImg');if(q.img){img.src=q.img;img.style.display='block'}else{img.style.display='none'};let div=document.getElementById('opts');div.innerHTML='';(q.o[lang]||q.o.ur).forEach((o,i)=>{div.innerHTML+=`<div class="opt" onclick="checkAns(${i})">${o}</div>`});document.getElementById('explainBox').style.display='none';document.getElementById('nextBtn').style.display='none';clearInterval(timer);timer=setInterval(()=>{timeLeft--;document.getElementById('time').innerText=timeLeft;if(timeLeft<=0){clearInterval(timer);checkAns(-1)}},1000)}
+function checkAns(i){if(answered)return;answered=true;clearInterval(timer);let q=curQs[cur];let els=document.querySelectorAll('.opt');els.forEach((e,idx)=>{if(idx==q.a)e.classList.add('correct'); if(idx==i&&idx!=q.a)e.classList.add('wrong')});if(i==q.a){correct++;playTone(800,0.3,'sine')}else{playTone(200,0.5,'sawtooth');let ex=document.getElementById('explainBox');ex.innerText=(q.exp[lang]||q.exp.ur);ex.style.display='block'}document.getElementById('nextBtn').style.display='block'}
+function nextQ(){cur++;if(cur>=curQs.length){showRes()}else{loadQ()}}
+function showRes(){
+document.getElementById('quizScreen').style.display='none';document.getElementById('resultScreen').style.display='block';
+let total=curQs.length,wrong=total-correct,perc=Math.round(correct/total*100);
+document.getElementById('rName').innerText=userName;document.getElementById('rTotal').innerText=total;document.getElementById('rCorrect').innerText=correct;document.getElementById('rWrong').innerText=wrong;document.getElementById('rPerc').innerText=perc+'%';
+document.getElementById('rMsg').innerText=perc==100?'ماشاءاللہ جینئس! 🌟':perc>=70?'بہت خوب! 👏':perc>=50?'اچھا ہے 💪':'کوشش جاری رکھیں 📚';
+if(perc>=80){launchConfetti()}
+// leaderboard save
+let lb=JSON.parse(localStorage.getItem('lb')||'[]');lb.push({name:userName,score:correct,total:total,perc:perc});lb.sort((a,b)=>b.perc-a.perc);lb=lb.slice(0,5);localStorage.setItem('lb',JSON.stringify(lb));renderLB();
+// certificate
+makeCert(userName,correct,total,perc);
+}
+function renderLB(){let lb=JSON.parse(localStorage.getItem('lb')||'[]');let div=document.getElementById('lbList');if(!lb.length){div.innerText='کوئی ریکارڈ نہیں';return}div.innerHTML=lb.map((e,i)=>`${i+1}. ${e.name} - ${e.correct}/${e.total} (${e.perc}%)`).join('<br>')}
+renderLB();
 
-function startQuiz(){
-  let pool = (selectedClass=='junior'? junior[selectedCat] : senior[selectedCat]);
-  pool=[...pool]; pool.sort(()=>0.5-Math.random());
-  currentQs=pool.slice(0,Math.min(selectedNum,pool.length));
-  current=0;correctCount=0;
-  document.getElementById('numberScreen').style.display='none';
-  document.getElementById('quizScreen').style.display='block';
-  loadQ();
+function makeCert(name,cor,tot,perc){
+let c=document.getElementById('certCanvas');let ctx=c.getContext('2d');
+ctx.fillStyle='#FFFBEB';ctx.fillRect(0,0,800,500);
+ctx.strokeStyle='#f59e0b';ctx.lineWidth=8;ctx.strokeRect(10,10,780,480);
+ctx.fillStyle='#1e293b';ctx.font='bold 36px Poppins';ctx.textAlign='center';ctx.fillText('Z-QUIZ CERTIFICATE',400,80);
+ctx.font='20px Poppins';ctx.fillText('This certificate is proudly presented to',400,130);
+ctx.font='bold 32px Poppins';ctx.fillStyle='#d97706';ctx.fillText(name,400,190);
+ctx.fillStyle='#1e293b';ctx.font='20px Poppins';ctx.fillText(`For scoring ${cor} out of ${tot} (${perc}%)`,400,240);
+ctx.font='16px Poppins';ctx.fillText(`Class: ${selClass} | Category: ${selCat}`,400,280);
+ctx.font='bold 14px Poppins';ctx.fillText('MADE BY ZOHAIB - ULTIMATE V7',400,450);
+let img=document.getElementById('certImg');img.src=c.toDataURL();img.style.display='block';
 }
-function loadQ(){
-  answered=false;timeLeft=20;document.getElementById('time').innerText=timeLeft;
-  document.getElementById('qCountText').innerText=`${current+1}/${currentQs.length}`;
-  document.getElementById('qText').innerText=currentQs[current].q;
-  let optDiv=document.getElementById('options');optDiv.innerHTML="";
-  currentQs[current].o.forEach((o,i)=>{optDiv.innerHTML+=`<div class="option" onclick="checkAns(${i})">${o}</div>`});
-  document.getElementById('nextBtn').style.display='none';
-  clearInterval(timer);timer=setInterval(()=>{timeLeft--;document.getElementById('time').innerText=timeLeft;if(timeLeft<=0){clearInterval(timer);checkAns(-1);}},1000);
+function downloadCert(){let link=document.createElement('a');link.download=`Certificate-${userName}.png`;link.href=document.getElementById('certCanvas').toDataURL();link.click()}
+function shareWA(){let total=curQs.length;let txt=`*Z-QUIZ Result*%0A👤 Name: ${userName}%0A📊 Score: ${correct}/${total} (${Math.round(correct/total*100)}%)%0A🎓 Class: ${selClass}%0APlay here: https://zabi32300.github.io/Z-QUIZ-/`;window.open(`https://wa.me/?text=${txt}`,'_blank')}
+function launchConfetti(){let canvas=document.getElementById('confetti');canvas.style.display='block';let ctx=canvas.getContext('2d');canvas.width=innerWidth;canvas.height=innerHeight;let pieces=[];for(let i=0;i<150;i++)pieces.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height-500,r:Math.random()*6+4,c:`hsl(${Math.random()*360},100%,50%)`,v:Math.random()*4+2});let anim;function draw(){ctx.clearRect(0,0,canvas.width,canvas.height);pieces.forEach(p=>{ctx.fillStyle=p.c;ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fill();p.y+=p.v; if(p.y>canvas.height)p.y=-10});anim=requestAnimationFrame(draw)}draw();setTimeout(()=>{cancelAnimationFrame(anim);canvas.style.display='none'},4000)}
+
+function openAdmin(){document.querySelectorAll('#app > div').forEach(d=>d.style.display='none');document.getElementById('adminScreen').style.display='block'}
+function closeAdmin(){document.getElementById('adminScreen').style.display='none';document.getElementById('loginScreen').style.display='block'}
+function addQuestion(){
+let q=document.getElementById('aQ').value,o1=document.getElementById('aO1').value,o2=document.getElementById('aO2').value,o3=document.getElementById('aO3').value,o4=document.getElementById('aO4').value,ans=parseInt(document.getElementById('aAns').value),exp=document.getElementById('aExp').value,cat=document.getElementById('aCat').value,cls=document.getElementById('aClass').value;
+if(!q||!o1||!o2){alert('سوال اور 2 آپشن ضروری ہیں');return}
+let qObj={q:{en:q,ur:q},o:{en:[o1,o2,o3||'',o4||''].filter(x=>x),ur:[o1,o2,o3||'',o4||''].filter(x=>x)},a:ans||0,exp:{en:exp,ur:exp},img:""};
+let arr=JSON.parse(localStorage.getItem('customQs')||'[]');arr.push({cls:cls,cat:cat,qObj:qObj});localStorage.setItem('customQs',JSON.stringify(arr));alert('سوال ایڈ ہو گیا! ریفریش کے بعد نظر آئے گا');closeAdmin();location.reload();
 }
-function checkAns(idx){
-  if(answered)return;answered=true;clearInterval(timer);
-  let opts=document.querySelectorAll('.option');let cor=currentQs[current].a;
-  opts.forEach((el,i)=>{if(i==cor)el.classList.add('correct'); if(i==idx&&i!=cor)el.classList.add('wrong');});
-  if(idx==cor)correctCount++;
-  document.getElementById('nextBtn').style.display='block';
-}
-function nextQ(){current++;if(current>=currentQs.length){showResult();}else{loadQ();}}
-function showResult(){
-  document.getElementById('quizScreen').style.display='none';
-  document.getElementById('resultScreen').style.display='block';
-  let total=currentQs.length;let wrong=total-correctCount;let perc=Math.round((correctCount/total)*100);
-  document.getElementById('resultCircle').innerText=`${correctCount}/${total}`;
-  document.getElementById('totalQ').innerText=total;document.getElementById('correctQ').innerText=correctCount;document.getElementById('wrongQ').innerText=wrong;document.getElementById('percent').innerText=perc+'%';
-  let msg=document.getElementById('msg');
-  if(perc==100)msg.innerText="ماشاءاللہ! آپ تو جینئس ہیں! 🌟"; else if(perc>=70)msg.innerText="بہت خوب! شاباش! 👏"; else if(perc>=50)msg.innerText="اچھا ہے، اور محنت کریں! 💪"; else msg.innerText="کوشش جاری رکھیں! 📚";
-}
-setTimeout(()=>{document.getElementById('app').classList.add('active');},3000);
 </script>
 </body>
 </html>
